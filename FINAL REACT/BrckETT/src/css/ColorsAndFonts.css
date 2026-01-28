@@ -1,0 +1,16 @@
+.colors-and-fonts div
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));;
+}
+.colors-and-fonts div span
+{
+    border: 1px solid black;
+}
+.colors-and-fonts 
+{
+    gap: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+body{ height: auto;}

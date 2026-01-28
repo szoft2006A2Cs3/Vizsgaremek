@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    
+    <div class="card">
+<div class="header">
+<h2>Login</h2>
+</div>
+
+    <div class="tabs">
+<div class="tab active" onclick="switchForm('login')">Login</div>
+<div class="tab" onclick="switchForm('register')">Register</div>
+</div>
+
+
+<div class="forms">
+<div id="login" class="form active">
+<div class="input"><input type="text" placeholder="Email or Username"></div>
+<div class="input">
+<input id="loginPass" type="password" placeholder="Password">
+<span class="eye" onclick="togglePass('loginPass')">👁</span>
+</div>
+<button>Login</button>
+</div>
+
+
+<div id="register" class="form">
+<div class="input"><input type="text" placeholder="First Name"></div>
+<div class="input"><input type="text" placeholder="Last Name"></div>
+<div class="input"><input type="text" placeholder="Username"></div>
+<div class="input"><input type="email" placeholder="Email"></div>
+<div class="input">
+<input id="regPass" type="password" placeholder="Password">
+<span class="eye" onclick="togglePass('regPass')">👁</span>
+</div>
+<button>Create account</button>
+</div>
+</div>
+</div>
+</body>
+</html>

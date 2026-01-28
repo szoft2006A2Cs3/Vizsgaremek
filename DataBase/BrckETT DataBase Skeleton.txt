@@ -1,0 +1,70 @@
+DROP DATABASE IF EXISTS brckett;
+-- Creating Database
+CREATE DATABASE brckETT
+CHARACTER SET utf8
+COLLATE utf8_hungarian_ci;
+
+-- Creating users Table
+USE brckett;
+CREATE TABLE users
+(
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(128) NOT NULL,
+    email VARCHAR(128) NOT NULL,
+    display_name VARCHAR(128),
+    PASSWORD VARCHAR(128) NOT NULL
+);
+
+-- Creating GroupUserConn
+USE brckett;
+CREATE TABLE GroupUserConn
+(
+    user_Id INT,
+    group_Id INT, 
+    permission VARCHAR(128) NOT NULL,
+    PRIMARY KEY(User_Id, Group_Id)
+);
+USE brckett;
+
+-- Creating UserSettings
+CREATE TABLE UserSettings(
+	user_id INT PRIMARY KEY,
+    settings VARCHAR(MAX)
+);
+
+-- Creating Schedules
+CREATE TABLE Schedules (
+    template_id INT,
+    schedule_info VARCHAR(MAX),
+    schedule_id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+-- Creating Templates
+CREATE TABLE Templates (
+    template_id INT PRIMARY KEY AUTO_INCREMENT,
+    template_info VARCHAR(MAX)
+);
+
+-- Creating Group
+CREATE TABLE Groups(
+	group_id INT PRIMARY KEY AUTO_INCREMENT,
+    group_name VARCHAR(128)
+);
+
+-- Creating GroupScheduleConn
+CREATE TABLE GroupScheduleConn(
+	group_id INT,
+    schedule_id INT,
+    PRIMARY KEY(group_id, schedule_id)
+);
+
+-- SchedulesUsersConn
+CREATE TABLE SchedulesUsersConn(
+	user_id INT,
+    schedule_id INT,
+    PRIMARY KEY(user_id, schedule_id)
+);
+-- Creating Database Connections
+
+ALTER TABLE schedules
+ADD FOREIGN KEY (template_id) REFERENCES templates(template_id);

@@ -1,0 +1,150 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\auth\\tokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:auth\\tokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\auth\\passwordhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:auth\\passwordhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\documents\\13.project\\v2 backendprojekt\\backendprojekt\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD740ED6-2F84-47A2-8F2A-DFD90F2E4043}|BackendProjekt.csproj|solutionrelative:model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-23T08:34:01.773Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SchedulesController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\SchedulesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SchedulesController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\SchedulesController.cs",
+              "RelativeToolTip": "Controllers\\SchedulesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T09:33:45.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAawDsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:43:50.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwAEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:37:49.341Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Model\\Users.cs",
+              "RelativeDocumentMoniker": "Model\\Users.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Model\\Users.cs",
+              "RelativeToolTip": "Model\\Users.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:31:46.117Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TokenManager.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Auth\\TokenManager.cs",
+              "RelativeDocumentMoniker": "Auth\\TokenManager.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Auth\\TokenManager.cs",
+              "RelativeToolTip": "Auth\\TokenManager.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:31:00.093Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PasswordHandler.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Auth\\PasswordHandler.cs",
+              "RelativeDocumentMoniker": "Auth\\PasswordHandler.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Auth\\PasswordHandler.cs",
+              "RelativeToolTip": "Auth\\PasswordHandler.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:30:39.551Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Documents\\13.Project\\V2 BackendProjekt\\BackendProjekt\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T08:24:32.451Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

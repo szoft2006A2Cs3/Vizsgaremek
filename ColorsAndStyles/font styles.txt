@@ -1,0 +1,16 @@
+cursive:
+kalam
+kathen
+atma
+
+pixelated:
+vt323
+audiowide
+
+formal:
+titan one
+bebas neue
+caveat brush
+
+special:
+Libertinus Keyboard

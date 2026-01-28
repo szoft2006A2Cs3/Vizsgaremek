@@ -1,0 +1,21 @@
+Text/Header/WebPage_Bar Colors
+|
+\_#c1ff72
+|
+\_#a8fa50
+
+Element/Body Background Color
+|
+\#cb6ce6
+
+Element/Body Background Color
+|
+\#5e17eb
+
+Element/Body Background Color
+|
+\#742eff
+
+Element Background Color/Text Color
+|
+\#0cc0df
