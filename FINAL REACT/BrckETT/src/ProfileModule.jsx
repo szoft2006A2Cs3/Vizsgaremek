@@ -1,10 +1,9 @@
 import "./css/ProfileModule.css";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule(userIn) 
+export default function ProfileModule({user}) 
 {
-    var user = userIn.user;
-    console.log(user);
+    //console.log({user});
     return (
         <div className="profile-container">
             <img src={user.img} alt="Profile Picture" className="profile-img" />
