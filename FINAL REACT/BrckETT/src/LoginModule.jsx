@@ -119,7 +119,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
                     response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
                     callAPIFunc.setToken(response);
                     let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, regEmail).then(data => {return data;});
-                    setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, response.token))
+                    setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
                     navigate("/")
                     logInTrigger(true)
                 } 
@@ -139,7 +139,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
             callAPIFunc.setToken(response);
             let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, logEmail).then(data => {return data;});
 
-            setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, response.token))
+            setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
             navigate("/")
             logInTrigger(true)
         } 

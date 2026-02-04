@@ -902,6 +902,11 @@
             "type": "string",
             "nullable": true
           },
+          "img": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
           "token": {
             "type": "string",
             "nullable": true

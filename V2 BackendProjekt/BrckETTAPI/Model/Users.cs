@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata;
 
 namespace BackendProjekt.Model
 {
@@ -19,7 +20,7 @@ namespace BackendProjekt.Model
         public required string Password { get; set; }
         [Column("Role")]
         public string? Role { get; set; }
-
+        [Column("Token")]
         public string? Token { get; set; }
     }
 }
