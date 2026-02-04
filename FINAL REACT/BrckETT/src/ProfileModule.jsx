@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
+import User from "./assets/UserClass";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule({user}) 
+export default function ProfileModule({user, logInTrigger, setUserFunc}) 
 {
+    const navigate = useNavigate();
+    async function logOutSequence()
+    {
+        setUserFunc(new User())
+        logInTrigger(false)
+        navigate("/")
+    }
     //console.log({user});
     return (
         <div className="profile-container">
@@ -21,10 +29,11 @@ export default function ProfileModule({user})
                 <button><Link to={"/Schedules"}>Schedules</Link></button>
                 <button><Link to={"/Groups"}>Groups</Link></button>
                 <button><Link to={"/Settings"}>Settings</Link></button>
-                <button id="Logout-Btn"><Link>Logout</Link></button>
+                <button id="Logout-Btn" onClick={logOutSequence}><Link to={"/"}><img className="logoutIcon" src="/src/assets/logoutIcon.png"></img></Link></button>
             </div>
         </div>
     );
 }
+
 
 /*<p className="profile-email">{user.email}</p>*/

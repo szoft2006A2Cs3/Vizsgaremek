@@ -305,27 +305,6 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.UsersController",
-    "Method": "GetByEmail",
-    "RelativePath": "api/Users/{email}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "ext",
-        "Type": "System.Boolean",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BackendProjekt.Controllers.UsersController",
     "Method": "Put",
     "RelativePath": "api/Users/{id}",
     "HttpMethod": "PUT",
@@ -357,6 +336,27 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.UsersController",
+    "Method": "Get",
+    "RelativePath": "api/Users/{input}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "input",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "ext",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

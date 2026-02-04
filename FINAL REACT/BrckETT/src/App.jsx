@@ -24,14 +24,14 @@ function App() {
   (
     <Routes>
       <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-      <Route path='/' element={<ProfileModule user={user}></ProfileModule>}></Route>
+      <Route path='/' element={<ProfileModule user={user} logInTrigger={(e)=>setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)}></ProfileModule>}></Route>
     </Routes>
   ) : (
    <Routes>
     <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
 
     <Route path='/' element={<FrontPage></FrontPage>}></Route>
-    <Route path='/loginReg' element={<LoginModule logInTrigger={()=>setIsLoggedIn(true)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
+    <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
     {/*
     <Route path='/Editor' element={}></Route>
     <Route path='/Schedules' element={}></Route>

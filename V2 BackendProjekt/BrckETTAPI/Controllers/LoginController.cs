@@ -55,8 +55,8 @@ namespace BackendProjekt.Controllers
         // mert a kijelentkezésnek egy feltétele van: a felhasználó hitelesített, azaz korábban bejelentkezett és érvényes
         // tokent küldött. Az érvényesség feltétele itt az, hogy a token nem járt még le (exp) és az aláírása (signature)
         // is érvényes. 
-        [Authorize]
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             // Egy gyenge pontja a RESTful API-nak a token érvénytelenítése. Ugyanis ahhoz, hogy a kijelentkezés után

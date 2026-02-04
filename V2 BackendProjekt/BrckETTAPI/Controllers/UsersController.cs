@@ -1,4 +1,5 @@
-﻿using BackendProjekt.Auth;
+﻿using System.ComponentModel.DataAnnotations;
+using BackendProjekt.Auth;
 using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,43 +26,68 @@ namespace BackendProjekt.Controllers
             return Ok(_context.Users);
         }
 
-        //[HttpGet("{id}")]
+        [HttpGet("{input}")]
+        [Authorize(Policy = "Users.Read")]
+        public IActionResult Get(string input, [FromQuery] bool ext = false)
+        {
+            if (!int.TryParse(input, out _) && input.IndexOf("@") == -1)
+            {
+                return BadRequest("Input must be a valid UserId or Email.");
+            }
+
+
+            Users? user = null;
+            if (ext)
+            {
+                if (input.IndexOf("@") == -1)
+                {
+                    user = _context.Users
+                            //.Include("") 
+                            .FirstOrDefault(p => p.UserId == int.Parse(input));
+                }
+                else 
+                {
+                    user = _context.Users
+                            //.Include("") 
+                            .FirstOrDefault(p => p.Email == input);
+                }
+                
+            }
+            else
+            {
+                if (input.IndexOf("@") == -1)
+                {
+                    user = _context.Users
+                            .FirstOrDefault(p => p.UserId == int.Parse(input));
+                }
+                else
+                {
+                    user = _context.Users
+                            .FirstOrDefault(p => p.Email == input);
+                }
+            }
+            if (user == null) return NotFound();
+            return Ok(user);
+        }
+
+        //[HttpGet("{email}")]
         //[Authorize(Policy = "Users.Read")]
-        //public IActionResult Get(int id, [FromQuery] bool ext = false)
+        //public IActionResult GetByEmail(string email, [FromQuery] bool ext = false)
         //{
         //    Users? user = null;
         //    if (ext)
         //    {
         //        user = _context.Users
         //                    //.Include("") 
-        //                    .FirstOrDefault(p => p.UserId == id);
+        //                    .FirstOrDefault(p => p.Email == email);
         //    }
         //    else
         //    {
-        //        user = _context.Users.FirstOrDefault(p => p.UserId == id);
+        //        user = _context.Users.FirstOrDefault(p => p.Email == email);
         //    }
         //    if (user == null) return NotFound();
         //    return Ok(user);
         //}
-
-        [HttpGet("{email}")]
-        [Authorize(Policy = "Users.Read")]
-        public IActionResult GetByEmail(string email, [FromQuery] bool ext = false)
-        {
-            Users? user = null;
-            if (ext)
-            {
-                user = _context.Users
-                            //.Include("") 
-                            .FirstOrDefault(p => p.Email == email);
-            }
-            else
-            {
-                user = _context.Users.FirstOrDefault(p => p.Email == email);
-            }
-            if (user == null) return NotFound();
-            return Ok(user);
-        }
 
 
 
@@ -69,10 +95,16 @@ namespace BackendProjekt.Controllers
         [AllowAnonymous]
         public IActionResult Post(Users user)
         {
+            if (_context.Users.FirstOrDefault(u => u.Email == user.Email)!=null) 
+            {
+                return BadRequest("Ez az e-mail cím már tartozik egy fiókhoz");
+            }
+
+
             user.Password = PasswordHandler.HashPassword(user.Password);
             _context.Users.Add(user);
             _context.SaveChanges();
-            return CreatedAtAction("create", user);
+            return Created($"CREATED", user);
         }
 
         [HttpPut("{id}")]

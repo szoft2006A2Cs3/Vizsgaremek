@@ -1,9 +1,8 @@
+DROP DATABASE IF EXISTS brckett;
 CREATE DATABASE brckett
 CHARSET utf8
 COLLATE utf8_hungarian_ci;
-
-use brckett;
-
+USE brckett;
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -106,6 +105,8 @@ CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `display_name` varchar(128) DEFAULT NULL,
+  `Token` varchar(2000) DEFAULT NULL,
+  `Role` varchar(128) DEFAULT NULL,
   `PASSWORD` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
@@ -209,40 +210,69 @@ ALTER TABLE `users`
 --
 
 --
--- Megkötések a táblához `groupscheduleconn`
---
-ALTER TABLE `groupscheduleconn`
-  ADD CONSTRAINT `groupscheduleconn_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`schedule_id`),
-  ADD CONSTRAINT `groupscheduleconn_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`);
 
---
--- Megkötések a táblához `groupuserconn`
---
-ALTER TABLE `groupuserconn`
-  ADD CONSTRAINT `groupuserconn_ibfk_1` FOREIGN KEY (`user_Id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `groupuserconn_ibfk_2` FOREIGN KEY (`group_Id`) REFERENCES `groups` (`group_id`);
-
---
--- Megkötések a táblához `schedules`
---
-ALTER TABLE `schedules`
-  ADD CONSTRAINT `schedules_ibfk_1` FOREIGN KEY (`template_id`) REFERENCES `templates` (`template_id`),
-  ADD CONSTRAINT `schedules_ibfk_2` FOREIGN KEY (`template_id`) REFERENCES `templates` (`template_id`);
-
---
--- Megkötések a táblához `schedulesusersconn`
---
-ALTER TABLE `schedulesusersconn`
-  ADD CONSTRAINT `schedulesusersconn_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `schedulesusersconn_ibfk_2` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`schedule_id`);
-
---
--- Megkötések a táblához `usersettings`
---
-ALTER TABLE `usersettings`
-  ADD CONSTRAINT `usersettings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+INSERT INTO templates (template_info)
+VALUES 
+('Weekly Standup Template'),
+('Monthly Progress Review'),
+('Quarterly Planning Session');
+
+-- === Insert into users ===
+INSERT INTO users (username, email, display_name, PASSWORD)
+VALUES
+('jdoe', 'jdoe@example.com', 'John Doe', 'hashedpassword123'),
+('asmith', 'asmith@example.com', 'Alice Smith', 'hashedpassword456'),
+('bkovacs', 'bkovacs@example.com', 'Bence Kovács', 'hashedpassword789');
+
+-- === Insert into groups ===
+INSERT INTO groups (group_name)
+VALUES
+('Development Team'),
+('Marketing Team'),
+('Management');
+
+-- === Insert into schedules ===
+INSERT INTO schedules (template_id, schedule_info)
+VALUES
+(1, 'Weekly Dev Standup - Monday 10AM'),
+(2, 'Monthly Marketing Review - First Friday'),
+(3, 'Quarterly Company Meeting - Boardroom');
+
+-- === Insert into usersettings ===
+INSERT INTO usersettings (user_id, settings)
+VALUES
+(1, '{"theme": "dark", "notifications": "enabled"}'),
+(2, '{"theme": "light", "notifications": "disabled"}'),
+(3, '{"theme": "dark", "notifications": "enabled"}');
+
+-- === Connect groups and users ===
+INSERT INTO groupuserconn (user_Id, group_Id, permission)
+VALUES
+(1, 1, 'admin'),
+(2, 2, 'editor'),
+(3, 1, 'viewer'),
+(3, 3, 'admin');
+
+-- === Connect groups and schedules ===
+INSERT INTO groupscheduleconn (group_id, schedule_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+-- === Connect schedules and users ===
+INSERT INTO schedulesusersconn (user_id, schedule_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 1),
+(3, 3);
+
+COMMIT;

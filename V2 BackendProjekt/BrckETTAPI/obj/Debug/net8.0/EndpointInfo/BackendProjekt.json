@@ -486,14 +486,14 @@
         }
       }
     },
-    "/api/Users/{email}": {
+    "/api/Users/{input}": {
       "get": {
         "tags": [
           "Users"
         ],
         "parameters": [
           {
-            "name": "email",
+            "name": "input",
             "in": "path",
             "required": true,
             "schema": {

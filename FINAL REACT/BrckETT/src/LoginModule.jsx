@@ -1,6 +1,6 @@
 import "./css/LoginModule.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import User from "./assets/UserClass";
 
 
@@ -22,8 +22,15 @@ function ifError(event, func)
 export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc}) 
 {
     const navigate = useNavigate();
-    const [logEmail, setLogEmail] = useState('REACTADMIN@gmail.com')
-    const [logPassword, setLogPassword] = useState('REACTADMIN1!')
+    const [logEmail, setLogEmail] = useState('')
+    const [logPassword, setLogPassword] = useState('')
+
+    const [regEmail, setRegEmail] = useState("")
+    const [regUsername, setRegUsername] = useState("")
+    const [regPasswd1, setRegPasswd1] = useState("")
+    const [regPasswd2, setRegPasswd2] = useState("")
+    const [regFName, setRegFName] = useState("")
+    const [regLName, setRegLName] = useState("")
 
 
     function IsNullOrWhiteSpace(text){
@@ -61,16 +68,16 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
 
 
                     <div id="register" className="form">
-                        <div className="input"><input type="text" placeholder="First Name" onInput={(e) => { ifError(e, (CheckName(e.target)))}} ></input></div>
-                        <div className="input"><input type="text" placeholder="Last Name" onInput={(e) => {ifError(e, (CheckName(e.target)))}}></input></div>
-                        <div className="input"><input type="text" placeholder="Username" onInput={(e) => {ifError(e, (CheckName(e.target)))}}></input></div>
-                        <div className="input"><input type="email" placeholder="Email" onInput={(e) => {ifError(e, (EmailFormatCheck()))}}></input></div>
+                        <div className="input"><input type="text" placeholder="First Name" value={regFName} onChange={(e)=> setRegFName(e.target.value)} onInput={(e) => { ifError(e, (CheckName(e.target)))}} ></input></div>
+                        <div className="input"><input type="text" placeholder="Last Name" value={regLName} onChange={(e)=> setRegLName(e.target.value)} onInput={(e) => {ifError(e, (CheckName(e.target)))}}></input></div>
+                        <div className="input"><input type="text" placeholder="Username" value={regUsername} onChange={(e)=> setRegUsername(e.target.value)} onInput={(e) => {ifError(e, (CheckName(e.target)))}}></input></div>
+                        <div className="input"><input type="email" placeholder="Email" value={regEmail} onChange={(e)=> setRegEmail(e.target.value)} onInput={(e) => {ifError(e, (EmailFormatCheck()))}}></input></div>
                         <div className="input">
-                            <input id="regPass" type="password" placeholder="Password" onInput={(e) => {ifError(e, (PasswordCheck()))}}></input>
+                            <input id="regPass" type="password" placeholder="Password" value={regPasswd1} onChange={(e)=> setRegPasswd1(e.target.value)} onInput={(e) => {ifError(e, (PasswordCheck()))}}></input>
                             <span className="eye" onClick={togglePass('regPass')}>👁</span>
                         </div>
                         <div className="input">
-                            <input id="regPass2" type="password" placeholder="Password Again" onInput={(e) => {ifError(e, (PasswordConfirmationCheck()))}}></input>
+                            <input id="regPass2" type="password" placeholder="Password Again" value={regPasswd2} onChange={(e)=> setRegPasswd2(e.target.value)} onInput={(e) => {ifError(e, (PasswordConfirmationCheck()))}}></input>
                             <span className="eye" onClick={togglePass('regPass2')}>👁</span>
                         </div>
                         <div id="errorOutput"></div>
@@ -82,7 +89,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
     );
 
 
-    function RegistryCheck() 
+    async function RegistryCheck() 
     { 
         var error = [];
         
@@ -107,11 +114,14 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
             {
                 try 
                 {
-                    //CREATE ACCOUNT, FETCH ITS OWN TOKEN TOO
-                    
-                    setUserFunc(new User())
+                    //SET ADMIN ROLE TO SMTH DEFAULT WHEN WE HAVE IT ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"Admin",token:""}, true).then(data => {return data;})
+                    response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
+                    callAPIFunc.setToken(response);
+                    let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, regEmail).then(data => {return data;});
+                    setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, response.token))
                     navigate("/")
-                    logInTrigger()
+                    logInTrigger(true)
                 } 
                 catch (error) 
                 {
@@ -127,13 +137,11 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
             //LOGIN & SAVE TOKEN
             let response = await callAPIFunc.callApiAsync('login', 'POST', {email: logEmail, password: logPassword}, false).then(data => {return data;});
             callAPIFunc.setToken(response);
-            console.log(callAPIFunc._token);
             let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, logEmail).then(data => {return data;});
 
-            console.log(userData);
-            setUserFunc(new User(userData.userId, userData.Name, userData.email, userData.displayName, userData.password, userData.role, response.token))
+            setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, response.token))
             navigate("/")
-            logInTrigger()
+            logInTrigger(true)
         } 
         catch (error) 
         {
@@ -179,7 +187,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
     function CheckName(element)
     {
         const name = element.value;
-        const namePattern = /^[A-Za-z]+$/;
+        const namePattern = /^[A-Za-záéíóöőúüűÁÉÍÓÖŐÚÜŰ]+$/u;
         if (!namePattern.test(name)) {
             return "Name can only contain letters.";
         }
