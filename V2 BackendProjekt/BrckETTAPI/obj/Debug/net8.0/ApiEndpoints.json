@@ -84,7 +84,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BajnoksagApi.Controllers.LoginController",
+    "ContainingType": "BackendProjekt.Controllers.LoginController",
     "Method": "Login",
     "RelativePath": "api/login",
     "HttpMethod": "POST",
@@ -92,20 +92,15 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "loginReq",
+        "Type": "BackendProjekt.Controllers.LoginController\u002BLoginRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BajnoksagApi.Controllers.LoginController",
+    "ContainingType": "BackendProjekt.Controllers.LoginController",
     "Method": "Logout",
     "RelativePath": "api/login",
     "HttpMethod": "DELETE",
@@ -310,15 +305,15 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.UsersController",
-    "Method": "Get",
-    "RelativePath": "api/Users/{id}",
+    "Method": "GetByEmail",
+    "RelativePath": "api/Users/{email}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "email",
+        "Type": "System.String",
         "IsRequired": true
       },
       {

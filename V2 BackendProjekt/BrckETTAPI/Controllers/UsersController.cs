@@ -25,24 +25,45 @@ namespace BackendProjekt.Controllers
             return Ok(_context.Users);
         }
 
-        [HttpGet("{id}")]
+        //[HttpGet("{id}")]
+        //[Authorize(Policy = "Users.Read")]
+        //public IActionResult Get(int id, [FromQuery] bool ext = false)
+        //{
+        //    Users? user = null;
+        //    if (ext)
+        //    {
+        //        user = _context.Users
+        //                    //.Include("") 
+        //                    .FirstOrDefault(p => p.UserId == id);
+        //    }
+        //    else
+        //    {
+        //        user = _context.Users.FirstOrDefault(p => p.UserId == id);
+        //    }
+        //    if (user == null) return NotFound();
+        //    return Ok(user);
+        //}
+
+        [HttpGet("{email}")]
         [Authorize(Policy = "Users.Read")]
-        public IActionResult Get(int id, [FromQuery] bool ext = false)
+        public IActionResult GetByEmail(string email, [FromQuery] bool ext = false)
         {
             Users? user = null;
             if (ext)
             {
                 user = _context.Users
                             //.Include("") 
-                            .FirstOrDefault(p => p.UserId == id);
+                            .FirstOrDefault(p => p.Email == email);
             }
             else
             {
-                user = _context.Users.FirstOrDefault(p => p.UserId == id);
+                user = _context.Users.FirstOrDefault(p => p.Email == email);
             }
             if (user == null) return NotFound();
             return Ok(user);
         }
+
+
 
         [HttpPost]
         [AllowAnonymous]

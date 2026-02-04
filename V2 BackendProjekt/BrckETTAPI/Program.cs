@@ -31,6 +31,7 @@ namespace BackendProjekt
                 builder.UseMySQL(connectionString);
             });
 
+            builder.Services.AddCors(options => options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
             // A token alapú azonosításhoz és jogosultság-kezeléshez szükséges beállításokat a könnyebb átláthatóság kedvéért
             // egy külön metódus végzi el.
@@ -49,12 +50,13 @@ namespace BackendProjekt
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseCors("AllowAll");
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                
             }
 
             app.UseHttpsRedirection();

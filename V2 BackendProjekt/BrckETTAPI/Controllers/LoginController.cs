@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace BajnoksagApi.Controllers
+namespace BackendProjekt.Controllers
 {
     [ApiController]
     [Route("api/login")]
@@ -23,19 +23,25 @@ namespace BajnoksagApi.Controllers
             _tokenManager = tokenManager;
         }
 
+        public class LoginRequest
+        {
+            public string Email { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+        }   
+
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginReq)
         {
             // A bejelentkezés első lépése az azonosító, itt email cím alapján a felhasználó lekérdezése.
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginReq.Email);
             // Ha a felhasználó nem létezik, vagy a jelszó nem helyes a válasz "401-Unauthorize" lesz.
             // Nem logikus, hogy a hibás azonosítás vagy hitelesítés, azaz autentikációra miért "Unauthorized"
             // a válasz. Az authorization hiba már a logikusabb "403-Forbidden" választ adja.
             // A jelszó ellenőrzése a VerifyPassword segédfüggvényben lényegében úgy zajlik, hogy kódolja a
             // bejövő jelszót (password) és ennek az eredményét veti össze felhsználó adatbázisban tárolt
             // kódolt jelszavával.
-            if (user == null || !PasswordHandler.VerifyPassword(password, user.Password)) return Unauthorized();
+            if (user == null || !PasswordHandler.VerifyPassword(loginReq.Password, user.Password)) return Unauthorized();
             // Siker esetén egy tokent generálunk, amely a felhasználó azonosítóját (email) és a szerepköréhez
             // (role) tartozó jogosultságokat (permission) mint állításokat (claim) tartalmazza.
             var token = _tokenManager.GenerateToken(user);

@@ -19,11 +19,11 @@ function ifError(event, func)
         ShowErrors()
     }
 
-export default function LoginModule({logInTrigger, setUserFunc}) 
+export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc}) 
 {
     const navigate = useNavigate();
-    const [logEmail, setLogEmail] = useState('')
-    const [logPassword, setLogPassword] = useState('')
+    const [logEmail, setLogEmail] = useState('REACTADMIN@gmail.com')
+    const [logPassword, setLogPassword] = useState('REACTADMIN1!')
 
 
     function IsNullOrWhiteSpace(text){
@@ -120,13 +120,18 @@ export default function LoginModule({logInTrigger, setUserFunc})
             }
     }
 
-    function LoginCheck()
+    async function LoginCheck()
     {
         try 
         {
             //LOGIN & SAVE TOKEN
+            let response = await callAPIFunc.callApiAsync('login', 'POST', {email: logEmail, password: logPassword}, false).then(data => {return data;});
+            callAPIFunc.setToken(response);
+            console.log(callAPIFunc._token);
+            let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, logEmail).then(data => {return data;});
 
-            setUserFunc(new User())
+            console.log(userData);
+            setUserFunc(new User(userData.userId, userData.Name, userData.email, userData.displayName, userData.password, userData.role, response.token))
             navigate("/")
             logInTrigger()
         } 

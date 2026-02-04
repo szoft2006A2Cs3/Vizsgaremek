@@ -1,10 +1,11 @@
 export default class User {
-    constructor(displayName, email, username, id, img, token="")  {
+    constructor(id, username, email, displayName, PASSWORD, Role, Token, img = "/src/assets/Brckett Logo.png")  {
         this.displayName = displayName;
         this.email = email;
-        this.token = token;
+        this.token = Token;
         this.username = username;
         this.userId = id;
+        this.role = Role;
         this.img = img;
     }
 }

@@ -5,6 +5,7 @@ import LoginModule from './LoginModule.jsx'
 import ColorsAndFonts from './ColorsAndFonts.jsx'
 import ProfileModule from './ProfileModule.jsx'
 import User from "./assets/UserClass.js";
+import ApiCaller from "./assets/call-api.js";
 //ROUTER
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -12,10 +13,12 @@ import { Link } from 'react-router-dom'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
 
-  console.log(user);
+  //console.log(user);
 
+  
 
   let res = isLoggedIn ? 
   (
@@ -28,7 +31,7 @@ function App() {
     <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
 
     <Route path='/' element={<FrontPage></FrontPage>}></Route>
-    <Route path='/loginReg' element={<LoginModule logInTrigger={()=>{setIsLoggedIn(true), console.log(isLoggedIn)}} setUserFunc={setUser}></LoginModule>}></Route>
+    <Route path='/loginReg' element={<LoginModule logInTrigger={()=>setIsLoggedIn(true)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
     {/*
     <Route path='/Editor' element={}></Route>
     <Route path='/Schedules' element={}></Route>
@@ -39,9 +42,6 @@ function App() {
   )
 
 
-
-
-
   return (
     <>
       <BrowserRouter>
@@ -50,9 +50,5 @@ function App() {
     </>
   )
 }
-
-
-
-
 
 export default App
