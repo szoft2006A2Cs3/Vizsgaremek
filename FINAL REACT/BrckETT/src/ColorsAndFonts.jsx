@@ -41,5 +41,9 @@ export default function ColorsAndFonts() {
             <span style={{background: '#23CE6B'}}>#23CE6B</span>
             <span style={{background: '#1F0318'}}>#1F0318</span>
         </div>
+        <div>
+            <span>Element Background Color/Text Color</span>
+            <span style={{background: '#883ac9d2'}}>#883ac9d2</span>
+        </div>
     </div>);
 }

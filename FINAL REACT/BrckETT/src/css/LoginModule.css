@@ -11,7 +11,7 @@ align-items: center;
 }
 
 
-.card {
+.LoginModule .card {
 width: 380px;
 padding: 32px;
 border-radius: 28px;
@@ -22,20 +22,20 @@ overflow: hidden;
 position: relative;
 }
 
-.header {
+.LoginModule .header {
 text-align: center;
 margin-bottom: 24px;
 }
 
 
-.header h2 {
+.LoginModule .header h2 {
 margin: 0;
 font-size: 26px;
 letter-spacing: 1px;
 }
 
 
-.tabs {
+.LoginModule .tabs {
 display: flex;
 justify-content: center;
 gap: 32px;
@@ -43,16 +43,16 @@ margin-bottom: 28px;
 }
 
 
-.tab {
+.LoginModule .tab {
 cursor: pointer;
 color: rgb(163, 160, 163);
 position: relative;
 }
 
 
-.tab.active { color: rgb(122, 203, 0); }
+.LoginModule .tab.active { color: rgb(122, 203, 0); }
 
-.tab.active::after {
+.LoginModule .tab.active::after {
 content: "";
 position: absolute;
 bottom: -8px;
@@ -64,13 +64,13 @@ background: #1ECAD3;
 }
 
 
-.forms {
+.LoginModule .forms {
 position: relative;
 height: 260px;
 }
 
 
-.form {
+.LoginModule .form {
 position: absolute;
 inset: 0;
 opacity: 0;
@@ -80,20 +80,20 @@ transition: 0.4s ease;
 }
 
 
-.form.active {
+.LoginModule .form.active {
     opacity: 1;
 transform: scale(1);
 pointer-events: all;
 }
 
 
-.input {
+.LoginModule .input {
 position: relative;
 margin: 16px 0;
 }
 
 
-input {
+.LoginModule input {
 width: 100%;
 padding: 14px 46px 14px 14px;
 border-radius: 14px;
@@ -105,16 +105,16 @@ transition: 0.3s;
 }
 
 
-input::placeholder { color: rgba(255,255,255,0.6); }
+.LoginModule input::placeholder { color: rgba(255,255,255,0.6); }
 
-input:focus {
+.LoginModule input:focus {
 outline: none;
 border-color: #1ECAD3;
 box-shadow: 0 0 0 4px rgba(30,202,211,0.35);
 }
 
 
-.eye {
+.LoginModule .eye {
 position: absolute;
 right: 14px;
 top: 50%;
@@ -123,7 +123,7 @@ cursor: pointer;
 }
 
 
-button {
+.LoginModule button {
 width: 100%;
 margin-top: 20px;
 padding: 14px;
@@ -135,6 +135,6 @@ font-size: 18px;
 cursor: pointer;
 }
 
-input.errorBorder { 
+.LoginModule input.errorBorder { 
     border: 2px solid red;
 }

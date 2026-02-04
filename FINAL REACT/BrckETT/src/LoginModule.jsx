@@ -1,5 +1,8 @@
 import "./css/LoginModule.css";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import User from "./assets/UserClass";
+
 
 
 function ifError(event, func)
@@ -13,12 +16,14 @@ function ifError(event, func)
         {
             event.target.classList.remove("errorBorder")
         }
+        ShowErrors()
     }
 
-export default function LoginModule({apiUrl}) 
+export default function LoginModule({logInTrigger, setUserFunc}) 
 {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const navigate = useNavigate();
+    const [logEmail, setLogEmail] = useState('')
+    const [logPassword, setLogPassword] = useState('')
 
 
     function IsNullOrWhiteSpace(text){
@@ -46,12 +51,12 @@ export default function LoginModule({apiUrl})
 
                 <div className="forms">
                     <div id="login" className="form active">
-                        <div className="input" id="loginName" onInput={(e) => setUserEmail(e.target.value)}><input type="text" placeholder="Email"></input></div>
+                        <div className="input" id="loginName" ><input type="text" placeholder="Email" onInput={(e) => setLogEmail(e.target.value)} onChange={(e) => setLogEmail(e.target.value)} value={logEmail}></input></div>
                         <div className="input">
-                            <input id="loginPass" type="password" placeholder="Password" onInput={(e) => setPassword(e.target.value)}></input>
+                            <input id="loginPass" type="password" placeholder="Password" onInput={(e) => setLogPassword(e.target.value)} onChange={(e) => setLogPassword(e.target.value)} value={logPassword}></input>
                             <span className="eye" onClick={togglePass('loginPass')}>👁</span>
                         </div>
-                        <button>Login</button>
+                        <button onClick={LoginCheck}>Login</button>
                     </div>
 
 
@@ -68,12 +73,68 @@ export default function LoginModule({apiUrl})
                             <input id="regPass2" type="password" placeholder="Password Again" onInput={(e) => {ifError(e, (PasswordConfirmationCheck()))}}></input>
                             <span className="eye" onClick={togglePass('regPass2')}>👁</span>
                         </div>
+                        <div id="errorOutput"></div>
                         <button onClick={RegistryCheck}>Create account</button>
                     </div>
                 </div>
             </div>
         </div>
     );
+
+
+    function RegistryCheck() 
+    { 
+        var error = [];
+        
+        error.push(EmptyFieldCheck() ? EmptyFieldCheck() : "");
+        error.push(PasswordCheck() ? PasswordCheck() : "");
+        error.push(PasswordConfirmationCheck() ? PasswordConfirmationCheck() : "");
+        error.push(EmailFormatCheck() ? EmailFormatCheck() : "");
+        error.push(CheckName(document.querySelectorAll("#register .input input")[0]) ? CheckName(document.querySelectorAll("#register .input input")[0]) : "");
+        error.push(CheckName(document.querySelectorAll("#register .input input")[1]) ? CheckName(document.querySelectorAll("#register .input input")[1]) : "");
+        error.push(CheckName(document.querySelectorAll("#register .input input")[2]) ? CheckName(document.querySelectorAll("#register .input input")[2]) : "");
+
+        
+        error = error.filter((e) => e != "")
+        error = error.filter(item => item !== "");
+        
+        const field = document.querySelector("#errorOutput")
+        if(error.length !=0)
+            {
+                alert(error[0])
+            }
+        else
+            {
+                try 
+                {
+                    //CREATE ACCOUNT, FETCH ITS OWN TOKEN TOO
+                    
+                    setUserFunc(new User())
+                    navigate("/")
+                    logInTrigger()
+                } 
+                catch (error) 
+                {
+                    alert(error)
+                }
+            }
+    }
+
+    function LoginCheck()
+    {
+        try 
+        {
+            //LOGIN & SAVE TOKEN
+
+            setUserFunc(new User())
+            navigate("/")
+            logInTrigger()
+        } 
+        catch (error) 
+        {
+            alert(error)
+        } 
+    }
 
 }
     function switchForm(formID) {
@@ -94,7 +155,7 @@ export default function LoginModule({apiUrl})
                 tabs[0].classList.remove('active');
                 tabs[1].classList.add('active');
 
-                document.querySelector(".forms").style.height = "480px";
+                document.querySelector(".forms").style.height = "500px";
             }
         };
     }
@@ -109,11 +170,6 @@ export default function LoginModule({apiUrl})
             }
         };
     }
-
-
-
-
-    
 
     function CheckName(element)
     {
@@ -150,7 +206,7 @@ export default function LoginModule({apiUrl})
             return "Password must contain at least one number.";
         }
         else if (!/[!@#$%^&*\.]/.test(passwordInput.value)) {
-            return "Password must contain at least one special character (!@#$%^&*.).";
+            return "Password must contain (!@#$%^&*.).";
         }
     }
 
@@ -177,11 +233,10 @@ export default function LoginModule({apiUrl})
     }
     
 
-    function RegistryCheck() 
+    function ShowErrors()
     {
-        var error = [];
+        let error = [];
         
-        error.push(EmptyFieldCheck() ? EmptyFieldCheck() : "");
         error.push(PasswordCheck() ? PasswordCheck() : "");
         error.push(PasswordConfirmationCheck() ? PasswordConfirmationCheck() : "");
         error.push(EmailFormatCheck() ? EmailFormatCheck() : "");
@@ -189,13 +244,18 @@ export default function LoginModule({apiUrl})
         error.push(CheckName(document.querySelectorAll("#register .input input")[1]) ? CheckName(document.querySelectorAll("#register .input input")[1]) : "");
         error.push(CheckName(document.querySelectorAll("#register .input input")[2]) ? CheckName(document.querySelectorAll("#register .input input")[2]) : "");
 
+        error = error.filter((e) => e != "")
         error = error.filter(item => item !== "");
-        if (error.length > 0) {
-            alert(error[0]);
-        }
-        else {
-            //CREATE THE ACCOUNT
-        }
+        
+        const field = document.querySelector("#errorOutput")
+        if(error.length !=0)
+            {
+                field.innerHTML = `${error[0]}`
+            }
+        else
+            {
+                field.innerHTML = ""
+            }
     }
 
     
