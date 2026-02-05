@@ -117,9 +117,8 @@ namespace BackendProjekt.Controllers
             olduser.UserName = user.UserName;
             olduser.Email = user.Email;
             olduser.DisplayName = user.DisplayName;
-            olduser.Password = user.Password;
-            olduser.Img = user.Img;
-            //olduser.Password = PasswordHandler.HashPassword(user.Password);
+            //olduser.Password = user.Password;
+            olduser.Password = PasswordHandler.HashPassword(user.Password);
             _context.SaveChanges();
             return Ok(olduser);
 

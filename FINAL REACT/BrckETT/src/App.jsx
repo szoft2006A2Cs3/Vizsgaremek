@@ -4,8 +4,10 @@ import FrontPage from './FrontPage.jsx'
 import LoginModule from './LoginModule.jsx'
 import ColorsAndFonts from './ColorsAndFonts.jsx'
 import ProfileModule from './ProfileModule.jsx'
-import User from "./assets/UserClass.js";
-import ApiCaller from "./assets/call-api.js";
+import User from "./js/UserClass.js";
+import ApiCaller from "./js/call-api.js";
+import ClickSpark from './ClickSpark.jsx';
+
 //ROUTER
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -15,9 +17,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
-
+  const clickSparkEffect = <ClickSpark sparkColor='#fff' sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}></ClickSpark>
   //console.log(user);
-
   
 
   let res = isLoggedIn ? 
@@ -44,8 +45,11 @@ function App() {
 
   return (
     <>
+      <ClickSpark sparkColor='#fff' sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}></ClickSpark>
       <BrowserRouter>
-        {res}
+        
+          {res}
+
       </BrowserRouter>
     </>
   )

@@ -1,8 +1,8 @@
-* { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+.LoginModule * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
 
 
 
-body {
+body:has(.LoginModule){
 margin: 0;
 height: 100vh;
 display: flex;

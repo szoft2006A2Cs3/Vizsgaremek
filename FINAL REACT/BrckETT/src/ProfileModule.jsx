@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
-import User from "./assets/UserClass";
+import User from "./js/UserClass";
 //import {User} from "./assets/UserClass.js";
 
 export default function ProfileModule({user, logInTrigger, setUserFunc}) 

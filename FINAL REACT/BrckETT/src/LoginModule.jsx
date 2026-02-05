@@ -1,7 +1,7 @@
 import "./css/LoginModule.css";
 import React, { useState } from "react";
 import { data, useNavigate } from "react-router-dom";
-import User from "./assets/UserClass";
+import User from "./js/UserClass";
 
 
 
@@ -47,7 +47,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
         <div className="LoginModule">
             <div className="card">
                 <div className="header">
-                    <h2>Login</h2>
+                    <h2 id="LoginModuleHeader">Login</h2>
                 </div>
 
                 <div className="tabs">
@@ -160,6 +160,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
                 registerForm.classList.remove('active');
                 tabs[0].classList.add('active');
                 tabs[1].classList.remove('active');
+                document.querySelector("#LoginModuleHeader").innerHTML = "Login"
 
                 document.querySelector(".forms").style.height = "260px";
             } else {
@@ -167,6 +168,7 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
                 registerForm.classList.add('active');
                 tabs[0].classList.remove('active');
                 tabs[1].classList.add('active');
+                document.querySelector("#LoginModuleHeader").innerHTML = "Registration"
 
                 document.querySelector(".forms").style.height = "500px";
             }
