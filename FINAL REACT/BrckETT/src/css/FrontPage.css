@@ -3,6 +3,12 @@ body:has(.front-page-container){
     
 }
 
+:root{
+  --shadow-1: 0 6px 18px rgba(0,0,0,0.14);
+  --shadow-2: 0 12px 28px rgba(0,0,0,0.20);
+  --shadow-3: 0 18px 36px rgba(0,0,0,0.25);
+}
+
 .top-navbar {
   position: fixed;
   top: 0;
@@ -40,7 +46,7 @@ body:has(.front-page-container){
   background-color: rgba(193, 255, 114, 0.6); 
 }
 
-.profile-button {
+.front-page-container .profile-button {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -52,11 +58,10 @@ body:has(.front-page-container){
   font-weight: bold;
   border: none;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.profile-button:hover {
-  background-color: #00fff7;
+.front-page-container .profile-button:hover {
+  background-color: #c772ff;
 }
 
 
@@ -79,6 +84,7 @@ body:has(.front-page-container){
   width: 100%;  
   height: auto;
   border-radius: 10px;
+  box-shadow: var(--shadow-3);
 }
 
 
@@ -100,6 +106,7 @@ font-size: 18px;
   transition: background 0.2s;
   z-index: 10;
   padding: 8px;
+  box-shadow: var(--shadow-2);
 }
 
 .front-page-container .arrow:hover {
@@ -133,22 +140,34 @@ font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
 }
 
 .footer-button.register {
-  background-color: #00fff7;
-  color: #000000;
+  border: #93cc56 2px solid;
+  background-color: #80ff00;
+  color: hsl(0, 0%, 0%);
 }
 
 .footer-button.register:hover {
-  background-color: #c1ff72;
+  background-color: #00ff0dee;
 }
 
 .footer-button.login {
-  background-color: #00fff7;
+  border: #93cc56 2px solid;
+  background-color: #80ff00;
+  box-shadow: var(--shadow-1);
   color: #1e293b;
 }
 
 .footer-button.login:hover {
-  background-color: #c1ff72;
+  background-color: #77ff7dee;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
 }
+
+.footer-button:hover {
+  transform: translateY(-3px);
+}
+
+

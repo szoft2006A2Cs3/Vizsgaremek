@@ -1,14 +1,13 @@
 import { useRef, useEffect, useCallback } from 'react';
-
-const ClickSpark = ({
-  sparkColor = '#fff',
-  sparkSize = 10,
-  sparkRadius = 15,
-  sparkCount = 8,
-  duration = 400,
+import "./css/ClickAnimation.css"
+const ClickAnimation = ({
+  sparkColor = '#ee01ff',
+  sparkSize = 8,
+  sparkRadius = 20,
+  sparkCount = 7,
+  duration = 350,
   easing = 'ease-out',
   extraScale = 1.0,
-  children
 }) => {
   const canvasRef = useRef(null);
   const sparksRef = useRef([]);
@@ -133,22 +132,7 @@ const ClickSpark = ({
   };
 
 
-  return (
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          userSelect: 'none',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          pointerEvents: 'none',
-          zIndex: 9999
-        }}
-      />
-  );
+  return ( <canvas ref={canvasRef} className='canvas_absolute'/>);
 };
 
-export default ClickSpark;
+export default ClickAnimation;
