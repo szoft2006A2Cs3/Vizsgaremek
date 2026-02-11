@@ -1,0 +1,83 @@
+import { useState } from "react";
+import "./css/Calendar.css";
+
+/*
+Kérlek ahol meghívod a naptárat ezt használd mivel nem tudom hogy írjam át úgy hogy ne kelljen:
+const [selectedDate, setSelectedDate] = useState(null);
+const [events, setEvents] = useState({});
+
+//Ez a returnbe:
+{selectedDate === null ? (
+        <Calendar
+            events={events}
+            onSelectDate={setSelectedDate}
+        />
+    ) : (
+        <DayView
+            date={selectedDate}
+            events={events}
+            setEvents={setEvents}
+            onBack={() => setSelectedDate(null)}
+        />
+)}
+*/ 
+
+export default function Calendar({ events, onSelectDate }) {
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const monthNames = {0:"Január",1:"Február",2:"Március",3:"Április",4:"Május",5:"Június",6:"Július",7:"Augusztus",8:"Szeptember",9:"Október",10:"November",11:"December"}
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
+    const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const startOffSet = firstDay === 0 ? 6 : firstDay - 1;
+    const endOffSet = 7-((startOffSet + daysInMonth) % 7) == 7 ? 0 : 7-((startOffSet + daysInMonth) % 7)
+
+    const days = [];
+    for (let i = 0; i < startOffSet; i++) days.push(null);
+    for (let d = 1; d <= daysInMonth; d++) days.push(d);
+    for (let e = 1;e <= endOffSet;e++) days.push(null);
+
+    return (
+        <div>
+            
+            <header className="CalendarHeader">
+                <div className="CalendarNav">
+                    <div className="CalendarBtn" onClick={prevMonth} id="previousBtn">◀ Előző</div>
+                    {year}. {monthNames[month]}
+                    <div className="CalendarBtn" onClick={nextMonth} id="nextBtn">Következő ▶</div>
+                </div>
+            </header>
+
+            
+            
+                <div className="CalendarWeekdays">
+                    <div>Hétfő</div>
+                    <div>Kedd</div>
+                    <div>Szerda</div>
+                    <div>Csütörtök</div>
+                    <div>Péntek</div>
+                    <div>Szombat</div>
+                    <div>Vasárnap</div>
+                </div>
+                <div className="Calendar">
+                    {days.map((day, index) => (
+                        <div className="CalendarDiv"
+                            key={index}
+                            onClick={() =>
+                                day && onSelectDate({ year, month: month + 1, day })
+                            }
+                        >
+                            {day}
+                        </div>
+                    ))}
+                </div>
+            
+            
+        </div>
+    );
+}
