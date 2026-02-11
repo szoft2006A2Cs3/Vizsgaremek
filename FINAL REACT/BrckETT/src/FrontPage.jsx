@@ -20,18 +20,7 @@ export default function FrontPage()
   };
  return (
   <div className="front-page-container">
-      <nav className="top-navbar">
-
-
-        <div className="nav-left">
-          <button className="nav-button"><Link to="/loginReg">Home</Link></button>
-          <button className="nav-button"><Link to="/loginReg">About</Link></button>
-          <button className="nav-button"><Link to="/loginReg">Contact us</Link></button>
-        </div>
-
-
-        <button className="profile-button">B</button>
-      </nav>
+      
 
 
      <div className="image-carousel">
@@ -39,12 +28,6 @@ export default function FrontPage()
         <img src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} />
         <button className="arrow right" onClick={nextImage}>&#10095;</button>
       </div>
-
-
-      <footer className="bottom-footer">
-        <button className="footer-button register"><Link to="/loginReg">Registration</Link></button>
-        <button className="footer-button login"><Link to="/loginReg">Login</Link></button>
-      </footer>
     </div>
   );
 
