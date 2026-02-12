@@ -2,6 +2,7 @@ body:has(.profile-container)
 {
     background-color: rgb(24 22 22);
     color: #A8A9AA;
+    height: -webkit-fill-available;
 }
 
 .profile-container

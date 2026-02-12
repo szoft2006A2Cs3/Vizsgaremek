@@ -30,6 +30,10 @@ export default function Calendar({ events, onSelectDate }) {
 
     const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
     const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
+    const reset = () => setCurrentDate(new Date());
+
+
+
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -48,7 +52,7 @@ export default function Calendar({ events, onSelectDate }) {
             <header className="CalendarHeader">
                 <div className="CalendarNav">
                     <div className="CalendarBtn" onClick={prevMonth} id="previousBtn">◀ Előző</div>
-                    {year}. {monthNames[month]}
+                    <div id="currentSelectedMonthHeader" className="CalendarBtnReset" onClick={reset}>{year}. {monthNames[month]}</div>
                     <div className="CalendarBtn" onClick={nextMonth} id="nextBtn">Következő ▶</div>
                 </div>
             </header>
@@ -65,19 +69,28 @@ export default function Calendar({ events, onSelectDate }) {
                     <div>Vasárnap</div>
                 </div>
                 <div className="Calendar">
-                    {days.map((day, index) => (
-                        <div className="CalendarDiv"
+                    {days.map((day, index) => {
+                        
+                        
+                        
+
+                        let classname = "CalendarDiv";
+                        //console.log(index, new Date().getDate());
+                        if(day == new Date().getDate() && month == new Date().getMonth()) classname += " highlight";
+
+                        return(
+                        <div className={classname}
                             key={index}
                             onClick={() =>
                                 day && onSelectDate({ year, month: month + 1, day })
+
                             }
                         >
                             {day}
-                        </div>
-                    ))}
+                        </div>)
+        })}
                 </div>
-            
-            
         </div>
     );
+
 }

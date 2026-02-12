@@ -1,40 +1,46 @@
-body { 
-    display: inline;
+body:has(.calendarView-container) { 
     font-family: Arial; 
     margin: 0; 
     padding: 0; 
 }
+body:has(.calendarView-container)  .calendarView-container .highlight { 
+    background-color: rgb(172, 50, 172);
+    font-weight: bold;
+}
 
 /* Hónap címe */
-.CalendarHeader { 
+body:has(.calendarView-container)  .CalendarHeader { 
     display: grid;
     text-align: center; 
     padding: 100px; 
     font-size: 22px; 
     font-weight: bold;
-    color: #000000;
 }
 
 /* Navigációs gombok (Előző / Következő) */
-.CalendarNav { 
+body:has(.calendarView-container)  .CalendarNav { 
     display: flex; 
     justify-content: space-between; 
     padding: 10px; 
 }
 
 /* Gombok stílusa */
-.CalendarBtn { 
+body:has(.calendarView-container)  .CalendarBtn { 
     cursor: pointer; 
     padding: 5px 10px; 
     background: rgb(89, 0, 141); 
-    color: white; 
+    
     border-radius: 5px; 
     border-radius: 50px;
 }
-.CalendarBtn:hover { background: rgb(99, 10, 151); }
+body:has(.calendarView-container)  .CalendarBtnReset { 
+    cursor: pointer;
+    padding: 5px 10px;  
+}
+body:has(.calendarView-container)  .CalendarBtn:hover { background: rgb(99, 10, 151); }
 
 /* Napok neveinek sora */
-.CalendarWeekdays {
+body:has(.calendarView-container)  .CalendarWeekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     background: rgb(89, 0, 141);
@@ -46,7 +52,7 @@ body {
 }
 
 /* A naptár rácsa */
-.Calendar { 
+body:has(.calendarView-container)  .Calendar { 
     display: grid; 
     grid-template-columns: repeat(7, 1fr); 
     gap: 1px; 
@@ -55,7 +61,7 @@ body {
 }
 
 /* Egy nap cellája */
-.CalendarDiv { 
+body:has(.calendarView-container)  .CalendarDiv { 
     background-color: blueviolet; 
     padding: 15px; 
     min-height: 60px; 
@@ -65,20 +71,20 @@ body {
     color: white;
     border-radius: 12px;
 }
-.CalendarDiv:hover { background: magenta; }
+body:has(.calendarView-container)  .CalendarDiv:hover { background: magenta; }
 
 /* Nap oldal konténere */
-.DayviewContainer {  
+/*.DayviewContainer {  
     color: black;
-}
+}*/
 
 /* Esemény lista */
-.CalendarEvents { 
+body:has(.calendarView-container) .CalendarEvents { 
     margin-top: 20px; 
 }
 
 /* Egy esemény doboza */
-.CalendarEventItem { 
+body:has(.calendarView-container)  .CalendarEventItem { 
     padding: 10px; 
     background: #000d57; 
     margin-bottom: 5px; 
@@ -90,7 +96,7 @@ body {
 }
 
 /* Kuka ikon */
-.DeleteBtn {
+body:has(.calendarView-container)  .DeleteBtn {
     cursor: pointer;
     color: red;
     font-weight: bold;
@@ -98,7 +104,7 @@ body {
 }
 
 /* Zöld + gomb */
-.PlusBtn { 
+body:has(.calendarView-container)  .PlusBtn { 
     width: 30px; 
     height: 30px; 
     border-radius: 50%; 

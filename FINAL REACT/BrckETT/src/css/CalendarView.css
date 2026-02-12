@@ -1,0 +1,12 @@
+body:has(.calendarView-container) { 
+    width: -webkit-fill-available;
+    height: -webkit-fill-available; 
+}
+
+.calendarView-container {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    margin: 3%;
+    margin-top: 10%;
+    color: #a8fa50;
+}
