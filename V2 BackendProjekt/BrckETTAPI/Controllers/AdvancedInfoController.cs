@@ -79,11 +79,40 @@ namespace BackendProjekt.Controllers
                         .ThenInclude(g => g.Groupscheduleconns)
                             .ThenInclude(gs => gs.Schedule)
                                 .ThenInclude(s => s.Templates)
-                .FirstOrDefaultAsync(u => u.Email == email);
+                                    .FirstOrDefaultAsync(u => u.Email == email);
 
             if (resp == null) return NotFound();
 
-            resp.Password = null;
+            resp.Password = "";
+            // Remove Groupscheduleconns from Schedules in Schedulesusersconns
+            if (resp.Schedulesusersconns != null)
+            {
+                foreach (var su in resp.Schedulesusersconns)
+                {
+                    if (su.Schedules != null)
+                    {
+                        su.Schedules.Groupscheduleconns = null;
+                    }
+                }
+            }
+            // Remove Schedulesusersconns from Schedules in Groupscheduleconns (via Groups)
+            if (resp.Groupuserconns != null)
+            {
+                foreach (var gu in resp.Groupuserconns)
+                {
+                    if (gu.Group?.Groupscheduleconns != null)
+                    {
+                        foreach (var gs in gu.Group.Groupscheduleconns)
+                        {
+                            if (gs.Schedule != null)
+                            {
+                                gs.Schedule.Schedulesusersconns = null;
+                            }
+                        }
+                    }
+                }
+            }
+
 
             return Ok(resp);
         }

@@ -14,9 +14,7 @@ namespace BackendProjekt.Model
         [Column("schedule_id")]
         [Key]
         public int ScheduleId { get; set; }
-
         public ICollection<Groupscheduleconn>? Groupscheduleconns { get; set; }
-
         public ICollection<Schedulesusersconn>? Schedulesusersconns { get; set; }
 
         [ForeignKey(nameof(TemplateId))]

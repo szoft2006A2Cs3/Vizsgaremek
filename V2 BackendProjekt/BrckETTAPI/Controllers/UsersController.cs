@@ -108,37 +108,26 @@ namespace BackendProjekt.Controllers
             var userSettings = new Usersettings
             {
                 UserId = user.UserId,
-                Settings = null                                                 // Create the default settings preset ------------------------------------------------------------------------
+                Settings = ""                                                 // Create the default settings preset ------------------------------------------------------------------------
             };
             _context.Usersettings.Add(userSettings);
-            await _context.SaveChangesAsync();
-
-
-
-            // Create default template
-            var template = new Templates
-            {   
-                TemplateInfo = null                                             // Create the default settings preset ------------------------------------------------------------------------                                 
-            };
-            _context.Templates.Add(template);
-            await _context.SaveChangesAsync();
-
-            // Create default schedule linked to the template
-            var schedule = new Schedules
-            {
-                TemplateId = template.TemplateId,
-                ScheduleInfo = null                                             // Create the default settings preset ------------------------------------------------------------------------
-            };
-            _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
 
             // Create connection between user and schedule
             var scheduleUserConn = new Schedulesusersconn
             {
                 UserId = user.UserId,
-                ScheduleId = schedule.ScheduleId
+                ScheduleId = 1
             };
             _context.Schedulesusersconns.Add(scheduleUserConn);
+            // Create connection between user and group
+            var groupUserConn = new Groupuserconn
+            {
+                Permission = "user",
+                UserId = user.UserId,
+                GroupId = 1
+            };
+            _context.Groupuserconns.Add(groupUserConn);
             await _context.SaveChangesAsync();
 
 
