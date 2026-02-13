@@ -7,10 +7,8 @@ export default function NavModule({links, profileLetter}) {
 
   const [visible, setVisible] = useState(false);
 
-  // Egér pozíció figyelése
   useEffect(() => {
     function handleMouseMove(e) {
-      // Ha az egér az oldal tetején van (pl. 50px-en belül)
       if (e.clientY < 50) {
         setVisible(true);
       } else {

@@ -27,8 +27,8 @@ body:has(.profile-container) .top-navbar
 
 
 .top-navbar.hidden {
-  transform: translateY(-100%);
-  opacity: 0;
+  transform: translateY(-85%);
+  opacity: 1;
 }
 
 
