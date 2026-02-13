@@ -81,8 +81,7 @@
               "ViewState": "AgIAABkAAAAAAAAAAAAxwEcAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-04T08:24:59.436Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -95,8 +94,7 @@
               "ViewState": "AgIAAGIAAAAAAAAAAAAIwG4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-13T17:37:26.948Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -112,8 +110,7 @@
               "RelativeToolTip": "BrckETTAPI\\Model\\Schedules.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-13T17:44:24.24Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-13T17:44:24.24Z"
             },
             {
               "$type": "Document",
@@ -125,8 +122,7 @@
               "RelativeToolTip": "BrckETTAPI\\Model\\Groupuserconn.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-13T17:44:22.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-13T17:44:22.926Z"
             },
             {
               "$type": "Document",
@@ -138,8 +134,7 @@
               "RelativeToolTip": "BrckETTAPI\\Model\\Groupscheduleconn.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-13T17:44:20.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-13T17:44:20.735Z"
             },
             {
               "$type": "Document",
@@ -163,8 +158,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\GroupscheduleconnController.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-13T08:38:29.352Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-13T08:38:29.352Z"
             },
             {
               "$type": "Document",
@@ -176,8 +170,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\SchedulesusersconnController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-13T08:39:22.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-13T08:39:22.462Z"
             },
             {
               "$type": "Document",
@@ -189,8 +182,7 @@
               "RelativeToolTip": "BrckETTAPI\\Program.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAiwCEAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T10:16:41.983Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-04T10:16:41.983Z"
             },
             {
               "$type": "Document",
@@ -202,8 +194,7 @@
               "RelativeToolTip": "BrckETTAPI\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-04T09:15:37.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-04T09:15:37.738Z"
             }
           ]
         }

@@ -19,25 +19,25 @@ namespace BackendProjekt.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Schedules.Read")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_context.Schedules);
+            return Ok(await _context.Schedules.ToListAsync());
         }
 
         [HttpGet("{id}")]
         [Authorize(Policy = "Schedules.Read")]
-        public IActionResult Get(int id, [FromQuery] bool ext = false)
+        public async Task<IActionResult> Get(int id, [FromQuery] bool ext = false)
         {
             Schedules? schedules = null;
             if (ext)
             {
-                schedules = _context.Schedules
+                schedules = await _context.Schedules
                             .Include(k => k.TemplateId) 
-                            .FirstOrDefault(p => p.TemplateId == id);
+                            .FirstOrDefaultAsync(p => p.TemplateId == id);
             }
             else
             {
-                schedules = _context.Schedules.FirstOrDefault(p => p.TemplateId == id);
+                schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
             }
             if (schedules == null) return NotFound();
             return Ok(schedules);
@@ -45,35 +45,35 @@ namespace BackendProjekt.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Schedules.Create")]
-        public IActionResult Post(Schedules schedules)
+        public async Task<IActionResult> Post(Schedules schedules)
         {
             _context.Schedules.Add(schedules);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return CreatedAtAction("create", schedules);
         }
 
         [HttpPut("{id}")]
         [Authorize(Policy = "Schedules.Update")]
-        public IActionResult Put(int id, Schedules schedules)
+        public async Task<IActionResult> Put(int id, Schedules schedules)
         {
-            var oldSchedules = _context.Schedules.FirstOrDefault(p => p.TemplateId == id);
+            var oldSchedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
             if (oldSchedules == null) return NotFound();
             oldSchedules.TemplateId = schedules.TemplateId;
             oldSchedules.ScheduleInfo = schedules.ScheduleInfo;
             oldSchedules.ScheduleId = schedules.ScheduleId;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(oldSchedules);
 
         }
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "Schedules.Delete")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var schedules = _context.Schedules.FirstOrDefault(p => p.TemplateId == id);
+            var schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
             if (schedules == null) return NotFound();
             _context.Schedules.Remove(schedules);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(schedules);
         }
     }
