@@ -1,0 +1,105 @@
+body:has(.contact-container) {
+    background-color: #6f3fb3; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.contact-container {
+    min-height: 100vh;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+
+.contact-container h1 {
+    background: none; 
+    color: #b8e66a; 
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.contact-container h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #b8e66a;
+    border-radius: 2px;
+    margin-top: 8px;
+}
+
+
+.contact-container p {
+    position: relative;
+    max-width: 900px;
+    background-color: rgba(184, 230, 106, 0.1); 
+    color: #b8e66a; 
+    padding: 25px 30px;
+    border-left: 6px solid #b8e66a; 
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow: hidden; 
+    transition: color 0.3s ease;
+}
+
+
+.contact-container p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px; 
+    height: 100%;
+    background-color: #b8e66a;
+    z-index: 0;
+    transition: width 0.4s ease;
+}
+
+.contact-container p:hover::before {
+    width: 100%; 
+}
+
+.contact-container p:hover {
+    color: #4b1f8f; 
+}
+.contact-container p span {
+    position: relative;
+    z-index: 1;
+}
+
+.contact-container ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-container li {
+    background-color: rgba(184, 230, 106, 0.15);
+    color: #b8e66a;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 20px; 
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-container li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+
+

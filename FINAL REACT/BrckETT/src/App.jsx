@@ -7,16 +7,19 @@ import ProfileModule from './ProfileModule.jsx'
 import User from "./js/UserClass.js";
 import ApiCaller from "./js/call-api.js";
 import ClickAnimation from './ClickAnimation.jsx';
+import GlareHover from './GlareHover.jsx'
 import NavModule from './NavModule.jsx'
 import FooterModule from './FooterModule.jsx'
 import CalendarView from './CalendarView.jsx'
+import About from './About.jsx'
+import ContactUs from './ContactUs.jsx'
 
 //ROUTER
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
   //console.log(user);
@@ -34,10 +37,12 @@ function App() {
     </>
   ) : (
     <>
-      <NavModule links={{home:"/loginReg",about:"/loginReg",contact:"/loginReg",profile:"/loginReg"}} ></NavModule>
+      <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/loginReg"}} ></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
         <Route path='/' element={<FrontPage></FrontPage>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+        <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
         
         {/*

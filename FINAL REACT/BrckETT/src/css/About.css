@@ -1,0 +1,76 @@
+body:has(.about-container) {
+    background-color: #6f3fb3; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-container {
+    min-height: 100vh;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.about-container h1 {
+    background: none; 
+    color: #b8e66a; 
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.about-container h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #b8e66a;
+    border-radius: 2px;
+    margin-top: 8px;
+}
+
+
+.about-container p {
+    position: relative;
+    max-width: 900px;
+    background-color: rgba(184, 230, 106, 0.1); 
+    color: #b8e66a; 
+    padding: 25px 30px;
+    border-left: 6px solid #b8e66a; 
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow: hidden; 
+    transition: color 0.3s ease;
+}
+
+.about-container p::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px; 
+    height: 100%;
+    background-color: #b8e66a;
+    z-index: 0;
+    transition: width 0.4s ease;
+}
+
+.about-container p:hover::before {
+    width: 100%; 
+}
+
+.about-container p:hover {
+    color: #4b1f8f; 
+}
+
+.about-container p span {
+    position: relative;
+    z-index: 1;
+}

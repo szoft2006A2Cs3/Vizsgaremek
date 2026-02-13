@@ -1,24 +1,36 @@
 import "/src/css/NavModule.css";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
-export default function NavModule({links, profileLetter})
-{
-  if(profileLetter === undefined)
-  {
-    profileLetter = "B"
-  }
+export default function NavModule({links, profileLetter}) {
+  if(profileLetter === undefined) profileLetter = "B";
 
-    return (
-    <nav className="top-navbar">
+  const [visible, setVisible] = useState(false);
 
+  // Egér pozíció figyelése
+  useEffect(() => {
+    function handleMouseMove(e) {
+      // Ha az egér az oldal tetején van (pl. 50px-en belül)
+      if (e.clientY < 50) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    }
 
-        <div className="nav-left">
-          <button className="nav-button"><Link to={links.home}>Home</Link></button>
-          <button className="nav-button"><Link to={links.about}>About</Link></button>
-          <button className="nav-button"><Link to={links.contact}>Contact us</Link></button>
-        </div>
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
+  return (
+    <nav className={`top-navbar ${visible ? "visible" : "hidden"}`}>
+      <div className="nav-left">
+        <button className="nav-button"><Link to={links.home}>Home</Link></button>
+        <button className="nav-button"><Link to={links.about}>About</Link></button>
+        <button className="nav-button"><Link to={links.contact}>Contact us</Link></button>
+      </div>
 
-        <button className="profile-button">{profileLetter}</button>
-      </nav>)
+      <button className="profile-button">{profileLetter}</button>
+    </nav>
+  );
 }
