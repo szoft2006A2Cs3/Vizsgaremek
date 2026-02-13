@@ -1,6 +1,6 @@
 import "./css/LoginModule.css";
-import React, { useState } from "react";
-import { data, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import User from "./js/UserClass";
 
 
