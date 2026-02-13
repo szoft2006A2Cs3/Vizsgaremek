@@ -22,5 +22,9 @@ namespace BackendProjekt.Model
         public string? Role { get; set; }
         [Column("Token")]
         public string? Token { get; set; }
+        public Usersettings? Usersettings { get; set; }
+
+        public ICollection<Schedulesusersconn>? Schedulesusersconns { get; set; }
+        public ICollection<Groupuserconn>? Groupuserconns { get; set; }
     }
 }

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\AdvancedInfoController.cs" />
     <Compile Remove="Controllers\GroupscheduleconnController.cs" />
     <Compile Remove="Controllers\GroupuserconnController.cs" />
     <Compile Remove="Controllers\SchedulesusersconnController.cs" />

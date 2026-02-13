@@ -48,6 +48,7 @@ namespace BackendProjekt.Controllers
             // A tokent az őt használó User entitásba is beírjuk, hogy a kijelentkezésnél érvényteleníthessük.
             user.Token = token;
             await _context.SaveChangesAsync();
+            //Console.WriteLine(_context.Users.FirstOrDefault(u => u.Email == loginReq.Email).Token);
             return Ok(token);
         }
 

@@ -22,6 +22,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
+  let [userData, setUserData] = useState(null);
   //console.log(user);
   
 
@@ -31,8 +32,10 @@ function App() {
       <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={user.displayName.substring(0,1).toUpperCase()}></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-        <Route path='/' element={<ProfileModule user={user} logInTrigger={(e)=>setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)}></ProfileModule>}></Route>
+        <Route path='/' element={<ProfileModule user={user} ></ProfileModule>}></Route>
         <Route path='/Schedules' element={<CalendarView></CalendarView>}></Route>
+        <Route path='/about' element={<About></About>}></Route>
+        <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
       </Routes>
     </>
   ) : (
@@ -43,7 +46,7 @@ function App() {
         <Route path='/' element={<FrontPage></FrontPage>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
+        <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => setUserData(e)} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
         
         {/*
         <Route path='/Editor' element={}></Route>

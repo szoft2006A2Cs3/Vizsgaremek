@@ -2,7 +2,14 @@ body:has(.front-page-container){
     background-color: #883ac9d2;
     
 }
-
+.front-page-container {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
 :root:has(.front-page-container){
   --shadow-1: 0 6px 18px rgba(0,0,0,0.14);
   --shadow-2: 0 12px 28px rgba(0,0,0,0.20);

@@ -19,7 +19,7 @@ function ifError(event, func)
         ShowErrors()
     }
 
-export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc}) 
+export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc, callAPIFunc}) 
 {
     const navigate = useNavigate();
     const [logEmail, setLogEmail] = useState('')
@@ -118,7 +118,9 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
                     let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"Admin",token:""}, true).then(data => {return data;})
                     response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
                     callAPIFunc.setToken(response);
-                    let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, regEmail).then(data => {return data;});
+                    let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
+
+                    setUserDataFunc(userData)
                     setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
                     navigate("/")
                     logInTrigger(true)
@@ -137,8 +139,9 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
             //LOGIN & SAVE TOKEN
             let response = await callAPIFunc.callApiAsync('login', 'POST', {email: logEmail, password: logPassword}, false).then(data => {return data;});
             callAPIFunc.setToken(response);
-            let userData = await callAPIFunc.callApiAsync('users', 'GET', null, true, logEmail).then(data => {return data;});
-
+            console.log(response);
+            let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
+            setUserDataFunc(userData)
             setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
             navigate("/")
             logInTrigger(true)
@@ -272,8 +275,3 @@ export default function LoginModule({logInTrigger, setUserFunc, callAPIFunc})
                 field.innerHTML = ""
             }
     }
-
-    
-
-
-

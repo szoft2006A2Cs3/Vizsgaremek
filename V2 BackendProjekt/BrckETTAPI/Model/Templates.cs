@@ -11,5 +11,7 @@ namespace BackendProjekt.Model
         public int TemplateId {  get; set; }
         [Column("template_info")]
         public string? TemplateInfo { get; set; }
+
+        public ICollection<Schedules> Schedules { get; set; }
     }
 }
