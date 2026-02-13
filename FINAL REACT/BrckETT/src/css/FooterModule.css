@@ -48,7 +48,7 @@ body:has(.profile-container) .bottom-footer
 }
 
 .bottom-footer .footer-button.login:hover {
-  background-color: #77ff7dee;
+  background-color: #00ff0dee;
   transform: translateY(-4px);
   box-shadow: var(--shadow-2);
 }

@@ -16,7 +16,7 @@ export default function DayView({ date, events, setEvents, onBack }) {
         updated[key].splice(index, 1);
         setEvents(updated);
     };
-
+    const monthNames = {0:"Január",1:"Február",2:"Március",3:"Április",4:"Május",5:"Június",6:"Július",7:"Augusztus",8:"Szeptember",9:"Október",10:"November",11:"December"}
     const dateObj = new Date(date.year, date.month - 1, date.day);
     const dayName = dateObj.toLocaleDateString("hu-HU", { weekday: "long" });
 
@@ -27,7 +27,7 @@ export default function DayView({ date, events, setEvents, onBack }) {
                 <div className="CalendarBtn" onClick={onBack}>◀ Vissza</div>
 
                 <div style={{ fontSize: 20, fontWeight: "bold" }}>
-                    {date.year}.{date.month}.{date.day}. {dayName}
+                    {date.year}. {monthNames[date.month - 1]} {date.day}. {dayName}
                 </div>
 
                 <div className="PlusBtn" onClick={addEvent}>+</div>
