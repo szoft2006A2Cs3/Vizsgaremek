@@ -192,7 +192,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     function CheckName(element)
     {
         const name = element.value;
-        const namePattern = /^[A-Za-záéíóöőúüűÁÉÍÓÖŐÚÜŰ]+$/u;
+        const namePattern = /^[A-Za-záéíóöőúüűÁÉÍÓÖŐÚÜŰ_]+$/u;
         if (!namePattern.test(name)) {
             return "Name can only contain letters.";
         }
@@ -223,7 +223,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         else if (!/\d/.test(passwordInput.value)) {
             return "Password must contain at least one number.";
         }
-        else if (!/[!@#$%^&*\.]/.test(passwordInput.value)) {
+        else if (!/[!@#$%^&*_\.]/.test(passwordInput.value)) {
             return "Password must contain (!@#$%^&*.).";
         }
     }

@@ -47,7 +47,7 @@ export default function Calendar({ events, onSelectDate }) {
     for (let e = 1;e <= endOffSet;e++) days.push(null);
 
     return (
-        <div>
+        <div className="Inner-Calendar-Wrapper">
             
             <header className="CalendarHeader">
                 <div className="CalendarNav">

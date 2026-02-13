@@ -93,17 +93,46 @@ namespace BackendProjekt.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Post(Users user)
+        public async Task<IActionResult> Post(Users user)
         {
-            if (_context.Users.FirstOrDefault(u => u.Email == user.Email)!=null) 
+            if (_context.Users.FirstOrDefault(u => u.Email == user.Email) != null)
             {
                 return BadRequest("Ez az e-mail cím már tartozik egy fiókhoz");
             }
 
-
             user.Password = PasswordHandler.HashPassword(user.Password);
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            // Create Usersettings with the same UserId
+            var userSettings = new Usersettings
+            {
+                UserId = user.UserId,
+                Settings = ""                                                 // Create the default settings preset ------------------------------------------------------------------------
+            };
+            _context.Usersettings.Add(userSettings);
+            await _context.SaveChangesAsync();
+
+            // Create connection between user and schedule
+            var scheduleUserConn = new Schedulesusersconn
+            {
+                UserId = user.UserId,
+                ScheduleId = 1
+            };
+            _context.Schedulesusersconns.Add(scheduleUserConn);
+            // Create connection between user and group
+            var groupUserConn = new Groupuserconn
+            {
+                Permission = "user",
+                UserId = user.UserId,
+                GroupId = 1
+            };
+            _context.Groupuserconns.Add(groupUserConn);
+            await _context.SaveChangesAsync();
+
+
+
+
             return Created($"CREATED", user);
         }
 
