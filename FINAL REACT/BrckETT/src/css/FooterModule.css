@@ -14,7 +14,7 @@ body:has(.profile-container) .bottom-footer
   left: 0;
   width: -webkit-fill-available;
   height: 40px;
-  background-color: #a8fa50;
+  background: rgba(193, 255, 114, 0.8);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,6 +25,7 @@ body:has(.profile-container) .bottom-footer
 
 .bottom-footer.hidden {
   transform: translateY(calc(100% - 8px));
+  opacity: 0.6;
 }
 
 .bottom-footer.visible {

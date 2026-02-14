@@ -59,7 +59,8 @@ const handleMouseUp = () => {
 
  return (
   <div className="front-page-container">
-      
+      <div className="smoke-background"></div>
+
 
 
     <div className="image-carousel" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}onMouseLeave={handleMouseUp}> 

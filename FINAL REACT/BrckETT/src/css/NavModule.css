@@ -13,7 +13,7 @@ body:has(.profile-container) .top-navbar
   top: 0;
   left: 0;
   width: -webkit-fill-available;
-  background: #c1ff72;
+  background: rgba(193, 255, 114, 0.8);
   backdrop-filter: blur(10px);
   color: #ffffff;
   display: flex;
@@ -28,13 +28,12 @@ body:has(.profile-container) .top-navbar
 
 .top-navbar.hidden {
   transform: translateY(-85%);
-  opacity: 1;
+  opacity: 0.6;
 }
 
 
 .top-navbar.visible {
   transform: translateY(0);
-  opacity: 1;
 }
 
 .top-navbar .nav-button:hover {
