@@ -29,14 +29,14 @@ namespace BackendProjekt.Controllers
 
         [HttpGet]
         [Authorize(Policy = "AdvancedInfo.Read")]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return ["nothing"];
+            return Ok("Not implemented yet");
         }
 
         // GET api/<AdvancedInfoController>/5
         [HttpGet("{token}")]
-        //[Authorize(Policy = "AdvancedInfo.ReadByToken")]
+        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
         public async Task<IActionResult> Get(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
@@ -120,22 +120,25 @@ namespace BackendProjekt.Controllers
         // POST api/<AdvancedInfoController>
         [HttpPost]
         [Authorize(Policy = "AdvancedInfo.Create")]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] string value)
         {
+            return Ok("Not implemented yet");
         }
 
         // PUT api/<AdvancedInfoController>/5
         [Authorize(Policy = "AdvancedInfo.Update")]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] string value)
         {
+            return Ok("Not implemented yet");
         }
 
         // DELETE api/<AdvancedInfoController>/5
         [Authorize(Policy = "AdvancedInfo.Delete")]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            return Ok("Not implemented yet");
         }
     }
 }

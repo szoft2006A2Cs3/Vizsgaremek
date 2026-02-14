@@ -16,7 +16,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc})
     return (
         <div className="profile-container">
             <div className="center-piece">
-            <img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-img" />
+            <Link to={"/profile"}><img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-img" /></Link>
             <h2 id="Name" className="profile-name">{user.displayName}</h2>
             <p id="UName" className="profile-username">@{user.username}</p>
             </div>

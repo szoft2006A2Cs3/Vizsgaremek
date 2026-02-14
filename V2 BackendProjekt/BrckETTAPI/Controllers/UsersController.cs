@@ -28,7 +28,7 @@ namespace BackendProjekt.Controllers
 
         [HttpGet("{input}")]
         [Authorize(Policy = "Users.Read")]
-        public IActionResult Get(string input, [FromQuery] bool ext = false)
+        public async Task<IActionResult> Get(string input, [FromQuery] bool ext = false)
         {
             if (!int.TryParse(input, out _) && input.IndexOf("@") == -1)
             {
@@ -41,15 +41,15 @@ namespace BackendProjekt.Controllers
             {
                 if (input.IndexOf("@") == -1)
                 {
-                    user = _context.Users
+                    user = await _context.Users
                             //.Include("") 
-                            .FirstOrDefault(p => p.UserId == int.Parse(input));
+                            .FirstOrDefaultAsync(p => p.UserId == int.Parse(input));
                 }
                 else 
                 {
-                    user = _context.Users
+                    user = await _context.Users
                             //.Include("") 
-                            .FirstOrDefault(p => p.Email == input);
+                            .FirstOrDefaultAsync(p => p.Email == input);
                 }
                 
             }
@@ -57,13 +57,13 @@ namespace BackendProjekt.Controllers
             {
                 if (input.IndexOf("@") == -1)
                 {
-                    user = _context.Users
-                            .FirstOrDefault(p => p.UserId == int.Parse(input));
+                    user = await _context.Users
+                            .FirstOrDefaultAsync(p => p.UserId == int.Parse(input));
                 }
                 else
                 {
-                    user = _context.Users
-                            .FirstOrDefault(p => p.Email == input);
+                    user = await _context.Users
+                            .FirstOrDefaultAsync(p => p.Email == input);
                 }
             }
             if (user == null) return NotFound();
@@ -138,9 +138,9 @@ namespace BackendProjekt.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = "Users.Update")]
-        public IActionResult Put(int id, Users user)
+        public async Task<IActionResult> Put(int id, Users user)
         {
-            var olduser = _context.Users.FirstOrDefault(p => p.UserId == id);
+            var olduser = await _context.Users.FirstOrDefaultAsync(p => p.UserId == id);
             if (olduser == null) return NotFound();
             olduser.UserId = user.UserId;
             olduser.UserName = user.UserName;
@@ -148,19 +148,19 @@ namespace BackendProjekt.Controllers
             olduser.DisplayName = user.DisplayName;
             //olduser.Password = user.Password;
             olduser.Password = PasswordHandler.HashPassword(user.Password);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(olduser);
 
         }
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "Users.Delete")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var user = _context.Users.FirstOrDefault(p => p.UserId == id);
+            var user = await _context.Users.FirstOrDefaultAsync(p => p.UserId == id);
             if (user == null) return NotFound();
             _context.Users.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(user);
         }
     }

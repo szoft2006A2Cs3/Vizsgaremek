@@ -7,12 +7,13 @@ import ProfileModule from './ProfileModule.jsx'
 import User from "./js/UserClass.js";
 import ApiCaller from "./js/call-api.js";
 import ClickAnimation from './ClickAnimation.jsx';
-import GlareHover from './GlareHover.jsx'
 import NavModule from './NavModule.jsx'
 import FooterModule from './FooterModule.jsx'
 import CalendarView from './CalendarView.jsx'
 import About from './About.jsx'
 import ContactUs from './ContactUs.jsx'
+import ProfileDescriptionModule from './ProfileDescriptionModule.jsx'
+import SettingsModule from './SettingsModule.jsx'
 
 //ROUTER
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -24,7 +25,14 @@ function App() {
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
   let [userData, setUserData] = useState(null);
   //console.log(user);
-  
+  function getUserData() 
+  {
+    if(userData === null) return user;
+    else{
+      setUser(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token));
+    }
+    return user;
+  }
 
   let res = isLoggedIn ? 
   (
@@ -32,10 +40,12 @@ function App() {
       <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={user.displayName.substring(0,1).toUpperCase()}></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-        <Route path='/' element={<ProfileModule user={user} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)}></ProfileModule>}></Route>
+        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)}></ProfileModule>}></Route>
         <Route path='/Schedules' element={<CalendarView></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
+        <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(e)}></ProfileDescriptionModule>}></Route>
+        <Route path='/Settings' element={<SettingsModule userData={userData} setUserDataFunc={(e) => setUserData(e)}></SettingsModule>}></Route>
       </Routes>
     </>
   ) : (
@@ -52,7 +62,6 @@ function App() {
         <Route path='/Editor' element={}></Route>
         
         <Route path='/Groups' element={}></Route>
-        <Route path='/Settings' element={}></Route>
         */}
         </Routes>
         <FooterModule></FooterModule>

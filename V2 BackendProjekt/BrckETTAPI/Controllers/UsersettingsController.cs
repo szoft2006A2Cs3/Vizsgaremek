@@ -1,8 +1,12 @@
-﻿using BackendProjekt.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
+using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace BackendProjekt.Controllers
 {
@@ -19,25 +23,25 @@ namespace BackendProjekt.Controllers
 
         [HttpGet]
         [Authorize(Policy = "UserSettings.Read")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_context.Usersettings);
+            return Ok(await _context.Usersettings.ToListAsync());
         }
 
         [HttpGet("{id}")]
         [Authorize(Policy = "UserSettings.Read")]
-        public IActionResult Get(int id, [FromQuery] bool ext = false)
+        public async Task<IActionResult> Get(int id, [FromQuery] bool ext = false)
         {
             Usersettings? usersetting = null;
             if (ext)
             {
-                usersetting = _context.Usersettings
+                usersetting = await _context.Usersettings
                             .Include(k => k.UserId)
-                            .FirstOrDefault(p => p.UserId == id);
+                            .FirstOrDefaultAsync(p => p.UserId == id);
             }
             else
             {
-                usersetting = _context.Usersettings.FirstOrDefault(p => p.UserId == id);
+                usersetting = await _context.Usersettings.FirstOrDefaultAsync(p => p.UserId == id);
             }
             if (usersetting == null) return NotFound();
             return Ok(usersetting);
@@ -46,34 +50,34 @@ namespace BackendProjekt.Controllers
         [HttpPost]
         [Authorize(Policy = "UserSettings.Create")]
 
-        public IActionResult Post(Usersettings usersetting)
+        public async Task<IActionResult> Post(Usersettings usersetting)
         {
             _context.Usersettings.Add(usersetting);
-            _context.SaveChanges();
-            return CreatedAtAction("create", usersetting);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction($"created", usersetting);
         }
 
         [HttpPut("{id}")]
         [Authorize(Policy = "UserSettings.Update")]
-        public IActionResult Put(int id, Usersettings usersetting)
+        public async Task<IActionResult> Put(int id, Usersettings usersetting)
         {
-            var oldusersetting = _context.Usersettings.FirstOrDefault(p => p.UserId == id);
+            var oldusersetting = await _context.Usersettings.FirstOrDefaultAsync(p => p.UserId == id);
             if (oldusersetting == null) return NotFound();
             oldusersetting.UserId = usersetting.UserId;
             oldusersetting.Settings = usersetting.Settings;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(oldusersetting);
 
         }
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "UserSettings.Delete")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var usersetting = _context.Usersettings.FirstOrDefault(p => p.UserId == id);
+            var usersetting = await _context.Usersettings.FirstOrDefaultAsync(p => p.UserId == id);
             if (usersetting == null) return NotFound();
             _context.Usersettings.Remove(usersetting);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(usersetting);
         }
     }

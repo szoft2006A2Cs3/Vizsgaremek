@@ -19,25 +19,25 @@ namespace BackendProjekt.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Templates.Read")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_context.Templates);
+            return Ok(await _context.Templates.ToListAsync());
         }
 
         [HttpGet("{id}")]
         [Authorize(Policy = "Templates.Read")]
-        public IActionResult Get(int id, [FromQuery] bool ext = false)
+        public async Task<IActionResult> Get(int id, [FromQuery] bool ext = false)
         {
             Templates? template = null;
             if (ext)
             {
-                template = _context.Templates
+                template = await _context.Templates
                             //.Include("") 
-                            .FirstOrDefault(p => p.TemplateId == id);
+                            .FirstOrDefaultAsync(p => p.TemplateId == id);
             }
             else
             {
-                template = _context.Templates.FirstOrDefault(p => p.TemplateId == id);
+                template = await _context.Templates.FirstOrDefaultAsync(p => p.TemplateId == id);
             }
             if (template == null) return NotFound();
             return Ok(template);
@@ -45,34 +45,34 @@ namespace BackendProjekt.Controllers
 
         [HttpPost]
         [Authorize(Policy = "Templates.Create")]
-        public IActionResult Post(Templates template)
+        public async Task<IActionResult> Post(Templates template)
         {
             _context.Templates.Add(template);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return CreatedAtAction("create", template);
         }
 
         [HttpPut("{id}")]
         [Authorize(Policy = "Templates.Update")]
-        public IActionResult Put(int id, Templates template)
+        public async Task<IActionResult> Put(int id, Templates template)
         {
-            var oldtemplate = _context.Templates.FirstOrDefault(p => p.TemplateId == id);
+            var oldtemplate = await _context.Templates.FirstOrDefaultAsync(p => p.TemplateId == id);
             if (oldtemplate == null) return NotFound();
             oldtemplate.TemplateId = template.TemplateId;
             oldtemplate.TemplateInfo = template.TemplateInfo;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(oldtemplate);
 
         }
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "Templates.Delete")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var template = _context.Templates.FirstOrDefault(p => p.TemplateId == id);
+            var template = await _context.Templates.FirstOrDefaultAsync(p => p.TemplateId == id);
             if (template == null) return NotFound();
             _context.Templates.Remove(template);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok(template);
         }
     }

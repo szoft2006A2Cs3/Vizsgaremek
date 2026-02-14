@@ -28,7 +28,7 @@ export default function NavModule({links, profileLetter}) {
         <button className="nav-button"><Link to={links.contact}>Contact us</Link></button>
       </div>
 
-      <button className="profile-button">{profileLetter}</button>
+      <button className="profile-button"><Link to={links.profile}>{profileLetter}</Link></button>
     </nav>
   );
 }
