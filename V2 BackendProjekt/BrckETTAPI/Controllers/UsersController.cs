@@ -146,6 +146,7 @@ namespace BackendProjekt.Controllers
             olduser.UserName = user.UserName;
             olduser.Email = user.Email;
             olduser.DisplayName = user.DisplayName;
+            olduser.Description = user.Description;
             //olduser.Password = user.Password;
             olduser.Password = PasswordHandler.HashPassword(user.Password);
             await _context.SaveChangesAsync();

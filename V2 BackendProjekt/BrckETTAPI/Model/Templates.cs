@@ -12,6 +12,7 @@ namespace BackendProjekt.Model
         [Column("template_info")]
         public string? TemplateInfo { get; set; }
 
-        public ICollection<Schedules> Schedules { get; set; }
+        public ICollection<Schedules>? Schedules { get; set; }
+        public ICollection<TemplatesBlocksConn>? TemplatesBlocksConns { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace BackendProjekt.Model
         public string? DisplayName { get; set; }
         [Column("PASSWORD")]
         public required string Password { get; set; }
+        [Column("Description")]
+        public string? Description { get; set; }
         [Column("Role")]
         public string? Role { get; set; }
         [Column("Token")]

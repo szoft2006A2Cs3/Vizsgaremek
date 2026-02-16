@@ -20,7 +20,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
   let [userData, setUserData] = useState(null);

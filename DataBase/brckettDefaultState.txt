@@ -51,6 +51,33 @@ CREATE TABLE `groupscheduleconn` (
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `templatesblocksconn`
+--
+
+CREATE TABLE `templatesblocksconn` (
+  `template_id` int(11) NOT NULL,
+  `block_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `blocks`
+--
+
+CREATE TABLE `blocks` (
+  `block_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `timeStart` int(11) NOT NULL,
+  `timeEnd` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `priority` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `groupuserconn`
 --
 
@@ -107,7 +134,8 @@ CREATE TABLE `users` (
   `display_name` varchar(128) DEFAULT NULL,
   `Token` varchar(2000) DEFAULT NULL,
   `Role` varchar(128) DEFAULT NULL,
-  `PASSWORD` varchar(128) NOT NULL
+  `PASSWORD` varchar(128) NOT NULL,
+  `Description` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -126,11 +154,24 @@ CREATE TABLE `usersettings` (
 --
 
 --
+-- A tábla indexei `blocks`
+--
+ALTER TABLE `blocks`
+  ADD PRIMARY KEY (`block_id`);
+
+--
+-- A tábla indexei `templatesblocksconn`
+--
+ALTER TABLE `templatesblocksconn`
+  ADD PRIMARY KEY (`template_id`,`block_id`),
+  ADD KEY `block_id` (`block_id`);
+  
+--
 -- A tábla indexei `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`);
-
+  
 --
 -- A tábla indexei `groupscheduleconn`
 --
@@ -187,6 +228,12 @@ ALTER TABLE `usersettings`
 ALTER TABLE `groups`
   MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT a táblához `blocks`
+--
+ALTER TABLE `blocks`
+  MODIFY `block_id` int(11) NOT NULL AUTO_INCREMENT;
+  
 --
 -- AUTO_INCREMENT a táblához `schedules`
 --

@@ -5,3 +5,42 @@ body:has(.settings-module){
 .settings-module{
 
 }
+
+
+/*Delete this, and do the GRID*/
+.settings-module .settings-category{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: space-around;
+}
+/*Delete this, and do the GRID*/
+.settings-module .settings-column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-around;
+}
+.settings-module .settings-radio-btn{
+    padding: 10px 20px;
+    background-color: #6f3fb3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.settings-module .settings-radio-btn:hover{
+    background-color: #883ac9d2;
+}
+.settings-module .settings-save-btn{
+    padding: 10px 20px;
+    background-color: #5a1394d2;
+    color: #a8fa50;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/*4hx3w grid, bottom row unified*/
+/*Title on top of category, under each other, centered*/
