@@ -9,6 +9,7 @@ const ClickAnimation = ({
   easing = 'ease-out',
   extraScale = 1.0,
 }) => {
+
   const canvasRef = useRef(null);
   const sparksRef = useRef([]);
   const startTimeRef = useRef(null);

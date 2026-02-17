@@ -67,11 +67,16 @@ function App() {
         <FooterModule></FooterModule>
     </>
   )
-
+  document.body.classList.add("dark-mode");
 
   return (
     <>
       <ClickAnimation></ClickAnimation>
+      {/*THERE IS A PINK BUTTON ON SCREEN ALWAYS TO CHANGE LIGHT/DARK MODE FOR TESTING*/}
+      <button style={{position: "absolute", background: "pink", height: "2rem", width: "5rem", top: "5rem", right: "5rem", zIndex: 100}} onClick={() => {
+        document.body.classList.toggle("light-mode");
+        document.body.classList.toggle("dark-mode");
+      }}></button>
       <BrowserRouter>
         
           {res}

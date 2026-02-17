@@ -1,5 +1,18 @@
+body:has(.about-container).light-mode {
+    --abbackground: #6f3fb3; 
+    --abcolor: #b8e66a; 
+    --abboxbgcolor:rgba(184, 230, 106, 0.15);
+    
+}
+body:has(.about-container).dark-mode {
+    --abbackground: #362353; 
+    --abcolor: #c48ce4;
+    --abboxbgcolor:rgba(106, 54, 119, 0.664);
+}
+
+
 body:has(.about-container) {
-    background-color: #6f3fb3; 
+    background-color: var(--abbackground); 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -15,7 +28,7 @@ body:has(.about-container) {
 
 .about-container h1 {
     background: none; 
-    color: #b8e66a; 
+    color: var(--abcolor); 
     font-size: 3rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -29,7 +42,7 @@ body:has(.about-container) {
     display: block;
     width: 60px;
     height: 4px;
-    background-color: #b8e66a;
+    background-color: var(--abcolor);
     border-radius: 2px;
     margin-top: 8px;
 }
@@ -38,10 +51,10 @@ body:has(.about-container) {
 .about-container p {
     position: relative;
     max-width: 900px;
-    background-color: rgba(184, 230, 106, 0.1); 
-    color: #b8e66a; 
+    background-color: var(--abboxbgcolor); 
+    color: var(--abcolor); 
     padding: 25px 30px;
-    border-left: 6px solid #b8e66a; 
+    border-left: 6px solid var(--abcolor); 
     border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 500;
@@ -57,7 +70,7 @@ body:has(.about-container) {
     left: 0;
     width: 6px; 
     height: 100%;
-    background-color: #b8e66a;
+    background-color: var(--abcolor);
     z-index: 0;
     transition: width 0.4s ease;
 }
@@ -73,4 +86,35 @@ body:has(.about-container) {
 .about-container p span {
     position: relative;
     z-index: 1;
+}
+
+/* Mobile / small-screen tweaks */
+@media (max-width: 800px) {
+    .about-container {
+        padding: 36px 14px;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .about-container h1 {
+        font-size: 2rem;
+        padding-bottom: 6px;
+    }
+
+    .about-container h1::after {
+        width: 48px;
+        height: 3px;
+    }
+
+    .about-container p {
+        max-width: 100%;
+        padding: 16px 18px;
+        border-left: 4px solid var(--abcolor);
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .about-container p::before {
+        width: 4px;
+    }
 }
