@@ -40,7 +40,7 @@ function App() {
       <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={user.displayName.substring(0,1).toUpperCase()}></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)}></ProfileModule>}></Route>
+        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(e)}></ProfileModule>}></Route>
         <Route path='/Schedules' element={<CalendarView></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
