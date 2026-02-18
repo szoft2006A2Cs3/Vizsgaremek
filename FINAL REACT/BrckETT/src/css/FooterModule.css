@@ -7,6 +7,24 @@ body:has(.profile-container) .bottom-footer
 {
   visibility: collapse;
 }
+body:has(.bottom-footer).light-mode {
+    --footerhovercolor: #00ff0dee;
+    --footerbtnbackground: #80ff00;
+    --footerbtnborder: #93cc56;
+    --footerbackground: rgba(193, 255, 114, 1);
+    --footerfgcolor: #000000;
+}
+body:has(.bottom-footer).dark-mode {
+    --footerhovercolor: #790097ee;
+    --footerbtnbackground: #410052ee;
+    --footerbtnborder: #651679ee;
+    --footerfgcolor: #ffffff;
+    --footerbackground: #310058d2;
+}
+.bottom-footer a {
+  color: var(--footerfgcolor);
+  text-decoration: none;
+}
 
 .bottom-footer {
   position: fixed;
@@ -14,13 +32,14 @@ body:has(.profile-container) .bottom-footer
   left: 0;
   width: -webkit-fill-available;
   height: 40px;
-  background: rgba(193, 255, 114, 0.8);
+  background: var(--footerbackground);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   z-index: 50;
   transition: transform 0.3s ease;
+  color: var(--footerfgcolor);
 }
 
 .bottom-footer.hidden {
@@ -44,24 +63,24 @@ body:has(.profile-container) .bottom-footer
 }
 
 .bottom-footer .footer-button.register {
-  border: #93cc56 2px solid;
-  background-color: #80ff00;
+  border: var(--footerbtnborder) 2px solid;
+  background-color: var(--footerbtnbackground);
   color: hsl(0, 0%, 0%);
 }
 
 .bottom-footer .footer-button.register:hover {
-  background-color: #00ff0dee;
+  background-color: var(--footerhovercolor);
 }
 
 .bottom-footer .footer-button.login {
-  border: #93cc56 2px solid;
-  background-color: #80ff00;
+  border: var(--footerbtnborder) 2px solid;
+  background-color: var(--footerbtnbackground);
   box-shadow: var(--shadow-1);
   color: #1e293b;
 }
 
 .bottom-footer .footer-button.login:hover {
-  background-color: #00ff0dee;
+  background-color: var(--footerhovercolor);
   transform: translateY(-4px);
   box-shadow: var(--shadow-2);
 }

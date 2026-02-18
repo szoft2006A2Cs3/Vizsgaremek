@@ -8,14 +8,31 @@ body:has(.profile-container) .top-navbar
   visibility: collapse;
 }
 
+body:has(.top-navbar).light-mode {
+    --navbackground: rgba(193, 255, 114, 1);
+    --navtextcolor: #000000;
+    --navpfpbgcolor: #ffffff;
+    --navfgcolor: #ffffff;
+    --navhovercolor: rgba(193, 255, 114, 0.6);
+}
+body:has(.top-navbar).dark-mode {
+    --navbackground: #310058d2;
+    --navtextcolor: #ffffff;
+    --navpfpbgcolor: #5f005f;
+    --navfgcolor: #000000;
+    --navhovercolor: #632c91d2;
+}
+
+
+
 .top-navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: -webkit-fill-available;
-  background: rgba(193, 255, 114, 0.8);
+  background: var(--navbackground);
   backdrop-filter: blur(10px);
-  color: #ffffff;
+  color: var(--navfgcolor);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,6 +41,17 @@ body:has(.profile-container) .top-navbar
   z-index: 50;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
+
+.top-navbar button a {
+  color: var(--navtextcolor);
+  text-decoration: none;
+}
+
+.top-navbar .profile-button:hover {
+  background-color: #c772ff;
+}
+
 
 
 .top-navbar.hidden {
@@ -37,15 +65,15 @@ body:has(.profile-container) .top-navbar
 }
 
 .top-navbar .nav-button:hover {
-  background-color: rgba(193, 255, 114, 0.6); 
+  background-color: var(--navhovercolor); 
 }
 
 .top-navbar .profile-button {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: #ffffff;
-  color: #000000; 
+  background-color: var(--navpfpbgcolor);
+  color: var(--navtextcolor); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,20 +93,7 @@ body:has(.profile-container) .top-navbar
 }
 
 .top-navbar .nav-button:hover {
-  background-color: rgba(193, 255, 114, 0.6); 
+  background-color: var(--navhovercolor); 
 }
 
-.top-navbar .profile-button {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: #ffffff;
-  color: #000000; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-}
 

@@ -9,6 +9,8 @@ export default function FrontPage()
 {
     const images = [Image, Image2, Image3];
 
+    
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const prevImage = () => {

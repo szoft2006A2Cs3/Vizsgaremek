@@ -11,3 +11,7 @@
   /*padding: 2rem;*/
   text-align: center;
 }
+body
+{
+  transition: background 0.5s ease;
+}

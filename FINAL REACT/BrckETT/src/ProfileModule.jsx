@@ -3,13 +3,15 @@ import "./css/ProfileModule.css";
 import User from "./js/UserClass";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule({user, logInTrigger, setUserFunc}) 
+export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc}) 
 {
     const navigate = useNavigate();
     async function logOutSequence()
     {
         setUserFunc(new User())
+        setUserDataFunc(null)
         logInTrigger(false)
+        //Delete Local storage token here WHEN IMPLEMENTED ---------------------------------------------------------------------------------------------------------------------------------------
         navigate("/")
     }
     //console.log({user});

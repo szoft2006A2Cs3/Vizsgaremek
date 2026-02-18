@@ -1,5 +1,18 @@
+body:has(.contact-container).light-mode {
+    --cbackground: #6f3fb3; 
+    --ccolor: #b8e66a; 
+    --cboxbgcolor:rgba(184, 230, 106, 0.15);
+    
+}
+body:has(.contact-container).dark-mode {
+    --cbackground: #362353; 
+    --ccolor: #c48ce4;
+    --cboxbgcolor:rgba(106, 54, 119, 0.664);
+}
+
+
 body:has(.contact-container) {
-    background-color: #6f3fb3; 
+    background-color: var(--cbackground); 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -17,7 +30,7 @@ body:has(.contact-container) {
 
 .contact-container h1 {
     background: none; 
-    color: #b8e66a; 
+    color: var(--ccolor); 
     font-size: 3rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -31,7 +44,7 @@ body:has(.contact-container) {
     display: block;
     width: 60px;
     height: 4px;
-    background-color: #b8e66a;
+    background-color: var(--ccolor);
     border-radius: 2px;
     margin-top: 8px;
 }
@@ -40,16 +53,17 @@ body:has(.contact-container) {
 .contact-container p {
     position: relative;
     max-width: 900px;
-    background-color: rgba(184, 230, 106, 0.1); 
-    color: #b8e66a; 
+    background-color: var(--cboxbgcolor); 
+    color: var(--ccolor); 
     padding: 25px 30px;
-    border-left: 6px solid #b8e66a; 
+    border-left: 6px solid var(--ccolor); 
     border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 500;
     line-height: 1.6;
     overflow: hidden; 
     transition: color 0.3s ease;
+
 }
 
 
@@ -60,7 +74,7 @@ body:has(.contact-container) {
     left: 0;
     width: 6px; 
     height: 100%;
-    background-color: #b8e66a;
+    background-color: var(--ccolor);
     z-index: 0;
     transition: width 0.4s ease;
 }
@@ -88,8 +102,8 @@ body:has(.contact-container) {
 }
 
 .contact-container li {
-    background-color: rgba(184, 230, 106, 0.15);
-    color: #b8e66a;
+    background-color: var(--cboxbgcolor);
+    color: var(--ccolor);
     font-weight: 600;
     padding: 12px 20px;
     border-radius: 20px; 
@@ -99,6 +113,49 @@ body:has(.contact-container) {
 .contact-container li:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Mobile / small-screen tweaks */
+@media (max-width: 800px) {
+    .contact-container {
+        padding: 36px 14px;
+        gap: 18px;
+        align-items: stretch;
+    }
+
+    .contact-container h1 {
+        font-size: 2rem;
+        padding-bottom: 6px;
+    }
+
+    .contact-container h1::after {
+        width: 48px;
+        height: 3px;
+    }
+
+    .contact-container p {
+        max-width: 100%;
+        padding: 16px 18px;
+        border-left: 4px solid var(--ccolor);
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .contact-container p::before {
+        width: 4px;
+    }
+
+    .contact-container ul {
+        max-width: 100%;
+        gap: 8px;
+        padding: 0 8px;
+    }
+
+    .contact-container li {
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+    }
 }
 
 

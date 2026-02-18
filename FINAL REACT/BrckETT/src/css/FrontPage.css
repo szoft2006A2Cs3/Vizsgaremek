@@ -1,7 +1,20 @@
-body:has(.front-page-container){
-    background-color: #883ac9d2;
-    
+body:has(.front-page-container).light-mode {
+    --background: #6f3fb3;
 }
+body:has(.front-page-container).dark-mode {
+    --background: #362353;
+}
+
+body:has(.front-page-container) {
+    background: var(--background);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background 0.5s ease;
+}
+
+
+
 .front-page-container {
     min-height: 100vh;
     display: flex;
@@ -15,14 +28,7 @@ body:has(.front-page-container){
 }
 
 
-.front-page-container button a {
-  color: #000000;
-  text-decoration: none;
-}
 
-.front-page-container .profile-button:hover {
-  background-color: #c772ff;
-}
 
 
 .front-page-container .app-container {
@@ -152,6 +158,58 @@ body:has(.front-page-container){
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Mobile / small-screen tweaks */
+@media (max-width: 800px) {
+  .front-page-container .image-carousel {
+    width: calc(100% - 32px);
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  }
+
+  .front-page-container .image-carousel:hover {
+    transform: none;
+  }
+
+  .front-page-container .image-carousel img,
+  .front-page-container .carousel-image {
+    border-radius: 12px;
+  }
+
+  .front-page-container .arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    top: 48%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+  }
+
+  .front-page-container .arrow.left { left: 6px; }
+  .front-page-container .arrow.right { right: 6px; }
+
+  .front-page-container .dots {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  .front-page-container .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  :root:has(.front-page-container) {
+    --shadow-1: 0 4px 12px rgba(0,0,0,0.12);
+    --shadow-2: 0 8px 18px rgba(0,0,0,0.15);
+    --shadow-3: 0 12px 24px rgba(0,0,0,0.18);
+  }
+
+  .front-page-container .app-container {
+    padding: 8px 8px 20px 8px;
   }
 }
 

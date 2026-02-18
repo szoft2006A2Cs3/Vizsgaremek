@@ -1,7 +1,26 @@
+body:has(.profile-container).light-mode {
+    --background: #6f3fb3;
+    --fgcolor: #a8fa50;
+    --btnbgcolor: #883ac9d2;
+    --btnhovercolor: #c772ff;
+    --pfpborder: purple;
+    --btnborder: #5a1394d2;
+    --imgUrl: url("/src/assets/logout_Light.png");
+}
+body:has(.profile-container).dark-mode {
+    --background: #362353;
+    --fgcolor: #d19aff;
+    --btnbgcolor: #4e008df7;
+    --btnhovercolor: #6e29a7f7;
+    --pfpborder: #5e3fa7d2;
+    --btnborder: #5e3fa7d2;
+    --imgUrl: url("/src/assets/logout_Dark.png");
+}
+
 body:has(.profile-container)
 {
-    background-color: rgb(24 22 22);
-    color: #A8A9AA;
+    background-color: var(--background);
+    color: var(--fgcolor);
     height: -webkit-fill-available;
 }
 
@@ -21,7 +40,7 @@ body:has(.profile-container)
 {
     width: 50%;
     border-radius: 100%;
-    border: purple 10px solid;
+    border: var(--pfpborder) 10px solid;
 }
 .profile-container #Name
 {
@@ -65,17 +84,17 @@ body:has(.profile-container)
 {
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 12px 18px;
     height: 100%;
     max-height: 100px;
-    border: #5a1394d2 3px solid;
+    border: var(--btnborder) 3px solid;
 
-    background-color: #883ac9d2;
-    color: #a8fa50;
+    background-color: var(--btnbgcolor);
+    color: var(--fgcolor);
 }
 .profile-container div.button-panel button a
 {
-    color: #a8fa50;
+    color: var(--fgcolor);
     font-size: 25px;
     font-weight: 700;
 }
@@ -83,31 +102,78 @@ body:has(.profile-container)
 {
     max-width: 80px;
     max-height: 80px;
+    padding: 0;
 }
 .profile-container #Logout-Btn a
 {
-    /*ADD LOGOUT ICON IN THE LINK INSTEAD OF TEXT                            --------------------------------------------------------------------------------------------------*/
     height: 100%;
     width: 100%;
-    color: #a8fa50;
+    color: var(--fgcolor);
 }
 .profile-container .logoutIcon
 {
     max-width: 60px;
     max-height: 60px;
     padding: 10px;
+    content: var(--imgUrl);
 }
 .profile-container div.button-panel > button:hover
 {
-    border: #5a1394d2 3px solid;
+    border: var(--btnborder) 3px solid;
 
-    background-color: #a650edf7;
-    color: #a8fa50;
+    background-color: var(--btnhovercolor);
+    color: var(--fgcolor);
 }
 .profile-container div.button-panel button:hover a
 {
     font-size: 30px;
 }
-/*ADD BUTTON ANIMATIONS*/
-/*MAKE A NAVBAR (TOP ROW)*/
-/*MAKE ESSENTIAL SETTINGS STUFF ON THE RIGHT SIDE, + MINI PROFILE    (LOGOUT,SETTINGS,WATCH PROFILE --> ADD A PAGE FOR A DEEP DESC, NO BTNS TYPE STUFF)*/
+
+@media (max-width: 800px) {
+
+    .profile-container {
+        grid-template: 0.2fr 5fr 8fr 0.5fr/1fr 10fr 1fr;
+    }
+
+    .profile-container #profileIMG {
+        width: 35%;
+        border-radius: 50%;
+        border-width: 6px;
+    }
+
+    .profile-container #Name {
+        font-size: 28px;
+    }
+
+    .profile-container .center-piece {
+        max-width: 320px;
+        margin-bottom: 6px;
+    }
+
+    .profile-container .button-panel {
+        flex-direction: column;
+        
+        padding: 6px 20px 10px 20px;
+        align-items: stretch;
+    }
+
+    .profile-container div.button-panel button {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 12px 16px;
+    }
+
+    .profile-container div.button-panel button a {
+        font-size: 20px;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+    }
+
+    .profile-container #Logout-Btn {
+        max-width: 100%;
+        max-height: none;
+        padding: 0;
+    }
+}

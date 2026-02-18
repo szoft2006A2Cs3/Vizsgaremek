@@ -1,6 +1,26 @@
 .LoginModule * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
 
+body:has(.LoginModule).light-mode {
+    --background: #c300ffd2;
+    --formbgcolor: #5d3fca;
+    --formactivecolor: #94ffa6;
+    --formactivelabelcolor: #94ffa6;
 
+    --inputbordercolor: rgba(255, 255, 255, 0.7);
+    --submitbtncolor: #d9b7eb;
+
+
+}
+body:has(.LoginModule).dark-mode {
+    --background: #1b0031d2;
+    --formbgcolor: #33226d;
+    --formactivecolor: #83f9ff;
+    --formactivelabelcolor: #83f9ff;
+
+    --inputbordercolor: rgba(212,124,255,0.7);
+    --submitbtncolor: #D47CFF;
+
+}
 
 body:has(.LoginModule){
 margin: 0;
@@ -8,6 +28,8 @@ height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
+background: var(--background);
+transition: background 0.5s ease;
 }
 
 
@@ -15,7 +37,7 @@ align-items: center;
 width: 380px;
 padding: 32px;
 border-radius: 28px;
-background: #5B2DFF;
+background: var(--formbgcolor);
 box-shadow: 0 30px 70px rgba(0,0,0,0.35);
 color: white;
 overflow: hidden;
@@ -50,7 +72,10 @@ position: relative;
 }
 
 
-.LoginModule .tab.active { color: rgb(122, 203, 0); }
+.LoginModule .tab.active 
+{
+    color: var(--formactivelabelcolor);
+ }
 
 .LoginModule .tab.active::after {
 content: "";
@@ -60,7 +85,7 @@ left: 50%;
 width: 8px;
 height: 8px;
 border-radius: 50%;
-background: #1ECAD3;
+background: var(--formactivecolor);
 }
 
 
@@ -97,7 +122,7 @@ margin: 16px 0;
 width: 100%;
 padding: 14px 46px 14px 14px;
 border-radius: 14px;
-border: 2px solid rgba(212,124,255,0.7);
+border: 2px solid var(--inputbordercolor);
 background: transparent;
 color: white;
 font-size: 15px;
@@ -137,4 +162,8 @@ cursor: pointer;
 
 .LoginModule input.errorBorder { 
     border: 2px solid red;
+}
+.LoginModule .submitbtn {
+    background: var(--submitbtncolor);
+    color: #2b145c;
 }

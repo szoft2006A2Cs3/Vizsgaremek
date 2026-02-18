@@ -63,7 +63,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                             <input id="loginPass" type="password" placeholder="Password" onInput={(e) => setLogPassword(e.target.value)} onChange={(e) => setLogPassword(e.target.value)} value={logPassword}></input>
                             <span className="eye" onClick={togglePass('loginPass')}>👁</span>
                         </div>
-                        <button onClick={LoginCheck}>Login</button>
+                        <button onClick={LoginCheck} className="submitbtn">Login</button>
                     </div>
 
 
@@ -81,7 +81,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                             <span className="eye" onClick={togglePass('regPass2')}>👁</span>
                         </div>
                         <div id="errorOutput"></div>
-                        <button onClick={RegistryCheck}>Create account</button>
+                        <button onClick={RegistryCheck} className="submitbtn">Create account</button>
                     </div>
                 </div>
             </div>
