@@ -38,11 +38,11 @@ export default function SettingsModule({userData, setUserDataFunc})
                     <p>Light/Dark Mode: </p>
                     </div>
                     <div className='settings-column'>
-                        <input type="radio" name="theme" value="light"></input>
+                        <input type="radio" name="theme" onClick={() => {document.body.classList.remove("dark-mode"); document.body.classList.add("light-mode")}} value="light"></input>
                         
                     </div>
                     <div className='settings-column'>
-                        <input type="radio" name="theme" value="dark"></input>
+                        <input type="radio" name="theme" onClick={() => {document.body.classList.remove("light-mode"); document.body.classList.add("dark-mode")}} value="dark"></input>
                     </div>
                     
                     
