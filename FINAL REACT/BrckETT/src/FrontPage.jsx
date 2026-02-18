@@ -60,28 +60,55 @@ const handleMouseUp = () => {
 };
 
  return (
-  <div className="front-page-container">
-      <div className="smoke-background"></div>
+    <>
+      <div className="front-page-container">
+          <div className="smoke-background"></div>
 
+      
 
+        <div className="image-carousel" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}onMouseLeave={handleMouseUp}> 
+            <button className="arrow left" onClick={prevImage}>&#10094;</button>
+            <img key={currentIndex} src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} className="carousel-image" draggable="false" style={{transform: `translateX(${translate}px)`, transition: isDragging ? "none" : "transform 0.3s ease"}}/>
 
-    <div className="image-carousel" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}onMouseLeave={handleMouseUp}> 
-        <button className="arrow left" onClick={prevImage}>&#10094;</button>
-        <img key={currentIndex} src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} className="carousel-image" draggable="false" style={{transform: `translateX(${translate}px)`, transition: isDragging ? "none" : "transform 0.3s ease"}}/>
+            <div className="dots">
+                {images.map((_, index) => (
+              <span 
+                key={index}
+                className={`dot ${index === currentIndex ? "active" : ""}`}
+                onClick={() => setCurrentIndex(index)}
+              />
+              ))}
+            </div>
+            
 
-        <div className="dots">
-            {images.map((_, index) => (
-          <span 
-            key={index}
-            className={`dot ${index === currentIndex ? "active" : ""}`}
-            onClick={() => setCurrentIndex(index)}
-          />
-          ))}
+            <button className="arrow right" onClick={nextImage}>&#10095;</button>
+          </div>
+
+          {/*<div className="frontpage-previews">
+            <Link to="/about" className="frontpage-link">
+              <div className="about-container front-preview">
+                <h1>About Brckett</h1>
+                <p><span>Brckett is a scheduling application designed to help users manage their time effectively.</span></p>
+                <p className="read-more"><span>Read more</span></p>
+              </div>
+            </Link>
+
+            <Link to="/contact" className="frontpage-link">
+              <div className="contact-container front-preview">
+                <h1>Contact Us</h1>
+                <p><span>If you have any questions, feedback, or need assistance with Brckett, please don't hesitate to reach out to us.</span></p>
+                <p className="read-more"><span>Contact</span></p>
+              </div>
+            </Link>
+          </div>>*/}
+
         </div>
-
-        <button className="arrow right" onClick={nextImage}>&#10095;</button>
-      </div>
-    </div>
+        
+        
+        
+    </>
+    
   );
+  
 
 }

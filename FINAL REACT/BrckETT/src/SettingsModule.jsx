@@ -33,20 +33,26 @@ export default function SettingsModule({userData, setUserDataFunc})
 
 
                 <h2>Display Settings</h2>
-                <div className='settings-category'>
-                    <div className='settings-column'>
-                    <p>Light/Dark Mode: </p>
-                    </div>
-                    <div className='settings-column'>
-                        <input type="radio" name="theme" onClick={() => {document.body.classList.remove("dark-mode"); document.body.classList.add("light-mode")}} value="light"></input>
-                        
-                    </div>
-                    <div className='settings-column'>
-                        <input type="radio" name="theme" onClick={() => {document.body.classList.remove("light-mode"); document.body.classList.add("dark-mode")}} value="dark"></input>
-                    </div>
-                    
-                    
-                </div>
+<div className='settings-category display-grid'>
+    <p>Light / Dark Mode</p>
+
+    <label className="theme-switch">
+        <input
+            type="checkbox"
+            onChange={(e) => {
+                if (e.target.checked) {
+                    document.body.classList.remove("light-mode");
+                    document.body.classList.add("dark-mode");
+                } else {
+                    document.body.classList.remove("dark-mode");
+                    document.body.classList.add("light-mode");
+                }
+            }}
+        />
+        <span className="slider"></span>
+    </label>
+</div>
+
                 <button className='settings-save-btn'>Save</button>
 
 

@@ -1,26 +1,53 @@
-body:has(.settings-module){
-    
+body:has(.settings-module) {
+    background: linear-gradient(135deg, #1c1c1c, #2d004d);
+    min-height: 100vh;
 }
 
-.settings-module{
+.settings-module {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
 
+.settings-panel {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.settings-panel h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.settings-panel h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 5px;
 }
 
 
 /*Delete this, and do the GRID*/
 .settings-module .settings-category{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
+    align-items: center;
     margin-bottom: 20px;
-    justify-content: space-around;
 }
 /*Delete this, and do the GRID*/
 .settings-module .settings-column{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    justify-content: space-around;
+    gap: 12px;
 }
 .settings-module .settings-radio-btn{
     padding: 10px 20px;
@@ -30,17 +57,122 @@ body:has(.settings-module){
     border-radius: 5px;
     cursor: pointer;
 }
+
+.settings-column input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.settings-column button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #6f3fb3;
+    color: #a8fa50;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+body.dark-mode .settings-column button {
+    background: #362353;
+    color: #c48ce4;
+}
+
+body.dark-mode  .settings-column button{
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode .settings-column button:hover {
+    background: #883ac9;
+}
+
+body.dark-mode .settings-column button:hover {
+    background: #472e6c;
+}
+
+
 .settings-module .settings-radio-btn:hover{
     background-color: #883ac9d2;
 }
 .settings-module .settings-save-btn{
-    padding: 10px 20px;
-    background-color: #5a1394d2;
-    color: #a8fa50;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
     border: none;
     width: 100%;
-    border-radius: 5px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #5a1394, #883ac9);
+    color: #a8fa50;
     cursor: pointer;
+    transition: 0.3s;
 }
+
+body.dark-mode .settings-module .settings-save-btn {
+    background: #362353;
+    color: #c48ce4;
+}
+
+body.dark-mode .settings-module .settings-save-btn {
+    transition: background 0.5s ease, color 0.3s ease;
+}
+
+body.light-mode .settings-module .settings-save-btn {
+    transition: background 0.5s ease, color 0.3s ease;
+}
+
+.settings-save-btn:hover {
+    transform: translateY(-2px);
+}
+
+.display-grid {
+    grid-template-columns: 1fr auto;
+}
+
+
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #a8fa50;
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    top: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+
+.theme-switch input:checked + .slider {
+    background-color: #6f3fb3;
+}
+
+.theme-switch input:checked + .slider::before {
+    transform: translateX(30px);
+}
+
 /*4hx3w grid, bottom row unified*/
 /*Title on top of category, under each other, centered*/
