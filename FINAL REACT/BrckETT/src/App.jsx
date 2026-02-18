@@ -22,16 +22,23 @@ import { Link } from 'react-router-dom'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
-  let [user, setUser] = useState(new User("John", "john.doe@example.com", "Doe", "johndoe","/src/assets/Brckett Logo.png", "1"))
+  let [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));
   let [userData, setUserData] = useState(null);
   //console.log(user);
   function getUserData() 
   {
-    if(userData === null) return user;
-    else{
-      setUser(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token));
-    }
-    return user;
+    if (userData === null) return user;
+    // Avoid calling setState during render — return a derived User instance instead
+    return new User(
+      userData.userId,
+      userData.userName,
+      userData.email,
+      userData.displayName,
+      userData.password,
+      userData.role,
+      userData.token,
+      userData.description
+    );
   }
 
   let res = isLoggedIn ? 

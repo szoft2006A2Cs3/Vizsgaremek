@@ -1,5 +1,5 @@
 import "./css/LoginModule.css";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "./js/UserClass";
 
@@ -121,7 +121,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                     let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
 
                     setUserDataFunc(userData)
-                    setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
+                    setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token,userData.description))
                     navigate("/")
                     logInTrigger(true)
                 } 
@@ -142,7 +142,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
             console.log(response);
             let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
             setUserDataFunc(userData)
-            setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token))
+            setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token, userData.description))
             navigate("/")
             logInTrigger(true)
         } 

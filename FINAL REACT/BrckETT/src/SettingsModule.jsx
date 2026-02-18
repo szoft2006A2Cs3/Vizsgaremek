@@ -17,9 +17,9 @@ export default function SettingsModule({userData, setUserDataFunc})
                     <p>Display Name: {userData ? userData.displayName : "Loading..."}</p>
                     </div>
                     <div className='settings-column'>
-                        <input type="text" defaultValue={userData ? userData.displayName : "Loading..."}></input>
-                        <input type="text" defaultValue={userData ? userData.email : "Loading..."}></input>
                         <input type="text" defaultValue={userData ? userData.userName : "Loading..."}></input>
+                        <input type="text" defaultValue={userData ? userData.email : "Loading..."}></input>
+                        <input type="text" defaultValue={userData ? userData.displayName : "Loading..."}></input>
                     </div>
                     <div className='settings-column'>
                         <button>Change</button>
@@ -52,30 +52,7 @@ export default function SettingsModule({userData, setUserDataFunc})
 
 
 
-                <h2>Custom Settings</h2>
-                <div className='settings-category'>
-                    <div className='settings-column'>
-                    <p>Background Color:</p>
-                    <p>Secondary BackGround Color:</p>
-                    <p>Font Color:</p>
-                    <p>Font Size:</p>
-                    </div>
-                    <div className='settings-column'>
-                        <input type="text" ></input>
-                        <input type="text" ></input>
-                        <input type="text" ></input>
-                        <input type="text" ></input>
-                    </div>
-                    <div className='settings-column'>
-                        <button>Change</button>
-                        <button>Change</button>
-                        <button>Change</button>
-                        <button>Change</button>
-                    </div>
-                    
-                    
-                </div>
-                <button className='settings-save-btn'>Save</button>
+                
 
 
 
