@@ -1,5 +1,5 @@
 import "./css/LoginModule.css";
-import { use, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "./js/UserClass";
 
@@ -118,6 +118,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                     let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"Admin",token:"",description:"Empty Description"}, true).then(data => {return data;})
                     response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
                     callAPIFunc.setToken(response);
+                    localStorage.setItem('token', response);
+
                     let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
 
                     setUserDataFunc(userData)
@@ -139,6 +141,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
             //LOGIN & SAVE TOKEN
             let response = await callAPIFunc.callApiAsync('login', 'POST', {email: logEmail, password: logPassword}, false).then(data => {return data;});
             callAPIFunc.setToken(response);
+            localStorage.setItem('token', response);
+            
             console.log(response);
             let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
             setUserDataFunc(userData)

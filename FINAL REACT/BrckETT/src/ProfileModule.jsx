@@ -11,7 +11,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         setUserFunc(new User())
         setUserDataFunc(null)
         logInTrigger(false)
-        //Delete Local storage token here WHEN IMPLEMENTED ---------------------------------------------------------------------------------------------------------------------------------------
+        localStorage.removeItem('token');
         navigate("/")
     }
     //console.log({user});

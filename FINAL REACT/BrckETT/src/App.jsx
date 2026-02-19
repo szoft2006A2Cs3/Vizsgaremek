@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './css/App.css'
 import FrontPage from './FrontPage.jsx'
 import LoginModule from './LoginModule.jsx'
@@ -20,11 +20,46 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   let [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));
   let [userData, setUserData] = useState(null);
   //console.log(user);
+
+  useEffect(() => {
+    const initializeApp = async () => {
+      // Apply theme on app load
+      const savedTheme = localStorage.getItem('theme') || 'light-mode';
+      document.body.classList.add(savedTheme);
+
+      // Load token and try auto-login
+      const savedToken = localStorage.getItem('token');
+      if (savedToken) {
+        callAPIInstance.setToken(savedToken);
+        try {
+          const userDataResponse = await callAPIInstance.callApiAsync('AdvancedInfo', 'GET', null, true, savedToken);
+          setUserData(userDataResponse);
+          setUser(new User(
+            userDataResponse.userId,
+            userDataResponse.userName,
+            userDataResponse.email,
+            userDataResponse.displayName,
+            userDataResponse.password,
+            userDataResponse.role,
+            userDataResponse.token,
+            userDataResponse.description
+          ));
+          setIsLoggedIn(true);
+        } catch (error) {
+          console.error('Auto-login failed:', error);
+          localStorage.removeItem('token'); // Remove invalid token
+        }
+      }
+    };
+
+    initializeApp();
+  }, []);
+
   function getUserData() 
   {
     if (userData === null) return user;
@@ -63,7 +98,7 @@ function App() {
         <Route path='/' element={<FrontPage></FrontPage>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => {setUserData(e); console.log(userData)}} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
+        <Route path='/loginReg' element={<LoginModule logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => {setUserData(e)}} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>
         
         {/*
         <Route path='/Editor' element={}></Route>
@@ -74,16 +109,12 @@ function App() {
         <FooterModule></FooterModule>
     </>
   )
-  document.body.classList.add("dark-mode");
+  
 
   return (
+    
     <>
       <ClickAnimation></ClickAnimation>
-      {/*THERE IS A PINK BUTTON ON SCREEN ALWAYS TO CHANGE LIGHT/DARK MODE FOR TESTING
-      <button style={{position: "absolute", background: "pink", height: "2rem", width: "5rem", top: "5rem", right: "5rem", zIndex: 100}} onClick={() => {
-        document.body.classList.toggle("light-mode");
-        document.body.classList.toggle("dark-mode");
-      }}></button>*/}
       <BrowserRouter>
         
           {res}

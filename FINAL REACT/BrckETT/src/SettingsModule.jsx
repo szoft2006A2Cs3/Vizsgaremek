@@ -1,9 +1,25 @@
 import './css/SettingsModule.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SettingsModule({userData, setUserDataFunc})
 {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        // Load theme preference on component mount
+        const savedTheme = localStorage.getItem('theme') || 'light-mode';
+        setIsDarkMode(savedTheme === 'dark-mode');
+    }, []);
+
+    const handleThemeChange = (e) => {
+        const newTheme = e.target.checked ? 'dark-mode' : 'light-mode';
+        setIsDarkMode(e.target.checked);
+        localStorage.setItem('theme', newTheme);
+        document.body.classList.remove('light-mode', 'dark-mode');
+        document.body.classList.add(newTheme);
+    };
+
     return (
         <div className="settings-module">
             <div className='settings-panel'>
@@ -39,15 +55,8 @@ export default function SettingsModule({userData, setUserDataFunc})
     <label className="theme-switch">
         <input
             type="checkbox"
-            onChange={(e) => {
-                if (e.target.checked) {
-                    document.body.classList.remove("light-mode");
-                    document.body.classList.add("dark-mode");
-                } else {
-                    document.body.classList.remove("dark-mode");
-                    document.body.classList.add("light-mode");
-                }
-            }}
+            checked={isDarkMode}
+            onChange={handleThemeChange}
         />
         <span className="slider"></span>
     </label>
