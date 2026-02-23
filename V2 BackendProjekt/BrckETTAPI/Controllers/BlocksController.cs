@@ -62,7 +62,8 @@ namespace BackendProjekt.Controllers
             oldBlock.Priority = block.Priority;
             oldBlock.TimeStart = block.TimeStart;
             oldBlock.TimeEnd = block.TimeEnd;
-            _context.Blocks.Add(oldBlock);
+            oldBlock.Title = block.Title;
+            
 
             await _context.SaveChangesAsync();
             return Ok(oldBlock);

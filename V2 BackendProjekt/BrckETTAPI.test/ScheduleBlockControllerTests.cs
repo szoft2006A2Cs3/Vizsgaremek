@@ -16,11 +16,21 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
-                ctx.Schedules.Add(new Schedules { ScheduleId = 100, TemplateId = 500 });
-                ctx.Templates.Add(new Templates { TemplateId = 500, TemplateInfo = "t" });
-                ctx.Blocks.Add(new Blocks { BlockId = 301, Title = "B1", TimeStart = 0, TimeEnd = 1 });
-                ctx.templatesBlocksConns.Add(new TemplatesBlocksConn { TemplateId = 500, BlockId = 301 });
-                ctx.Users.Add(new Users { UserId = 21, UserName = "user21", Email = "sb@test", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("x") });
+                // Create template and schedule
+                ctx.Templates.Add(new Templates { TemplateId = 600 });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 200, TemplateId = 600 });
+                // Create block and link to template
+                ctx.Blocks.Add(new Blocks { BlockId = 401, Title = "BlockA", TimeStart = 0, TimeEnd = 1 });
+                ctx.templatesBlocksConns.Add(new TemplatesBlocksConn { TemplateId = 600, BlockId = 401 });
+                // Create user (not connected to any group)
+                ctx.Users.Add(new Users
+                {
+                    UserId = 21,
+                    UserName = "user21",
+                    Email = "sb@test",
+                    Password = BackendProjekt.Auth.PasswordHandler.HashPassword("x"),
+                    Role = "user" // <-- Add this line!
+                });
             });
 
             var tm = TestHelpers.CreateTokenManager();
@@ -37,18 +47,33 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
+                // Create template and schedule
                 ctx.Templates.Add(new Templates { TemplateId = 600 });
                 ctx.Schedules.Add(new Schedules { ScheduleId = 200, TemplateId = 600 });
+                // Create block and link to template
                 ctx.Blocks.Add(new Blocks { BlockId = 401, Title = "BlockA", TimeStart = 0, TimeEnd = 1 });
                 ctx.templatesBlocksConns.Add(new TemplatesBlocksConn { TemplateId = 600, BlockId = 401 });
-                var u = new Users { UserId = 31, UserName = "user31", Email = "hasconn@test", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("x") };
+                // Create user
+                var u = new Users
+                {
+                    UserId = 31,
+                    UserName = "user31",
+                    Email = "hasconn@test",
+                    Password = BackendProjekt.Auth.PasswordHandler.HashPassword("x"),
+                    Role = "user" // <-- Use the correct case and value!
+                };
                 ctx.Users.Add(u);
-                ctx.Schedulesusersconns.Add(new Schedulesusersconn { UserId = 31, ScheduleId = 200 });
+                // Create group and connect user to group
+                ctx.Groups.Add(new Groups { GroupId = 1, GroupName = "TestGroup" });
+                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 31, GroupId = 1, Permission = "user" });
+                // Connect group to schedule
+                ctx.Groupscheduleconns.Add(new Groupscheduleconn { GroupId = 1, ScheduleId = 200 });
             });
 
             var tm = TestHelpers.CreateTokenManager();
             var user = await db.Context.Users.FirstAsync(u => u.Email == "hasconn@test");
             var token = tm.GenerateToken(user);
+
             var controller = new ScheduleBlockController(db.Context);
             var res = await controller.Get(token, 200);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));

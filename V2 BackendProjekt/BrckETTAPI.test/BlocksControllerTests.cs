@@ -80,10 +80,12 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
-                ctx.Blocks.Add(new Blocks { BlockId = 5, Title = "Old", TimeStart = 10, TimeEnd = 20 });
+                ctx.Blocks.Add(new Blocks { BlockId = 5, Description ="asd", Date=new DateTime(), Priority="Top", Title = "Old", TimeStart = 10, TimeEnd = 20 });
             });
+            await db.Context.SaveChangesAsync();
+
             var controller = new BlocksController(db.Context);
-            var updated = new Blocks { BlockId = 5, Title = "Updated", TimeStart = 30, TimeEnd = 40 };
+            var updated = new Blocks { BlockId = 5, Description = "asd", Date = new DateTime(), Priority = "Top", Title = "Updated", TimeStart = 30, TimeEnd = 40 };
             var result = await controller.Put(5, updated);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var dbval = await db.Context.Blocks.FirstOrDefaultAsync(b => b.BlockId == 5);

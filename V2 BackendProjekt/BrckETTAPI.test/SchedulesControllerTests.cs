@@ -16,6 +16,7 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
+                ctx.Templates.Add(new Templates { TemplateId = 100, TemplateInfo = null });
                 ctx.Schedules.Add(new Schedules { ScheduleId = 1, TemplateId = 100 });
             });
             var controller = new SchedulesController(db.Context);
@@ -37,7 +38,10 @@ namespace BrckETTAPI.test
         [TestMethod]
         public async Task Post_Create_Pass()
         {
-            using var db = TestHelpers.CreateTestDb();
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Templates.Add(new Templates { TemplateId = 200, TemplateInfo = null });
+            });
             var controller = new SchedulesController(db.Context);
             var res = await controller.Post(new Schedules { ScheduleId = 2, TemplateId = 200 });
             Assert.IsInstanceOfType(res, typeof(CreatedAtActionResult));
@@ -57,10 +61,11 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
+                ctx.Templates.Add(new Templates { TemplateId = 300, TemplateInfo = null });
                 ctx.Schedules.Add(new Schedules { ScheduleId = 3, TemplateId = 300, ScheduleInfo = "old" });
             });
             var controller = new SchedulesController(db.Context);
-            var res = await controller.Put(300, new Schedules { ScheduleId = 3, TemplateId = 300, ScheduleInfo = "new" });
+            var res = await controller.Put(3, new Schedules { ScheduleId = 3, TemplateId = 300, ScheduleInfo = "new" });
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
             var dbs = await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == 3);
             Assert.IsNotNull(dbs);
@@ -81,10 +86,11 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
+                ctx.Templates.Add(new Templates { TemplateId = 400, TemplateInfo = null });
                 ctx.Schedules.Add(new Schedules { ScheduleId = 4, TemplateId = 400 });
             });
             var controller = new SchedulesController(db.Context);
-            var res = await controller.Delete(400);
+            var res = await controller.Delete(4);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
         }
     }

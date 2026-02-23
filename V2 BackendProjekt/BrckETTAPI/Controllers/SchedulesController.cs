@@ -37,7 +37,7 @@ namespace BackendProjekt.Controllers
             }
             else
             {
-                schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
+                schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.ScheduleId == id);
             }
             if (schedules == null) return NotFound();
             return Ok(schedules);
@@ -56,7 +56,7 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "Schedules.Update")]
         public async Task<IActionResult> Put(int id, Schedules schedules)
         {
-            var oldSchedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
+            var oldSchedules = await _context.Schedules.FirstOrDefaultAsync(p => p.ScheduleId == id);
             if (oldSchedules == null) return NotFound();
             oldSchedules.TemplateId = schedules.TemplateId;
             oldSchedules.ScheduleInfo = schedules.ScheduleInfo;
@@ -70,7 +70,7 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "Schedules.Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.TemplateId == id);
+            var schedules = await _context.Schedules.FirstOrDefaultAsync(p => p.ScheduleId == id);
             if (schedules == null) return NotFound();
             _context.Schedules.Remove(schedules);
             await _context.SaveChangesAsync();

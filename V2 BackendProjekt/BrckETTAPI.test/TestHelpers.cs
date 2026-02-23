@@ -54,7 +54,8 @@ namespace BrckETTAPI.test
                 ["Auth:JWT:Issuer"] = "test-issuer",
                 ["Auth:JWT:Audience"] = "test-audience",
                 // minimal role mapping so TokenManager ctor won't fail
-                ["Auth:Roles:admin:0"] = "Users.Read"
+                ["Auth:Roles:admin:0"] = "Users.Read",
+                ["Auth:Roles:user:0"] = "Users.Read"
             };
             var config = new ConfigurationManager();
             config.AddInMemoryCollection(init);

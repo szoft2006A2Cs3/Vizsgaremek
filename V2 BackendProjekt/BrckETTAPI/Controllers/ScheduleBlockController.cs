@@ -46,7 +46,11 @@ namespace BackendProjekt.Controllers
                 return BadRequest("Invalid JWT format.");
             }
 
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            var email = jwt.Claims.FirstOrDefault(c =>
+                c.Type == ClaimTypes.Name ||
+                c.Type == ClaimTypes.Email ||
+                string.Equals(c.Type, "email", StringComparison.OrdinalIgnoreCase)
+            )?.Value;
 
             if (string.IsNullOrEmpty(email)) 
             {
@@ -66,16 +70,21 @@ namespace BackendProjekt.Controllers
             }
             // Check user is connected to the requested schedule
             var hasConnection = user.Schedulesusersconns?.Any(su => su.ScheduleId == scheduleId) ?? false;
-            if (!hasConnection) 
-            {
-                return NotFound();
-            } 
+            
 
             // Check if the user is connected to a group that is connected to the requested schedule
-            var groupConnection = await _context.Groupuserconns
+            var hasGroupConnection = await _context.Groupuserconns
                 .Include(gu => gu.Group)
                 .ThenInclude(g => g.Groupscheduleconns)
-                .FirstOrDefaultAsync(gu => gu.UserId == user.UserId && gu.Group.Groupscheduleconns.Any(gs => gs.ScheduleId == scheduleId));
+                .AnyAsync(gu =>
+                    gu.UserId == user.UserId &&
+                    gu.Group.Groupscheduleconns.Any(gs => gs.ScheduleId == scheduleId)
+                );
+            if (!hasConnection && hasGroupConnection == null) 
+            {
+                return NotFound();
+            }
+
 
             var schedule = await _context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == scheduleId);
             if (schedule == null)

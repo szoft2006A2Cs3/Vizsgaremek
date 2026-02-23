@@ -73,14 +73,32 @@ namespace BrckETTAPI.test
         public async Task Post_Create_Pass()
         {
             using var db = TestHelpers.CreateTestDb();
+            db.Context.Templates.Add(new Templates { TemplateId = 1, TemplateInfo = null });
+            await db.Context.SaveChangesAsync();
+            db.Context.Schedules.Add(new Schedules { ScheduleId = 1, TemplateId = 1 });
+            db.Context.Groups.Add(new Groups { GroupId = 1, GroupName = "Default" });
+            await db.Context.SaveChangesAsync();
+
             var controller = new UsersController(db.Context);
             var newUser = new Users { UserName = "newuser", Email = "new@test", Password = "pw" };
+
             var res = await controller.Post(newUser);
+
             Assert.IsInstanceOfType(res, typeof(CreatedResult));
+
             var created = await db.Context.Users.FirstOrDefaultAsync(u => u.Email == "new@test");
             Assert.IsNotNull(created);
+
             var us = await db.Context.Usersettings.FirstOrDefaultAsync(s => s.UserId == created.UserId);
             Assert.IsNotNull(us);
+
+            var scheduleConn = await db.Context.Schedulesusersconns.FirstOrDefaultAsync(su => su.UserId == created.UserId && su.ScheduleId == 1);
+            Assert.IsNotNull(scheduleConn);
+
+            var groupConn = await db.Context.Groupuserconns.FirstOrDefaultAsync(gu => gu.UserId == created.UserId && gu.GroupId == 1);
+            Assert.IsNotNull(groupConn);
+
+            Assert.AreNotEqual("pw", created.Password);
         }
 
         [TestMethod]

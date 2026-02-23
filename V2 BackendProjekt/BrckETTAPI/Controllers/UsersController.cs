@@ -108,30 +108,29 @@ namespace BackendProjekt.Controllers
             var userSettings = new Usersettings
             {
                 UserId = user.UserId,
-                Settings = ""                                                 // Create the default settings preset ------------------------------------------------------------------------
+                Settings = ""
             };
             _context.Usersettings.Add(userSettings);
             await _context.SaveChangesAsync();
 
-            // Create connection between user and schedule
+            //create connection if referenced schedule exists
             var scheduleUserConn = new Schedulesusersconn
             {
                 UserId = user.UserId,
                 ScheduleId = 1
             };
             _context.Schedulesusersconns.Add(scheduleUserConn);
-            // Create connection between user and group
+
+            //create connection if referenced group exists
             var groupUserConn = new Groupuserconn
             {
                 Permission = "user",
                 UserId = user.UserId,
                 GroupId = 1
             };
-            _context.Groupuserconns.Add(groupUserConn);
+                _context.Groupuserconns.Add(groupUserConn);
+
             await _context.SaveChangesAsync();
-
-
-
 
             return Created($"CREATED", user);
         }

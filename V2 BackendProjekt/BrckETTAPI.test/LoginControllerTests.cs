@@ -50,6 +50,13 @@ namespace BrckETTAPI.test
             using var db = TestHelpers.CreateTestDb();
             var tm = TestHelpers.CreateTokenManager();
             var controller = new LoginController(db.Context, tm);
+
+            // Explicitly set an empty ClaimsPrincipal to simulate an unauthorized user
+            controller.ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext
+            {
+                HttpContext = new DefaultHttpContext { User = new ClaimsPrincipal() }
+            };
+
             var res = await controller.Logout();
             Assert.IsInstanceOfType(res, typeof(UnauthorizedResult));
         }
