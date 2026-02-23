@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\scheduleblockcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\scheduleblockcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\scheduleblockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\scheduleblockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,11 +34,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "TemplatesBlocksConn.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
@@ -59,7 +51,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Blocks.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Blocks.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Blocks.cs",
@@ -73,7 +65,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "BlocksController.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\BlocksController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\BlocksController.cs",
@@ -87,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Program.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Program.cs",
@@ -101,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Context.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Context.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Context.cs",
@@ -115,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TestHelpers.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\TestHelpers.cs",
               "RelativeDocumentMoniker": "BrckETTAPI.test\\TestHelpers.cs",
@@ -127,34 +119,8 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ScheduleBlockControllerTests.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
-              "RelativeDocumentMoniker": "BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
-              "RelativeToolTip": "BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAIAwwA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-23T20:49:56.663Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ScheduleBlockController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
-              "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
-              "RelativeToolTip": "BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAwwFAAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-23T12:25:59.773Z",
-              "EditorCaption": ""
             }
           ]
         }
