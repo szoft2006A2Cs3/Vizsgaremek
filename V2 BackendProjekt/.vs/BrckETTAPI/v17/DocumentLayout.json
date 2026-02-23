@@ -1,61 +1,109 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\",
+  "WorkspaceRootPath": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\templatesblocksconn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\templatesblocksconn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\scheduleblockcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\scheduleblockcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\blocks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\blocks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\userscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\userscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\brckettapi.test.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\brckettapi.test.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\groupscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\groupscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\blockscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\blockscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\blockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\blockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\advancedinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\schedulescontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\schedulescontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\logincontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\logincontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\advancedinfocontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\advancedinfocontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\scheduleblockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\scheduleblockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\advancedinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\advancedinfocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\blockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\blockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\auth\\passwordhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\auth\\passwordhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\auth\\tokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\auth\\tokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\templatesblocksconn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\templatesblocksconn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\blocks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\blocks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\schedulescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\groups.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\groups.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\groups.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\templates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\model\\context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\model\\context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|c:\\users\\idont\\onedrive\\desktop\\vizsgaremek\\v2 backendprojekt\\brckettapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F360C9F7-9325-05A0-EA68-F12633CBEE95}|BrckETTAPI\\BackendProjekt.csproj|solutionrelative:brckettapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -66,17 +114,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 15,
               "Title": "TemplatesBlocksConn.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\TemplatesBlocksConn.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-16T21:14:24.058Z",
               "IsPinned": true,
@@ -84,11 +132,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 16,
               "Title": "Blocks.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Blocks.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Blocks.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Blocks.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Blocks.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Blocks.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\Blocks.cs",
               "ViewState": "AgIAAAYAAADo//9+ZJ0rwBIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -98,11 +146,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "BlocksController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\BlocksController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\BlocksController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\BlocksController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\BlocksController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\BlocksController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\BlocksController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -112,29 +160,191 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 25,
               "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Program.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Program.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Program.cs",
               "RelativeToolTip": "BrckETTAPI\\Program.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAiwCEAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-04T10:16:41.983Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 24,
               "Title": "Context.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Context.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Context.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Context.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Context.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Context.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\Context.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAUAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-13T14:08:56.222Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TestHelpers.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\TestHelpers.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\TestHelpers.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\TestHelpers.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\TestHelpers.cs",
+              "ViewState": "AgIAAA4AAAAAOY4zE48ewDAAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:52:19.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BlocksControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\BlocksControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\BlocksControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\BlocksControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\BlocksControllerTests.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAawBQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:52:15.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsersControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\UsersControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\UsersControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\UsersControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\UsersControllerTests.cs",
+              "ViewState": "AgIAAGAAAADAOI7jHUcwwGYAAABrAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:52:09.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GroupsControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\GroupsControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\GroupsControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\GroupsControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\GroupsControllerTests.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAzwA8AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:52:03.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SchedulesControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\SchedulesControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\SchedulesControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\SchedulesControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\SchedulesControllerTests.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAQwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:51:58.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\LoginControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\LoginControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\LoginControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\LoginControllerTests.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAowFAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:51:53.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdvancedInfoControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\AdvancedInfoControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\AdvancedInfoControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\AdvancedInfoControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\AdvancedInfoControllerTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:51:47.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ScheduleBlockControllerTests.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
+              "RelativeToolTip": "BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
+              "ViewState": "AgIAACMAAABgHMdxHMc4wDEAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:51:37.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BrckETTAPI.test",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\BrckETTAPI.test.csproj",
+              "RelativeDocumentMoniker": "BrckETTAPI.test\\BrckETTAPI.test.csproj",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\BrckETTAPI.test.csproj",
+              "RelativeToolTip": "BrckETTAPI.test\\BrckETTAPI.test.csproj",
+              "ViewState": "AgIAAA8AAABgVVVVGccjwBgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-02-23T12:44:32.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PasswordHandler.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Auth\\PasswordHandler.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI\\Auth\\PasswordHandler.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Auth\\PasswordHandler.cs",
+              "RelativeToolTip": "BrckETTAPI\\Auth\\PasswordHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:30:10.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TokenManager.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Auth\\TokenManager.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI\\Auth\\TokenManager.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Auth\\TokenManager.cs",
+              "RelativeToolTip": "BrckETTAPI\\Auth\\TokenManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:30:09.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ScheduleBlockController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
+              "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
+              "RelativeToolTip": "BrckETTAPI\\Controllers\\ScheduleBlockController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T12:25:59.773Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -142,48 +352,50 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 21,
               "Title": "Groups.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Groups.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Groups.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Groups.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Groups.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Groups.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\Groups.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T07:46:05.077Z"
+              "WhenOpened": "2026-02-18T07:46:05.077Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 22,
               "Title": "UsersController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\UsersController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\UsersController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAHcAAAAAAAAAAAAIwJQAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-16T22:35:27.587Z"
+              "WhenOpened": "2026-02-16T22:35:27.587Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "appsettings.Development.json",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\appsettings.Development.json",
               "RelativeDocumentMoniker": "BrckETTAPI\\appsettings.Development.json",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\appsettings.Development.json",
               "RelativeToolTip": "BrckETTAPI\\appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADQAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-02-16T22:30:32.423Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 18,
               "Title": "GroupsController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\GroupsController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\GroupsController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\GroupsController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\GroupsController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\GroupsController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\GroupsController.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAwwE0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -192,36 +404,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 23,
               "Title": "Templates.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Templates.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Templates.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Templates.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Templates.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Templates.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\Templates.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-16T22:23:46.57Z"
+              "WhenOpened": "2026-02-16T22:23:46.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "AdvancedInfoController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAqwC8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAgwFUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-16T22:23:27.708Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 17,
               "Title": "Users.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Users.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Users.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Model\\Users.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Users.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Model\\Users.cs",
               "RelativeToolTip": "BrckETTAPI\\Model\\Users.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -230,27 +447,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 20,
               "Title": "SchedulesController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\SchedulesController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\SchedulesController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\SchedulesController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\SchedulesController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\SchedulesController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\SchedulesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T07:46:19.08Z"
+              "WhenOpened": "2026-02-18T07:46:19.08Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 19,
               "Title": "LoginController.cs",
-              "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\LoginController.cs",
-              "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\LoginController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\LoginController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T07:46:19.899Z"
+              "WhenOpened": "2026-02-18T07:46:19.899Z",
+              "EditorCaption": ""
             }
           ]
         }

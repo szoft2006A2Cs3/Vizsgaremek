@@ -39,13 +39,17 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
         public async Task<IActionResult> Get(string token)
         {
-            if (string.IsNullOrWhiteSpace(token))
+            if (string.IsNullOrWhiteSpace(token)) 
+            {
                 return BadRequest("Token is required.");
+            }
 
-            // Accept "Bearer <token>" or raw token
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase)) 
+            {
                 token = token.Substring("Bearer ".Length).Trim();
-
+            }
+                
             JwtSecurityToken jwt;
             try
             {
@@ -57,18 +61,13 @@ namespace BackendProjekt.Controllers
                 return BadRequest("Invalid JWT format.");
             }
 
-            // TokenManager stores the email in ClaimTypes.Name (see TokenManager.GenerateToken)
-            var email = jwt.Claims
-                .FirstOrDefault(c =>
-                    c.Type == ClaimTypes.Name ||
-                    c.Type == ClaimTypes.Email ||
-                    string.Equals(c.Type, "email", StringComparison.OrdinalIgnoreCase) ||
-                    c.Type.EndsWith("/email", StringComparison.OrdinalIgnoreCase)
-                )?.Value;
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(email)) 
+            {
                 return BadRequest("Email claim not found in token.");
-
+            }
+                
             var resp = await _context.Users
                 .Include(u => u.Usersettings)
                 .Include(u => u.Schedulesusersconns)
@@ -81,7 +80,10 @@ namespace BackendProjekt.Controllers
                                 .ThenInclude(s => s.Templates)
                                     .FirstOrDefaultAsync(u => u.Email == email);
 
-            if (resp == null) return NotFound();
+            if (resp == null)
+            {
+                return NotFound();
+            }
 
             resp.Password = "";
             // Remove Groupscheduleconns from Schedules in Schedulesusersconns

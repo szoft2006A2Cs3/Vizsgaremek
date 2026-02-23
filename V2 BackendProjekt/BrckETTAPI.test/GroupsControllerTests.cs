@@ -1,0 +1,88 @@
+using System.Threading.Tasks;
+using BackendProjekt.Controllers;
+using BackendProjekt.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace BrckETTAPI.test
+{
+    [TestClass]
+    public class GroupsControllerTests
+    {
+        [TestMethod]
+        public async Task GetAll_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Groups.Add(new Groups { GroupId = 1, GroupName = "G1" });
+            });
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Get();
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GetById_NotFound_Fail()
+        {
+            using var db = TestHelpers.CreateTestDb();
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Get(999);
+            Assert.IsInstanceOfType(res, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task Post_Create_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb();
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Post(new Groups { GroupName = "NewGroup" });
+            Assert.IsInstanceOfType(res, typeof(CreatedAtActionResult));
+        }
+
+        [TestMethod]
+        public async Task Put_NotFound_Fail()
+        {
+            using var db = TestHelpers.CreateTestDb();
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Put(999, new Groups { GroupName = "X" });
+            Assert.IsInstanceOfType(res, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task Put_Update_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Groups.Add(new Groups { GroupId = 10, GroupName = "Old" });
+            });
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Put(10, new Groups { GroupName = "Updated" });
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var dbg = await db.Context.Groups.FirstOrDefaultAsync(g => g.GroupId == 10);
+            Assert.IsNotNull(dbg);
+            Assert.AreEqual("Updated", dbg.GroupName);
+        }
+
+        [TestMethod]
+        public async Task Delete_NotFound_Fail()
+        {
+            using var db = TestHelpers.CreateTestDb();
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Delete(999);
+            Assert.IsInstanceOfType(res, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task Delete_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Groups.Add(new Groups { GroupId = 20, GroupName = "ToDelete" });
+            });
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Delete(20);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+        }
+    }
+}

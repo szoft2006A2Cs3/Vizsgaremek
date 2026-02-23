@@ -9,7 +9,7 @@ body:has(.profile-container) .top-navbar
 }
 
 body:has(.top-navbar).light-mode {
-    --navbackground: rgba(193, 255, 114, 1);
+    --navbackground: rgba(167, 255, 52, 0.8);
     --navtextcolor: #000000;
     --navpfpbgcolor: #ffffff;
     --navfgcolor: #ffffff;
