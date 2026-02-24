@@ -51,12 +51,28 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     }    
 
 
+    //ezt majd törölhetjük de energiámból ma ennyire telt.
+    function renderScheduleList() {
+      const numbers = [1, 2, 3, 4, 5];
+
+      return (
+        <div className="leftSide-list">
+          {numbers.map(function (num, index) {
+            return (
+              <div key={index} className="leftSide-item">
+                {num}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
 
     
     return (
         <div className='calendarView-container'>
             <div className='calendarView-leftSide'>
-                
+                {renderScheduleList()}
             </div>
 
 
