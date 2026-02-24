@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using BackendProjekt.Auth;
 using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -108,49 +110,121 @@ namespace BackendProjekt.Controllers
             var userSettings = new Usersettings
             {
                 UserId = user.UserId,
-                Settings = ""
+                Settings = "dark-mode/false/month"
+            };
+            var template = new Templates
+            {
+                TemplateInfo = "Default Template"
+            };
+            var grptemplate = new Templates
+            {
+                TemplateInfo = "Default Group Template"
             };
             _context.Usersettings.Add(userSettings);
+            _context.Templates.Add(template);
+            _context.Templates.Add(grptemplate);
             await _context.SaveChangesAsync();
 
-            //create connection if referenced schedule exists
+            var schedule = new Schedules
+            {
+                ScheduleInfo = "Default Schedule",
+                TemplateId = template.TemplateId
+            };
+            var grpschedule = new Schedules
+            {
+                ScheduleInfo = "Default Group Schedule",
+                TemplateId = grptemplate.TemplateId
+            };
+            var group = new Groups
+            {
+                GroupName = "Default Name"
+            };
+            _context.Schedules.Add(schedule);
+            _context.Schedules.Add(grpschedule);
+            _context.Groups.Add(group);
+            await _context.SaveChangesAsync();
+
+            //create connection if referenced schedule 
             var scheduleUserConn = new Schedulesusersconn
             {
                 UserId = user.UserId,
-                ScheduleId = 1
+                ScheduleId = schedule.ScheduleId,
             };
-            _context.Schedulesusersconns.Add(scheduleUserConn);
+            
 
             //create connection if referenced group exists
             var groupUserConn = new Groupuserconn
             {
                 Permission = "user",
                 UserId = user.UserId,
-                GroupId = 1
+                GroupId = group.GroupId
             };
-                _context.Groupuserconns.Add(groupUserConn);
+            var groupScheduleConn = new Groupscheduleconn
+            {
+                GroupId = group.GroupId,
+                ScheduleId = grpschedule.ScheduleId
+            };
+            _context.Schedulesusersconns.Add(scheduleUserConn);
+            _context.Groupuserconns.Add(groupUserConn);
+            _context.Groupscheduleconns.Add(groupScheduleConn);
+
 
             await _context.SaveChangesAsync();
 
             return Created($"CREATED", user);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{token}")]
         [Authorize(Policy = "Users.Update")]
-        public async Task<IActionResult> Put(int id, Users user)
+        public async Task<IActionResult> Put(string token, Users user)
         {
-            var olduser = await _context.Users.FirstOrDefaultAsync(p => p.UserId == id);
-            if (olduser == null) return NotFound();
-            olduser.UserId = user.UserId;
-            olduser.UserName = user.UserName;
-            olduser.Email = user.Email;
-            olduser.DisplayName = user.DisplayName;
-            olduser.Description = user.Description;
-            //olduser.Password = user.Password;
-            olduser.Password = PasswordHandler.HashPassword(user.Password);
-            await _context.SaveChangesAsync();
-            return Ok(olduser);
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return BadRequest("Token is required.");
+            }
 
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                token = token.Substring("Bearer ".Length).Trim();
+            }
+
+            JwtSecurityToken jwt;
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid JWT format.");
+            }
+
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found in token.");
+            }
+
+            var olduser = await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
+            if (olduser == null) return NotFound();
+
+            if (await _context.Users.FirstOrDefaultAsync(p => p.Email == user.Email) == null || email == user.Email)
+            {
+                olduser.UserName = user.UserName;
+                olduser.Email = user.Email;
+                olduser.DisplayName = user.DisplayName;
+                olduser.Description = user.Description;
+                //olduser.Password = user.Password;
+                //olduser.Password = PasswordHandler.HashPassword(user.Password);
+                await _context.SaveChangesAsync();
+                return Ok(olduser);
+            }
+            else 
+            {
+                return BadRequest("This email is already in use by a diffrent user");
+            }
         }
 
         [HttpDelete("{id}")]

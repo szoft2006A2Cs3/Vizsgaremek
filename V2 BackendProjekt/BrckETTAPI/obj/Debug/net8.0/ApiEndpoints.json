@@ -510,27 +510,6 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.UsersController",
-    "Method": "Put",
-    "RelativePath": "api/Users/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "user",
-        "Type": "BackendProjekt.Model.Users",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BackendProjekt.Controllers.UsersController",
     "Method": "Delete",
     "RelativePath": "api/Users/{id}",
     "HttpMethod": "DELETE",
@@ -562,6 +541,27 @@
         "Name": "ext",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.UsersController",
+    "Method": "Put",
+    "RelativePath": "api/Users/{token}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "user",
+        "Type": "BackendProjekt.Model.Users",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -615,27 +615,6 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.UsersettingsController",
-    "Method": "Put",
-    "RelativePath": "api/Usersettings/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "usersetting",
-        "Type": "BackendProjekt.Model.Usersettings",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BackendProjekt.Controllers.UsersettingsController",
     "Method": "Delete",
     "RelativePath": "api/Usersettings/{id}",
     "HttpMethod": "DELETE",
@@ -645,6 +624,27 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.UsersettingsController",
+    "Method": "Put",
+    "RelativePath": "api/Usersettings/{token}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "usersetting",
+        "Type": "BackendProjekt.Model.Usersettings",
         "IsRequired": true
       }
     ],

@@ -1,35 +1,68 @@
 import Calendar from './Calendar.jsx'
 import DayView from './DayView.jsx'
 import './css/CalendarView.css'
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
-export default function CalendarView({schedulesList}) {
+export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings}) {
+    const location = useLocation();
+    schedulesList = location.state?.schedulesList || schedulesList;
     const [selectedDate, setSelectedDate] = useState(null);
     const [events, setEvents] = useState({});
-    const [selectedSchedule, setSelectedSchedule] = useState(0);
+    const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
+    const navigate = useNavigate();
+
+    //console.log(schedulesList);
+    //console.log(activeSchedulesList);
+    
+
+    var res;
+
+    switch(LayoutSettings)
+    {
+        case "day":
+            res = <></>;
+            break;
+        case "week":
+            res = <></>;
+            break;
+        case "month":
+            res = (selectedDate === null ? (
+                    <Calendar
+                        selectedSchedule={selectedSchedule}
+                        events={events}
+                        callAPIFunc={callAPIFunc}
+                        onSelectDate={setSelectedDate}
+                    />
+                ) : (
+                    <DayView
+                        callAPIFunc={callAPIFunc}
+                        selectedSchedule={selectedSchedule}
+                        date={selectedDate}
+                        events={events}
+                        setEvents={setEvents}
+                        onBack={() => setSelectedDate(null)}
+                />));
+            break;
+        case "year":
+            res = <></>;
+            break;
+    }    
 
 
 
-
+    
     return (
         <div className='calendarView-container'>
             <div className='calendarView-leftSide'>
                 
             </div>
+
+
+
             <div className='calendarView-rightSide'>
-                {selectedDate === null ? (
-                    <Calendar
-                        events={events}
-                        onSelectDate={setSelectedDate}
-                    />
-                ) : (
-                    <DayView
-                        date={selectedDate}
-                        events={events}
-                        setEvents={setEvents}
-                        onBack={() => setSelectedDate(null)}
-                />)}
+                {res}
             </div>
         </div>
 )}

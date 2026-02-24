@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -57,13 +59,49 @@ namespace BackendProjekt.Controllers
             return CreatedAtAction($"created", usersetting);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{token}")]
         [Authorize(Policy = "UserSettings.Update")]
-        public async Task<IActionResult> Put(int id, Usersettings usersetting)
+        public async Task<IActionResult> Put(string token, Usersettings usersetting)
         {
-            var oldusersetting = await _context.Usersettings.FirstOrDefaultAsync(p => p.UserId == id);
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return BadRequest("Token is required.");
+            }
+
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                token = token.Substring("Bearer ".Length).Trim();
+            }
+
+            JwtSecurityToken jwt;
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid JWT format.");
+            }
+
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found in token.");
+            }
+
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) 
+            {
+                return NotFound(); 
+            }
+
+            var oldusersetting = await _context.Usersettings.FirstOrDefaultAsync(p => p.UserId == user.UserId);
             if (oldusersetting == null) return NotFound();
-            oldusersetting.UserId = usersetting.UserId;
+            //oldusersetting.UserId = usersetting.UserId;
             oldusersetting.Settings = usersetting.Settings;
             await _context.SaveChangesAsync();
             return Ok(oldusersetting);
