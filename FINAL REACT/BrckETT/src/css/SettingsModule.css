@@ -35,7 +35,7 @@ body:has(.settings-module) {
 }
 
 
-/*Delete this, and do the GRID*/
+
 .settings-module .settings-category{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -43,7 +43,7 @@ body:has(.settings-module) {
     align-items: center;
     margin-bottom: 20px;
 }
-/*Delete this, and do the GRID*/
+
 .settings-module .settings-column{
     display: flex;
     flex-direction: column;
@@ -183,7 +183,7 @@ body.light-mode .settings-module .settings-save-btn {
 }
 
 
-/* Layout Select Dropdown */
+
 .layout-select {
     padding: 8px 12px;
     border-radius: 8px;
@@ -223,12 +223,6 @@ body.dark-mode .layout-select option {
 }
 
 
-
-
-
-
-
-/* Password Popup Styles */
 .password-popup-overlay {
     position: fixed;
     top: 0;

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BrckETTAPI.test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f09b6074a30c2c29d9565bf0c4ea204d329f23e1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b2a512cdbc0e70d82517fe2255caf39553aa993")]
 [assembly: System.Reflection.AssemblyProductAttribute("BrckETTAPI.test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BrckETTAPI.test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

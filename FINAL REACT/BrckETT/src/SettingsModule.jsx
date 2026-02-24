@@ -14,7 +14,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
     const [navbarCollapse, setNavbarCollapse] = useState(false);
     const [layout, setLayout] = useState('month');
     
-    // Track original settings to revert if not saved
+    // mentes nelkul settings alap allapotba allitas
     const originalSettings = useRef({ theme: '', navbarCollapse: false, layout: 'month' });
     const settingsSaved = useRef(false);
     
@@ -41,13 +41,13 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
             //console.log('Loaded settings from userData:', { theme, navbarHidden, layoutValue });
         } else {
             console.warn('User settings not found, falling back to localStorage');
-            // Fall back to localStorage
+            // localstorage
             theme = localStorage.getItem('theme') || 'light-mode';
             navbarHidden = localStorage.getItem('navbarCollapse') === 'true';
             layoutValue = localStorage.getItem('layout') || 'month';
         }
 
-        // Store original settings for potential revert
+        // eredeti beallitasok tarolasa esetleges visszaallitas eseten
         originalSettings.current = {
             theme: theme,
             navbarCollapse: navbarHidden,
@@ -55,12 +55,12 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
         };
         settingsSaved.current = false;
 
-        // Apply theme
+        // tema beallitasa
         setIsDarkMode(theme === 'dark-mode');
         document.body.classList.remove('light-mode', 'dark-mode');
         document.body.classList.add(theme);
         
-        // Apply navbar collapse
+        // navbar collapse beallitas
         setNavbarCollapse(navbarHidden);
         if (navbarHidden) {
             document.body.classList.add('collapse-on');
@@ -68,7 +68,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
             document.body.classList.remove('collapse-on');
         }
 
-        // Apply layout
+        // layout beallitasa
         setLayout(layoutValue);
     }, [userData]);
 
@@ -81,11 +81,11 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
     useEffect(() => {
         return () => {
             if (!settingsSaved.current) {
-                // Revert theme
+                // tema visszaallitasa
                 document.body.classList.remove('light-mode', 'dark-mode');
                 document.body.classList.add(originalSettings.current.theme);
                 
-                // Revert navbar collapse
+                // navbar collapse visszaallitasa
                 if (originalSettings.current.navbarCollapse) {
                     document.body.classList.add('collapse-on');
                 } else {
@@ -171,7 +171,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
             }
         }
 
-    //saves UserSettings to userData and calls API to save them to backend.
+    //usersettings es userdata mentese backendbe es api hivasa
     const saveDisplaySettings = async () => {
         if (!callAPIFunc || !userData?.user) return;
 
@@ -180,15 +180,15 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
             const theme = isDarkMode ? 'dark-mode' : 'light-mode';
             const settingsString = `${theme}/${navbarCollapse}/${layout}`;
 
-            // Save to localStorage
+            //localStorage-ba mentes
             localStorage.setItem('theme', theme);
             localStorage.setItem('navbarCollapse', navbarCollapse);
             localStorage.setItem('layout', layout);
 
-            // Mark as saved so cleanup doesn't revert
+            //saved beallitasa szvl nem all vissza eredeti allapotba
             settingsSaved.current = true;
             
-            // Update original settings to new saved state
+            // er4edeti beallitasok felulirasa
             originalSettings.current = {
                 theme: theme,
                 navbarCollapse: navbarCollapse,

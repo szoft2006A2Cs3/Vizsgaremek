@@ -22,16 +22,16 @@ import { useNavigate } from 'react-router-dom';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   const [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));
   const [userData, setUserData] = useState(null);
-  const [activeForm, setActiveForm] = useState('login'); // 'login' or 'register'
+  const [activeForm, setActiveForm] = useState('login'); // 'login' v 'register'
   //console.log(user);
 
   useEffect(() => {
     const initializeApp = async () => {
-      // Load token and try auto-login
+      //token betoltes es auto-login megkiserlese
       const savedToken = localStorage.getItem('token');
       if (savedToken) {
         callAPIInstance.setToken(savedToken);
@@ -52,12 +52,12 @@ function App() {
           setIsLoggedIn(true);
         } catch (error) {
           console.error('Auto-login failed:', error);
-          localStorage.removeItem('token'); // Remove invalid token
-          // No userData, load from localStorage
+          localStorage.removeItem('token'); // helytelen token törlése
+          // nincs userdata, localStorage-ból töltünk
           applySettingsFromLocalStorage();
         }
       } else {
-        // No token, load from localStorage
+        // nincs token, localStorage-ból töltünk
         applySettingsFromLocalStorage();
       }
     };
@@ -65,7 +65,7 @@ function App() {
     initializeApp();
   }, []);
 
-  // Load settings from userData whenever it changes
+  //settings betoltese userData-bol, ha valtozik
   useEffect(() => {
     if (userData?.userSettings?.settings) {
       // Priority 1   ---    Use userData.userSettings 
@@ -73,7 +73,7 @@ function App() {
       const theme = settings[0] || 'light-mode';
       const navbarHidden = settings[1] === 'true';
 
-      //Theme
+      //Tema
       document.body.classList.remove('light-mode', 'dark-mode');
       document.body.classList.add(theme);
       
@@ -87,7 +87,7 @@ function App() {
     }
   }, [userData]);
 
-  //Function to load from localStorage
+  //localstorage-bol betolto function
   function applySettingsFromLocalStorage() {
     //console.log('Applying settings from localStorage');
     const savedTheme = localStorage.getItem('theme') || 'light-mode';
@@ -124,7 +124,7 @@ function App() {
   function getUserData() 
   {
     if (userData === null) return user;
-    // Avoid calling setState during render — return a derived User instance instead
+    //keruljuk a setstate hivasat renderelest alatt - adjunk vissza egy derived User instance 
     return userData.user;
   }
 
