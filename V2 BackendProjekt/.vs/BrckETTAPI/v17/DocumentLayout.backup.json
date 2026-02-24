@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\userscontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\testhelpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|solutionrelative:brckettapi.test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C1D324C6-617E-EF6B-B8CE-BEA495E9D670}|BrckETTAPI.test\\BrckETTAPI.test.csproj|e:\\sulis dolgok\\vizsgaremek\\v2 backendprojekt\\brckettapi.test\\schedulescontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -126,7 +126,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
@@ -194,6 +194,26 @@
               "IsPinned": true
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c9c0ae26-aa77-11d2-b3f0-0000f87570ee}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UsersControllerTests.cs",
@@ -201,7 +221,7 @@
               "RelativeDocumentMoniker": "BrckETTAPI.test\\UsersControllerTests.cs",
               "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\UsersControllerTests.cs",
               "RelativeToolTip": "BrckETTAPI.test\\UsersControllerTests.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAswHMAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T18:05:08.707Z",
               "EditorCaption": ""
@@ -216,8 +236,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\SchedulesControllerTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:05:05.608Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T18:05:05.608Z"
             },
             {
               "$type": "Document",
@@ -229,12 +248,11 @@
               "RelativeToolTip": "BrckETTAPI.test\\ScheduleBlockControllerTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:05:03.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T18:05:03.646Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MSTestSettings.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\MSTestSettings.cs",
               "RelativeDocumentMoniker": "BrckETTAPI.test\\MSTestSettings.cs",
@@ -242,8 +260,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\MSTestSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:05:01.535Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T18:05:01.535Z"
             },
             {
               "$type": "Document",
@@ -255,8 +272,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\GroupsControllerTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:04:57.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T18:04:57.567Z"
             },
             {
               "$type": "Document",
@@ -268,8 +284,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\BlocksControllerTests.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:04:52.247Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T18:04:52.247Z"
             },
             {
               "$type": "Document",
@@ -281,20 +296,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\AdvancedInfoControllerTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T18:04:51.418Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "WhenOpened": "2026-02-24T18:04:51.418Z"
             },
             {
               "$type": "Document",
@@ -318,8 +320,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\UsersettingsController.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAYwEQAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T16:53:42.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T16:53:42.446Z"
             },
             {
               "$type": "Document",
@@ -415,8 +416,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\UsersController.cs",
               "ViewState": "AgIAALEAAAAAAAAAAAAYwM8AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T14:22:22.871Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T14:22:22.871Z"
             },
             {
               "$type": "Document",
@@ -488,12 +488,11 @@
               "RelativeToolTip": "BrckETTAPI.test\\LoginControllerTests.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-24T11:26:11.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-24T11:26:11.109Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "TestHelpers.cs",
               "DocumentMoniker": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI.test\\TestHelpers.cs",
               "RelativeDocumentMoniker": "BrckETTAPI.test\\TestHelpers.cs",
@@ -501,16 +500,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\TestHelpers.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAQwC4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-23T21:14:47.657Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{c9c0ae26-aa77-11d2-b3f0-0000f87570ee}"
+              "WhenOpened": "2026-02-23T21:14:47.657Z"
             }
           ]
         }

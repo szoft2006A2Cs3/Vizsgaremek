@@ -104,6 +104,10 @@ function App() {
   {
     try {
           const userDataResponse = await callAPIInstance.callApiAsync('AdvancedInfo', 'GET', null, true, callAPIInstance._token);
+          if (userDataResponse?.token) {
+            callAPIInstance.setToken(userDataResponse.token);
+            localStorage.setItem('token', userDataResponse.token);
+          }
           setUserData(new UserDataClass(userDataResponse));
           setUser(new User(
             userDataResponse.userId,

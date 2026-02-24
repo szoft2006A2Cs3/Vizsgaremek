@@ -11,16 +11,17 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     const [selectedDate, setSelectedDate] = useState(null);
     const [events, setEvents] = useState({});
     const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     //console.log(schedulesList);
     //console.log(activeSchedulesList);
     
-
-    var res;
-
-    switch(LayoutSettings)
+    function renderCalendar()
     {
+        var res;
+
+        switch(LayoutSettings)
+        {
         case "day":
             res = <></>;
             break;
@@ -48,19 +49,19 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         case "year":
             res = <></>;
             break;
-    }    
+        }    
 
+        return res;
+    }
 
-    //ezt majd törölhetjük de energiámból ma ennyire telt.
     function renderScheduleList() {
-      const numbers = [1, 2, 3, 4, 5];
 
       return (
         <div className="leftSide-list">
-          {numbers.map(function (num, index) {
+          {schedulesList.map(function (schedule, index) {
             return (
-              <div key={index} className="leftSide-item">
-                {num}
+              <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
+                {schedule.scheduleInfo}
               </div>
             );
           })}
@@ -71,14 +72,14 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     
     return (
         <div className='calendarView-container'>
-            <div className='calendarView-leftSide'>
+            <div id='render-schedule-list-here' className='calendarView-leftSide'>
                 {renderScheduleList()}
             </div>
 
 
 
-            <div className='calendarView-rightSide'>
-                {res}
+            <div id='render-calendar-here' className='calendarView-rightSide'>
+                {renderCalendar()}
             </div>
         </div>
 )}
