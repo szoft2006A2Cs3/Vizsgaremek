@@ -20,6 +20,8 @@ body:has(.front-page-container) {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    
 }
 :root:has(.front-page-container){
   --shadow-1: 0 6px 18px rgba(0,0,0,0.14);
@@ -49,10 +51,25 @@ body:has(.front-page-container) {
     backdrop-filter: blur(15px);
     box-shadow: 0 20px 50px rgba(0,0,0,0.35);
     transition: transform 0.3s ease;
+    grid-area: gridCenter;
 }
 .front-page-container .image-carousel:hover {
     transform: scale(1.02);
 }
+.front-page-container .carousel-container {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  max-width: 90vw;
+  display: grid;
+  grid-template: 20px 1fr 20px / 20px 1fr 20px;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas: 
+    "gridTopLeft gridTopCenter gridTopRight"
+    "gridMiddleLeft gridCenter gridMiddleRight"
+    "gridBottomLeft gridBottomCenter gridBottomRight";
+}
+
 
 .front-page-container .image-carousel img {
     width: 100%;
@@ -70,7 +87,13 @@ body:has(.front-page-container) {
   user-select: none;
   transition: transform 0.3s ease;
 }
-
+.front-page-container .frontpage-previews a
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .image-carousel {
   cursor: grab;

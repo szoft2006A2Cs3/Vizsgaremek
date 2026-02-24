@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react";
 
 
-export default function FooterModule() {
+export default function FooterModule({setActiveForm}) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,12 +21,16 @@ export default function FooterModule() {
 
   return (
     <footer className={`bottom-footer ${visible ? "visible" : "hidden"}`}>
-      <button className="footer-button register">
-        <Link to="/loginReg">Registration</Link>
-      </button>
-      <button className="footer-button login">
-        <Link to="/loginReg">Login</Link>
-      </button>
+      <Link onClick={() => setActiveForm('register')} to="/loginReg">
+        <button  className="footer-button register">
+          <link-text>Registration</link-text>
+        </button>
+      </Link>
+      <Link onClick={() => setActiveForm('login')} to="/loginReg">
+        <button  className="footer-button login">
+          <link-text>Login</link-text>
+        </button>
+      </Link>
     </footer>
   );
 }

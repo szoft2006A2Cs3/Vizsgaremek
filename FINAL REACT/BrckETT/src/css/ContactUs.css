@@ -26,7 +26,10 @@ body:has(.contact-container) {
     justify-content: center;
     gap: 40px;
 }
-
+body:has(.front-page-container) .contact-container {
+    padding: 0px;
+    min-height: 10vh;
+}
 
 .contact-container h1 {
     background: none; 
@@ -53,6 +56,8 @@ body:has(.contact-container) {
 .contact-container p {
     position: relative;
     max-width: 900px;
+    min-width: 90%;
+    max-width: 90%;
     background-color: var(--cboxbgcolor); 
     color: var(--ccolor); 
     padding: 25px 30px;
@@ -65,7 +70,10 @@ body:has(.contact-container) {
     transition: color 0.3s ease;
 
 }
-
+body:has(.front-page-container) .contact-container p {
+    min-width: 60%;
+    max-width: 60%;
+}
 
 .contact-container p::before {
     content: '';
@@ -135,6 +143,7 @@ body:has(.contact-container) {
 
     .contact-container p {
         max-width: 100%;
+        min-width: 100%;
         padding: 16px 18px;
         border-left: 4px solid var(--ccolor);
         border-radius: 6px;

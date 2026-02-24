@@ -1,5 +1,5 @@
 import "./css/LoginModule.css";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import User from "./js/UserClass";
 
@@ -19,8 +19,14 @@ function ifError(event, func)
         ShowErrors()
     }
 
-export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc, callAPIFunc}) 
+export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc, callAPIFunc, activeForm}) 
 {
+    useEffect(() => {
+        if(activeForm === 'login' || activeForm === 'register')
+        {
+            switchForm(activeForm)();
+        }}, [activeForm])
+
     const navigate = useNavigate();
     const [logEmail, setLogEmail] = useState('')
     const [logPassword, setLogPassword] = useState('')
@@ -42,7 +48,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         }
         return true;
     }
-
+    
     return (
         <div className="LoginModule">
             <div className="card">
@@ -143,7 +149,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
             callAPIFunc.setToken(response);
             localStorage.setItem('token', response);
             
-            console.log(response);
+            //console.log(response);
             let userData = await callAPIFunc.callApiAsync('AdvancedInfo', 'GET', null, true, response).then(data => {return data;});
             setUserDataFunc(userData)
             setUserFunc(new User(userData.userId, userData.userName, userData.email, userData.displayName, userData.password, userData.role, userData.token, userData.description))

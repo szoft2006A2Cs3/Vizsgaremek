@@ -21,7 +21,7 @@ body:has(.bottom-footer).dark-mode {
     --footerfgcolor: #ffffff;
     --footerbackground: #310058d2;
 }
-.bottom-footer a {
+.bottom-footer link-text {
   color: var(--footerfgcolor);
   text-decoration: none;
 }

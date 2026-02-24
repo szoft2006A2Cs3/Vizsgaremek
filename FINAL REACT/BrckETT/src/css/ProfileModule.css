@@ -67,41 +67,59 @@ body:has(.profile-container)
 }
 .profile-container .button-panel
 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    flex-direction: row;
-    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 100px;
+    grid-template-rows: 1fr;
     width: 100%;
     height: 100%;
-    
+    align-items: center;
+
     gap: 15px;
     grid-row: 3/4;
     grid-column: 2/3;
 }
+.profile-container div.button-panel a
+{
+    
+    height: 90%;
+}
+.profile-container div.button-panel a:hover
+{
+    transform: scale(1.1);
+    font-size: 30px;
+}
+
 .profile-container div.button-panel button
 {
-    width: 100%;
+    flex: 1;
     margin: 0;
     padding: 12px 18px;
     height: 100%;
-    max-height: 100px;
+    /*max-height: 100px;*/
+    width: 90%;
     border: var(--btnborder) 3px solid;
 
     background-color: var(--btnbgcolor);
     color: var(--fgcolor);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
-.profile-container div.button-panel button a
+.profile-container div.button-panel button link-text
 {
     color: var(--fgcolor);
     font-size: 25px;
     font-weight: 700;
+    text-align: center;
 }
 .profile-container #Logout-Btn
 {
+    flex: 0;
     max-width: 80px;
     max-height: 80px;
+    aspect-ratio: 1/1;
     padding: 0;
 }
 .profile-container #Logout-Btn a
@@ -112,9 +130,9 @@ body:has(.profile-container)
 }
 .profile-container .logoutIcon
 {
-    max-width: 60px;
-    max-height: 60px;
-    padding: 10px;
+    width: 80%;
+    height: 80%;
+    padding: 10%;
     content: var(--imgUrl);
 }
 .profile-container div.button-panel > button:hover
@@ -123,11 +141,9 @@ body:has(.profile-container)
 
     background-color: var(--btnhovercolor);
     color: var(--fgcolor);
+    
 }
-.profile-container div.button-panel button:hover a
-{
-    font-size: 30px;
-}
+
 
 @media (max-width: 800px) {
 
@@ -151,10 +167,16 @@ body:has(.profile-container)
     }
 
     .profile-container .button-panel {
+        padding: 6px 20px 10px 20px;
+        
+        display: flex;
         flex-direction: column;
         
-        padding: 6px 20px 10px 20px;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
         align-items: stretch;
+        
     }
 
     .profile-container div.button-panel button {
@@ -172,8 +194,14 @@ body:has(.profile-container)
     }
 
     .profile-container #Logout-Btn {
-        max-width: 100%;
-        max-height: none;
+        max-width: 100px;
+        max-height: 100px;
+        aspect-ratio: 1/1;
         padding: 0;
+        margin: 0px auto 0px auto;
+    }
+    .profile-container div.button-panel a 
+    {
+        height: auto;
     }
 }

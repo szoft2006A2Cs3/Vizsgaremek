@@ -3,6 +3,7 @@ using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace BackendProjekt.Controllers
@@ -16,7 +17,7 @@ namespace BackendProjekt.Controllers
 
         // A tokenManager objektum azért elérhető itt, mert a program.cs-ben az AddSingleton() metódussal
         // felvettük az API szolgáltatásai közé. Az EntityFramework miatt kicsit eltérően, speciálisabban
-        // kellett felvennük a Context objektumot, amely az adatbázis kontextusunkat írja le.
+        // kellett felvennünk a Context objektumot, amely az adatbázis kontextusunkat írja le.
         public LoginController(Context context, TokenManager tokenManager)
         {
             _context = context;
@@ -27,7 +28,13 @@ namespace BackendProjekt.Controllers
         {
             public string Email { get; set; } = string.Empty;
             public string Password { get; set; } = string.Empty;
-        }   
+        }
+
+        public class ChangePasswordRequest
+        {
+            public string CurrentPassword { get; set; } = string.Empty;
+            public string NewPassword { get; set; } = string.Empty;
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -52,10 +59,12 @@ namespace BackendProjekt.Controllers
             return Ok(token);
         }
 
+
+
         // Az alábbi Authorize címke azt közli, hogy bármilyen szabályzással elérhető ez a végpont. Ez itt azért helyes,
         // mert a kijelentkezésnek egy feltétele van: a felhasználó hitelesített, azaz korábban bejelentkezett és érvényes
         // tokent küldött. Az érvényesség feltétele itt az, hogy a token nem járt még le (exp) és az aláírása (signature)
-        // is érvényes. 
+        // is érvényes.
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> Logout()
@@ -78,6 +87,58 @@ namespace BackendProjekt.Controllers
             // Az adatbázisba is elmentjük ezt a változást.
             await _context.SaveChangesAsync();
             return Ok();
+        }
+
+        [HttpPut("{token}")]
+        [Authorize(Policy = "Login.Put")]
+        public async Task<IActionResult> ChangePassword(string token, [FromBody] ChangePasswordRequest req)
+        {
+            if (req == null) return BadRequest("Request body is required.");
+            if (string.IsNullOrWhiteSpace(req.CurrentPassword) || string.IsNullOrWhiteSpace(req.NewPassword))
+                return BadRequest("Both current and new passwords are required.");
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return BadRequest("Token is required.");
+            }
+
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                token = token.Substring("Bearer ".Length).Trim();
+            }
+
+            JwtSecurityToken jwt;
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid JWT format.");
+            }
+
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found in token.");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return NotFound();
+
+            if (!PasswordHandler.VerifyPassword(req.CurrentPassword, user.Password))
+                return BadRequest("Current password is incorrect.");
+
+            user.Password = PasswordHandler.HashPassword(req.NewPassword);
+
+            // Invalidate stored token so client must re-authenticate (optional but recommended)
+            //user.Token = null;
+
+            await _context.SaveChangesAsync();
+            return Ok("Password Succesfully Updated");
         }
     }
 }

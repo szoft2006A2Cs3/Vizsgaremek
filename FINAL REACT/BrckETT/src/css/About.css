@@ -26,6 +26,11 @@ body:has(.about-container) {
     gap: 40px;
 }
 
+body:has(.front-page-container) .about-container {
+    padding: 0px;
+    min-height: 10vh;
+}
+
 .about-container h1 {
     background: none; 
     color: var(--abcolor); 
@@ -50,7 +55,8 @@ body:has(.about-container) {
 
 .about-container p {
     position: relative;
-    max-width: 900px;
+    min-width: 90%;
+    max-width: 90%;
     background-color: var(--abboxbgcolor); 
     color: var(--abcolor); 
     padding: 25px 30px;
@@ -61,6 +67,10 @@ body:has(.about-container) {
     line-height: 1.6;
     overflow: hidden; 
     transition: color 0.3s ease;
+}
+body:has(.front-page-container) .about-container p {
+    min-width: 60%;
+    max-width: 60%;
 }
 
 .about-container p::before {

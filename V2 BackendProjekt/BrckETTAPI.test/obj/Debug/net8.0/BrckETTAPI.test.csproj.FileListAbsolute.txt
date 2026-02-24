@@ -33,7 +33,6 @@ C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bi
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
@@ -220,11 +219,9 @@ C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bi
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-mips64\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
-C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-musl-riscv64\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-musl-s390x\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-musl-x64\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-ppc64le\native\libe_sqlite3.so
-C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-riscv64\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-s390x\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-x64\native\libe_sqlite3.so
 C:\Users\idont\OneDrive\Desktop\Vizsgaremek\V2 BackendProjekt\BrckETTAPI.test\bin\Debug\net8.0\runtimes\linux-x86\native\libe_sqlite3.so

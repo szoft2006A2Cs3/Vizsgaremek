@@ -273,6 +273,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BackendProjekt.Controllers.LoginController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/login/{token}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "BackendProjekt.Controllers.LoginController\u002BChangePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.ScheduleBlockController",
+    "Method": "Get",
+    "RelativePath": "api/ScheduleBlock/{token}/{scheduleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BackendProjekt.Controllers.SchedulesController",
     "Method": "Get",
     "RelativePath": "api/Schedules",

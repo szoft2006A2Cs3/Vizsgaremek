@@ -48,6 +48,14 @@ body:has(.settings-module) {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    height: -webkit-fill-available;
+    justify-content: space-evenly;
+}
+.settings-module .settings-column.align-left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
 }
 .settings-module .settings-radio-btn{
     padding: 10px 20px;
@@ -174,5 +182,149 @@ body.light-mode .settings-module .settings-save-btn {
     transform: translateX(30px);
 }
 
-/*4hx3w grid, bottom row unified*/
-/*Title on top of category, under each other, centered*/
+
+
+
+
+
+
+/* Password Popup Styles */
+.password-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.password-popup {
+    background: rgba(45, 0, 77, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.password-popup h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.password-popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.password-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.password-input-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #a8fa50;
+}
+
+.password-input-group input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.password-input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+    box-shadow: 0 0 10px rgba(168, 250, 80, 0.2);
+}
+
+.password-input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    color: #a8fa50;
+}
+
+.password-toggle-btn:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
+}
+
+.password-popup-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.password-popup-buttons button {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-confirm {
+    background: linear-gradient(90deg, #5a1394, #883ac9);
+    color: #a8fa50;
+}
+
+.btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(168, 250, 80, 0.3);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
