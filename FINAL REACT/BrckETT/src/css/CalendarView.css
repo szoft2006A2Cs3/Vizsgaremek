@@ -9,4 +9,39 @@ body:has(.calendarView-container) {
     margin: 3%;
     margin-top: 10%;
     color: #a8fa50;
+    display: flex;
+}
+
+.calendarView-leftSide {
+  width: 6%;
+  background: #007bff;
+  color: white;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  border-right: 2px solid #0056b3;
+}
+
+/*Nyílik*/
+.calendarView-leftSide:hover {
+  width: 25%;
+}
+
+.leftSide-list {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.leftSide-item {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+}
+
+.leftSide-item:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.calendarView-rightSide {
+  flex: 1;
+  background: white;
 }
