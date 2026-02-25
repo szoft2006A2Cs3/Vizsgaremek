@@ -10,6 +10,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     schedulesList = location.state?.schedulesList || schedulesList;
     const [selectedDate, setSelectedDate] = useState(null);
     const [events, setEvents] = useState({});
+
     const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
     const navigate = useNavigate();
 
@@ -51,12 +52,27 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     }    
 
 
+    function renderScheduleList() {
+
+
+      return (
+        <div className="leftSide-list">
+          {numbers.map(function (num, index) {
+            return (
+              <div key={index} className="leftSide-item">
+                {num}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
 
     
     return (
         <div className='calendarView-container'>
             <div className='calendarView-leftSide'>
-                
+                {renderScheduleList()}
             </div>
 
 
