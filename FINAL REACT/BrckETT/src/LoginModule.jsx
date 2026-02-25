@@ -230,6 +230,9 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         if (passwordInput.value.length < 8) {
             return "Password must be at least 8 characters long.";
         }
+        else if (!/[A-Z]/.test(passwordInput.value)) {
+            return "Password must contain at least one uppercase letter.";
+        }
         else if (!/\d/.test(passwordInput.value)) {
             return "Password must contain at least one number.";
         }

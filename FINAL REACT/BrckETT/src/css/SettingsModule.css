@@ -383,3 +383,40 @@ body.dark-mode .layout-select option {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
 }
+
+.settings-module .input-error {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+}
+.settings-module .error-text {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .settings-panel h1 {
+        font-size: 1.75rem;
+    }
+
+    .settings-panel h2 {
+        font-size: 1.2rem;
+    }
+
+    .settings-module p,
+    .settings-column input,
+    .settings-column button,
+    .settings-module .settings-save-btn,
+    .layout-select,
+    .password-popup-buttons button {
+        font-size: 0.9rem;
+    }
+
+    .password-input-group label,
+    .password-input-group input,
+    .description-textarea {
+        font-size: 0.85rem;
+    }
+}
