@@ -28,8 +28,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         }}, [activeForm])
 
     const navigate = useNavigate();
-    const [logEmail, setLogEmail] = useState('')
-    const [logPassword, setLogPassword] = useState('')
+    const [logEmail, setLogEmail] = useState('test@te.te')
+    const [logPassword, setLogPassword] = useState('Testtest1!')
 
     const [regEmail, setRegEmail] = useState("")
     const [regUsername, setRegUsername] = useState("")
@@ -121,7 +121,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                 try 
                 {
                     //admin role beallitasa default ra ha van ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                    let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"Admin",token:"",description:"Empty Description"}, true).then(data => {return data;})
+                    let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"User",token:"",description:"Empty Description"}, true).then(data => {return data;})
                     response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
                     callAPIFunc.setToken(response);
                     localStorage.setItem('token', response);

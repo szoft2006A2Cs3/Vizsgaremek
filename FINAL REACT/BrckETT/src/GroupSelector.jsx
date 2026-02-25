@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 export default function GroupSelector({ groupList }) 
 {
     const navigate = useNavigate();
+    console.log(groupList);
+
 
     function OnClickHandler(event)
     {

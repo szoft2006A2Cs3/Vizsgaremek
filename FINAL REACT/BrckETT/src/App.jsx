@@ -19,9 +19,15 @@ import GroupSelector from './GroupSelector.jsx'
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import { tr } from 'motion/react-client'
 
 
 function App() {
+  //localStorage.removeItem('token'); // teszt miatt token törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  //localStorage.removeItem('theme'); // teszt miatt theme törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  //localStorage.removeItem('navbarCollapse'); // teszt miatt navbarCollapse törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   const [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));

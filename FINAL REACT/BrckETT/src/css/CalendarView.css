@@ -1,24 +1,44 @@
 body:has(.calendarView-container) { 
     width: -webkit-fill-available;
     height: -webkit-fill-available; 
+    background-color: var(--CWbackground);
+  }
+
+body:has(.calendarView-container).light-mode {
+    --CWbackground: #9f74dc;
+    --CWfgcolor: #a8fa50;
+    --CWbtnbgcolor: #883ac9d2;
+    --CWbtnhovercolor: #c772ff;
+    --CWlistbackground: rgb(181, 90, 181);
+    --CWbtnborder: #ff64ead2;
 }
+body:has(.calendarView-container).dark-mode {
+    --CWbackground: #362353;
+    --CWfgcolor: #d19aff;
+    --CWbtnbgcolor: #4e008df7;
+    --CWbtnhovercolor: #6e29a7f7;
+    --CWlistbackground: #5e3fa7d2;
+    --CWbtnborder: #5e3fa7d2;
+}
+
 
 .calendarView-container {
     width: -webkit-fill-available;
     height: -webkit-fill-available;
-    margin: 3%;
-    margin-top: 10%;
-    color: #a8fa50;
+    /*margin: 3%;*/
+    margin-top: 5%;
+    color: var(--CWfgcolor);
+    
     display: flex;
 }
 
 .calendarView-leftSide {
   width: 6%;
-  background: #007bff;
-  color: white;
+  background: var(--CWlistbackground);
+  color: var(--CWfgcolor);
   overflow: hidden;
   transition: width 0.3s ease;
-  border-right: 2px solid #0056b3;
+  border-right: 2px solid var(--CWbtnborder);
 }
 
 /*Nyílik*/
@@ -38,10 +58,10 @@ body:has(.calendarView-container) {
 }
 
 .leftSide-item:hover {
-  background: rgba(255,255,255,0.2);
+  background: var(--CWbtnhovercolor);
 }
 
 .calendarView-rightSide {
   flex: 1;
-  background: white;
+  background: var(--CWbackground);
 }
