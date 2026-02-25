@@ -272,27 +272,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BackendProjekt.Controllers.ScheduleBlockController",
-    "Method": "Get",
-    "RelativePath": "api/ScheduleBlock/{token}/{scheduleId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "scheduleId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "BackendProjekt.Controllers.SchedulesController",
     "Method": "Get",
     "RelativePath": "api/Schedules",

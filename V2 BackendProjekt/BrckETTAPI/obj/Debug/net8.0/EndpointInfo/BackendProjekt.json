@@ -436,37 +436,6 @@
         }
       }
     },
-    "/api/ScheduleBlock/{token}/{scheduleId}": {
-      "get": {
-        "tags": [
-          "ScheduleBlock"
-        ],
-        "parameters": [
-          {
-            "name": "token",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "scheduleId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Schedules": {
       "get": {
         "tags": [
