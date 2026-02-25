@@ -28,8 +28,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         }}, [activeForm])
 
     const navigate = useNavigate();
-    const [logEmail, setLogEmail] = useState('')
-    const [logPassword, setLogPassword] = useState('')
+    const [logEmail, setLogEmail] = useState('test@te.te')
+    const [logPassword, setLogPassword] = useState('Testtest1!')
 
     const [regEmail, setRegEmail] = useState("")
     const [regUsername, setRegUsername] = useState("")
@@ -120,8 +120,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
             {
                 try 
                 {
-                    //SET ADMIN ROLE TO SMTH DEFAULT WHEN WE HAVE IT ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                    let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"Admin",token:"",description:"Empty Description"}, true).then(data => {return data;})
+                    //admin role beallitasa default ra ha van ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    let response = await callAPIFunc.callApiAsync('users', 'POST', {userId:0,userName:regUsername,email:regEmail,displayName:`${regFName}_${regLName}`,password:regPasswd1,role:"User",token:"",description:"Empty Description"}, true).then(data => {return data;})
                     response = await callAPIFunc.callApiAsync('login', 'POST', {email: regEmail, password: regPasswd1}, false).then(data => {return data;});
                     callAPIFunc.setToken(response);
                     localStorage.setItem('token', response);
@@ -144,7 +144,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     {
         try 
         {
-            //LOGIN & SAVE TOKEN
+            //LOGIN & token mentese
             let response = await callAPIFunc.callApiAsync('login', 'POST', {email: logEmail, password: logPassword}, false).then(data => {return data;});
             callAPIFunc.setToken(response);
             localStorage.setItem('token', response);
@@ -210,7 +210,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
 
     function EmptyFieldCheck()
     {
-        //Empty field check
+        //ures mezo elenorzo
         var inputs = document.querySelectorAll("#register .input input");
         inputs.forEach(input => {
             if (input.value === "") {
@@ -222,13 +222,16 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     function PasswordCheck()
     {;
         
-        //Password check
+        //jelszo ellenorzes
         const passwordInput = document.getElementById("regPass");
         PasswordConfirmationCheck() ? document.getElementById("regPass2").classList.add("errorBorder") : document.getElementById("regPass2").classList.remove("errorBorder");
 
 
         if (passwordInput.value.length < 8) {
             return "Password must be at least 8 characters long.";
+        }
+        else if (!/[A-Z]/.test(passwordInput.value)) {
+            return "Password must contain at least one uppercase letter.";
         }
         else if (!/\d/.test(passwordInput.value)) {
             return "Password must contain at least one number.";
@@ -240,7 +243,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
 
     function PasswordConfirmationCheck()
     {
-        //Password confirmation check
+        //jelszo eggyezes ellenorzes
         const passwordInput = document.getElementById("regPass");
         const passwordInput2 = document.getElementById("regPass2");
 
@@ -252,7 +255,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     function EmailFormatCheck()
     {
         var inputs = document.querySelectorAll("#register .input input");
-        //Email format check
+        //Email forma ellenorzes
         const emailInput = inputs[3];
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/;
         if (!emailPattern.test(emailInput.value)) {

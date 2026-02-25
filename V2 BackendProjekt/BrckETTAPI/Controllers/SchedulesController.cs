@@ -31,9 +31,10 @@ namespace BackendProjekt.Controllers
             Schedules? schedules = null;
             if (ext)
             {
+                // load the related Templates navigation property and find by schedule id
                 schedules = await _context.Schedules
-                            .Include(k => k.TemplateId) 
-                            .FirstOrDefaultAsync(p => p.TemplateId == id);
+                            .Include(s => s.Templates)
+                            .FirstOrDefaultAsync(p => p.ScheduleId == id);
             }
             else
             {

@@ -98,7 +98,7 @@ body:has(.front-page-container) .about-container p {
     z-index: 1;
 }
 
-/* Mobile / small-screen tweaks */
+/* Mobil nezet*/
 @media (max-width: 800px) {
     .about-container {
         padding: 36px 14px;

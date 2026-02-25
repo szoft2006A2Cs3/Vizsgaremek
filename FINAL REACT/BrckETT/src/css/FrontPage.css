@@ -184,7 +184,7 @@ body:has(.front-page-container) {
   }
 }
 
-/* Mobile / small-screen tweaks */
+/* Mobil nezet */
 @media (max-width: 800px) {
   .front-page-container .image-carousel {
     width: calc(100% - 32px);

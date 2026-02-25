@@ -123,7 +123,7 @@ body:has(.front-page-container) .contact-container p {
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-/* Mobile / small-screen tweaks */
+/* Mobil nezet */
 @media (max-width: 800px) {
     .contact-container {
         padding: 36px 14px;

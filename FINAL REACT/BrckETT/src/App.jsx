@@ -18,23 +18,37 @@ import UserDataClass from './js/UserDataClass.js';
 
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
+<<<<<<< HEAD
+=======
+import { useNavigate } from 'react-router-dom';
+import { tr } from 'motion/react-client'
+>>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  //localStorage.removeItem('token'); // teszt miatt token törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  //localStorage.removeItem('theme'); // teszt miatt theme törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  //localStorage.removeItem('navbarCollapse'); // teszt miatt navbarCollapse törlése induláskor, hogy mindig a localStorage-ból töltse be a beállításokat, ha nincs token vagy érvénytelen token
+  
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   const [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));
   const [userData, setUserData] = useState(null);
-  const [activeForm, setActiveForm] = useState('login'); // 'login' or 'register'
+  const [activeForm, setActiveForm] = useState('login'); // 'login' v 'register'
   //console.log(user);
 
   useEffect(() => {
     const initializeApp = async () => {
+<<<<<<< HEAD
       // Apply theme on app load
       const savedTheme = localStorage.getItem('theme') || 'light-mode';
       document.body.classList.add(savedTheme);
 
       // Load token and try auto-login
+=======
+      //token betoltes es auto-login megkiserlese
+>>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
       const savedToken = localStorage.getItem('token');
       if (savedToken) {
         callAPIInstance.setToken(savedToken);
@@ -54,18 +68,91 @@ function App() {
           setIsLoggedIn(true);
         } catch (error) {
           console.error('Auto-login failed:', error);
+<<<<<<< HEAD
           localStorage.removeItem('token'); // Remove invalid token
         }
+=======
+          localStorage.removeItem('token'); // helytelen token törlése
+          // nincs userdata, localStorage-ból töltünk
+          applySettingsFromLocalStorage();
+        }
+      } else {
+        // nincs token, localStorage-ból töltünk
+        applySettingsFromLocalStorage();
+>>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
       }
     };
 
     initializeApp();
   }, []);
 
+<<<<<<< HEAD
+=======
+  //settings betoltese userData-bol, ha valtozik
+  useEffect(() => {
+    if (userData?.userSettings?.settings) {
+      // Priority 1   ---    Use userData.userSettings 
+      const settings = userData.userSettings.settings.split('/');
+      const theme = settings[0] || 'light-mode';
+      const navbarHidden = settings[1] === 'true';
+
+      //Tema
+      document.body.classList.remove('light-mode', 'dark-mode');
+      document.body.classList.add(theme);
+      
+      //Navbar
+      if (navbarHidden) {
+        document.body.classList.add('collapse-on');
+      } else {
+        document.body.classList.remove('collapse-on');
+      }
+      //console.log('Applied settings from userData:', { theme, navbarHidden });
+    }
+  }, [userData]);
+
+  //localstorage-bol betolto function
+  function applySettingsFromLocalStorage() {
+    //console.log('Applying settings from localStorage');
+    const savedTheme = localStorage.getItem('theme') || 'light-mode';
+    document.body.classList.add(savedTheme);
+    const savedNavbarCollapse = localStorage.getItem('navbarCollapse') === 'true';
+    if (savedNavbarCollapse) {
+      document.body.classList.add('collapse-on');
+    } else {
+      document.body.classList.remove('collapse-on');
+    }
+  }
+
+  async function fetchUserData() 
+  {
+    try {
+          const userDataResponse = await callAPIInstance.callApiAsync('AdvancedInfo', 'GET', null, true, callAPIInstance._token);
+          if (userDataResponse?.token) {
+            callAPIInstance.setToken(userDataResponse.token);
+            localStorage.setItem('token', userDataResponse.token);
+          }
+          setUserData(new UserDataClass(userDataResponse));
+          setUser(new User(
+            userDataResponse.userId,
+            userDataResponse.userName,
+            userDataResponse.email,
+            userDataResponse.displayName,
+            userDataResponse.password,
+            userDataResponse.role,
+            userDataResponse.token,
+            userDataResponse.description
+          ));
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  }
+
+
+>>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
   function getUserData() 
   {
     if (userData === null) return user;
-    // Avoid calling setState during render — return a derived User instance instead
+    //keruljuk a setstate hivasat renderelest alatt - adjunk vissza egy derived User instance 
     return userData.user;
   }
 

@@ -35,6 +35,26 @@ namespace BrckETTAPI.test
             Assert.IsInstanceOfType(res, typeof(NotFoundResult));
         }
 
+        // NEW: positive test for Get(id) where id is TemplateId
+        [TestMethod]
+        public async Task GetById_Found_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Templates.Add(new Templates { TemplateId = 500, TemplateInfo = "tpl" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 5, TemplateId = 500, ScheduleInfo = "s" });
+            });
+
+            var controller = new SchedulesController(db.Context);
+            // controller.Get uses the route id as TemplateId
+            var res = await controller.Get(5);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var schedule = ((OkObjectResult)res).Value as Schedules;
+            Assert.IsNotNull(schedule);
+            Assert.AreEqual(500, schedule.TemplateId);
+            Assert.AreEqual(5, schedule.ScheduleId);
+        }
+
         [TestMethod]
         public async Task Post_Create_Pass()
         {

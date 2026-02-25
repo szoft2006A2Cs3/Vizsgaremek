@@ -34,6 +34,7 @@ namespace BackendProjekt.Controllers
             return Ok("Not implemented yet");
         }
 
+
         // GET api/<AdvancedInfoController>/5
         [HttpGet("{token}")]
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
@@ -120,27 +121,121 @@ namespace BackendProjekt.Controllers
         }
 
         // POST api/<AdvancedInfoController>
-        [HttpPost]
-        [Authorize(Policy = "AdvancedInfo.Create")]
-        public async Task<IActionResult> Post([FromBody] string value)
+        
+        //[HttpPost]
+        //[Authorize(Policy = "AdvancedInfo.Create")]
+        //public async Task<IActionResult> Post([FromBody] string value)
+        //{
+        //    return Ok("Not implemented yet");
+        //}
+
+        //// PUT api/<AdvancedInfoController>/5
+        //[Authorize(Policy = "AdvancedInfo.Update")]
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Put(int id, [FromBody] string value)
+        //{
+        //    return Ok("Not implemented yet");
+        //}
+
+        //// DELETE api/<AdvancedInfoController>/5
+        //[Authorize(Policy = "AdvancedInfo.Delete")]
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    return Ok("Not implemented yet");
+        //}
+
+        //OKOS FUNKCIÓK ------------------------------------------------------------
+
+
+
+        //Layout LEKÉRDEZÉSEK------------------------------------------------------------
+        [HttpGet("BlocksInRange/{token}/{scheduleId}/{from}/{to}")]
+        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
+        public async Task<IActionResult> GetByYear(string token, int scheduleId,DateTime from, DateTime to)
         {
-            return Ok("Not implemented yet");
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return BadRequest("Token is required.");
+            }
+
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                token = token.Substring("Bearer ".Length).Trim();
+            }
+
+            JwtSecurityToken jwt;
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Invalid JWT format.");
+            }
+
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Email claim not found in token.");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            bool hasAccess = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasAccess) 
+            {
+                return Unauthorized();
+            }
+
+            var result = await _context.Schedules.Include(s => s.Templates).ThenInclude(t => t.TemplatesBlocksConns).ThenInclude(conn => conn.Blocks).Where(sch => sch.ScheduleId == scheduleId).ToListAsync();
+
+           
+            return Ok(result.Select(r => r.Templates.TemplatesBlocksConns.Select(c => c.Blocks).Where(b => b.Date>=from && b.Date<=to)));
         }
 
-        // PUT api/<AdvancedInfoController>/5
-        [Authorize(Policy = "AdvancedInfo.Update")]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string value)
-        {
-            return Ok("Not implemented yet");
-        }
 
-        // DELETE api/<AdvancedInfoController>/5
-        [Authorize(Policy = "AdvancedInfo.Delete")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+
+
+        /// <summary>
+        /// Segédosztály
+        /// Megadja hogy az adott user kapcsolódik-e vagy egyénileg, vagy csoportokon keresztül a megadott schedule-hoz
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="scheduleId"></param>
+        /// <returns></returns>
+        private async Task<bool> UserHasAccessToSchedule(Users user, int scheduleId)
         {
-            return Ok("Not implemented yet");
+            if (user == null) return false;
+
+            // Fast in-memory check if navigation properties are already loaded
+            if (user.Schedulesusersconns?.Any(su => su.ScheduleId == scheduleId) == true)
+                return true;
+
+            if (user.Groupuserconns?.Any(gu => gu.Group?.Groupscheduleconns?.Any(gs => gs.ScheduleId == scheduleId) == true) == true)
+                return true;
+
+            // Fallback to efficient DB queries when navigations aren't loaded
+            var direct = await _context.Schedulesusersconns
+                .AnyAsync(su => su.UserId == user.UserId && su.ScheduleId == scheduleId);
+            if (direct) return true;
+
+            var viaGroup = await _context.Groupuserconns
+                .Where(gu => gu.UserId == user.UserId)
+                .Join(_context.Groupscheduleconns,
+                      gu => gu.GroupId,
+                      gsc => gsc.GroupId,
+                      (gu, gsc) => gsc)
+                .AnyAsync(gsc => gsc.ScheduleId == scheduleId);
+
+            return viaGroup;
         }
     }
 }

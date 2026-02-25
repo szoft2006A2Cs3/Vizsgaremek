@@ -31,6 +31,23 @@ namespace BrckETTAPI.test
             Assert.IsInstanceOfType(res, typeof(NotFoundResult));
         }
 
+        // NEW: positive test for Get(id)
+        [TestMethod]
+        public async Task GetById_Found_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Groups.Add(new Groups { GroupId = 3, GroupName = "G3" });
+            });
+
+            var controller = new GroupsController(db.Context);
+            var res = await controller.Get(3);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var group = ((OkObjectResult)res).Value as Groups;
+            Assert.IsNotNull(group);
+            Assert.AreEqual("G3", group.GroupName);
+        }
+
         [TestMethod]
         public async Task Post_Create_Pass()
         {

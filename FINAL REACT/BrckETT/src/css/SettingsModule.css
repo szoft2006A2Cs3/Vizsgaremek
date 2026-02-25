@@ -35,7 +35,7 @@ body:has(.settings-module) {
 }
 
 
-/*Delete this, and do the GRID*/
+
 .settings-module .settings-category{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -43,7 +43,7 @@ body:has(.settings-module) {
     align-items: center;
     margin-bottom: 20px;
 }
-/*Delete this, and do the GRID*/
+
 .settings-module .settings-column{
     display: flex;
     flex-direction: column;
@@ -184,11 +184,53 @@ body.light-mode .settings-module .settings-save-btn {
 
 
 
+<<<<<<< HEAD
 
 
 
 
 /* Password Popup Styles */
+=======
+.layout-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    min-width: 120px;
+}
+
+.layout-select:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+}
+
+.layout-select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #a8fa50;
+    box-shadow: 0 0 10px rgba(168, 250, 80, 0.2);
+}
+
+.layout-select option {
+    background: #2d004d;
+    color: white;
+}
+
+body.dark-mode .layout-select {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .layout-select option {
+    background: #1c1c1c;
+}
+
+
+>>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
 .password-popup-overlay {
     position: fixed;
     top: 0;
@@ -327,4 +369,41 @@ body.light-mode .settings-module .settings-save-btn {
 .btn-cancel:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
+}
+
+.settings-module .input-error {
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+}
+.settings-module .error-text {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .settings-panel h1 {
+        font-size: 1.75rem;
+    }
+
+    .settings-panel h2 {
+        font-size: 1.2rem;
+    }
+
+    .settings-module p,
+    .settings-column input,
+    .settings-column button,
+    .settings-module .settings-save-btn,
+    .layout-select,
+    .password-popup-buttons button {
+        font-size: 0.9rem;
+    }
+
+    .password-input-group label,
+    .password-input-group input,
+    .description-textarea {
+        font-size: 0.85rem;
+    }
 }

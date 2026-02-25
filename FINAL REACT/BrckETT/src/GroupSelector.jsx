@@ -1,21 +1,26 @@
 import './css/GroupSelector.css';
 import { useNavigate } from "react-router-dom";
 
-// ONLCICKRE AZ ONCLICKHANDE FUNCTIONT ALLITSD BE, A KARTYAKNAK A NEVEBE LEGYEN EGY DATA-ATTRIBUTE 
-// AMI A CSOPORT ID-JET TARTALMAZZA, ES AZT ADJA AT A FENTI FUNCTIONNEK, AMI BEALLITJA A SELECTEDGROUPID-ET, 
-// ES AZT FELHASZNALVA LEHET BETOLTENI A CSOPORTHOZ TARTOZO ADATOKAT
-
-
-
-export default function GroupSelector({groupList}) 
+export default function GroupSelector({ groupList }) 
 {
     const navigate = useNavigate();
-    //Atvaltja az ID-t a jo groupra, majd az URL-t
-    function OnClickHandler(group)
+    console.log(groupList);
+
+
+    function OnClickHandler(event)
     {
+        const groupId = Number(event.currentTarget.dataset.groupId);
+
+        const selectedGroup = groupList.find(
+            g => g.groupId === groupId
+        );
+
+        if (!selectedGroup) return;
+
         navigate('/Schedules', {
             state: {
-                schedulesList: group.schedules
+                selectedGroupId: selectedGroup.groupId,
+                schedulesList: selectedGroup.schedules
             }
         });
     }
@@ -26,7 +31,8 @@ export default function GroupSelector({groupList})
                 <div
                     key={group.groupId}
                     data-group-id={group.groupId}
-                    onClick={() => OnClickHandler(group)}
+                    onClick={OnClickHandler}
+                    className="group-card"
                 >
                     {group.groupName}
                 </div>
