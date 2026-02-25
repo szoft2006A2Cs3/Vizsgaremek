@@ -1,5 +1,5 @@
 import Calendar from './Calendar.jsx'
-import DayView from './DayView.jsx'
+import DayView from './EventView.jsx'
 import './css/CalendarView.css'
 import { useState } from 'react';
 
@@ -9,7 +9,6 @@ export default function CalendarView({schedulesList}) {
     const [events, setEvents] = useState({});
     const [selectedSchedule, setSelectedSchedule] = useState(0);
 
-    //ezt majd törölhetjük de energiámból ma ennyire telt.
     function renderScheduleList() {
       const numbers = [1, 2, 3, 4, 5];
 

@@ -1,12 +1,25 @@
-import { tr } from 'motion/react-client';
 import './css/SettingsModule.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import User from './js/UserClass';
 
-export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
+export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc})
 {
+    const [usernameSettings, setUsernameSettings] = useState(userData.user ? userData.user.username : '');
+    const [displayNameSettings, setDisplayNameSettings] = useState(userData.user ? userData.user.displayName : '');
+    const [emailSettings, setEmailSettings] = useState(userData.user ? userData.user.email : '');
+    const [descriptionSettings, setDescriptionSettings] = useState(userData.user ? userData.user.description : '');
+
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [navbarCollapse, setNavbarCollapse] = useState(false);
+    const [layout, setLayout] = useState('month');
+    
+    // Track original settings to revert if not saved
+    const originalSettings = useRef({ theme: '', navbarCollapse: false, layout: 'month' });
+    const settingsSaved = useRef(false);
+    
     const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+    const [showDescriptionPopup, setShowDescriptionPopup] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -15,17 +28,93 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     useEffect(() => {
-        // Load theme preference on component mount
-        const savedTheme = localStorage.getItem('theme') || 'light-mode';
-        setIsDarkMode(savedTheme === 'dark-mode');
+        // Priority 1: Load from userData.userSettings (format: "theme/hiddenNavbar/scheduleLayout")
+        // Priority 2: Fall back to localStorage
+        let theme, navbarHidden, layoutValue;
+
+        if (userData?.userSettings?.settings) {
+            const settings = userData.userSettings.settings.split('/');
+            theme = settings[0] || 'light-mode';
+            navbarHidden = settings[1] === 'true';
+            layoutValue = settings[2] || 'month';
+
+            //console.log('Loaded settings from userData:', { theme, navbarHidden, layoutValue });
+        } else {
+            console.warn('User settings not found, falling back to localStorage');
+            // Fall back to localStorage
+            theme = localStorage.getItem('theme') || 'light-mode';
+            navbarHidden = localStorage.getItem('navbarCollapse') === 'true';
+            layoutValue = localStorage.getItem('layout') || 'month';
+        }
+
+        // Store original settings for potential revert
+        originalSettings.current = {
+            theme: theme,
+            navbarCollapse: navbarHidden,
+            layout: layoutValue
+        };
+        settingsSaved.current = false;
+
+        // Apply theme
+        setIsDarkMode(theme === 'dark-mode');
+        document.body.classList.remove('light-mode', 'dark-mode');
+        document.body.classList.add(theme);
+        
+        // Apply navbar collapse
+        setNavbarCollapse(navbarHidden);
+        if (navbarHidden) {
+            document.body.classList.add('collapse-on');
+        } else {
+            document.body.classList.remove('collapse-on');
+        }
+
+        // Apply layout
+        setLayout(layoutValue);
+    }, [userData]);
+
+    useEffect(() => {
+        if (!userData?.user) return;
+        setDescriptionSettings(userData.user.description || '');
+    }, [userData]);
+
+    // Cleanup: Revert unsaved changes when component unmounts
+    useEffect(() => {
+        return () => {
+            if (!settingsSaved.current) {
+                // Revert theme
+                document.body.classList.remove('light-mode', 'dark-mode');
+                document.body.classList.add(originalSettings.current.theme);
+                
+                // Revert navbar collapse
+                if (originalSettings.current.navbarCollapse) {
+                    document.body.classList.add('collapse-on');
+                } else {
+                    document.body.classList.remove('collapse-on');
+                }
+            }
+        };
     }, []);
 
     const handleThemeChange = (e) => {
         const newTheme = e.target.checked ? 'dark-mode' : 'light-mode';
         setIsDarkMode(e.target.checked);
-        localStorage.setItem('theme', newTheme);
         document.body.classList.remove('light-mode', 'dark-mode');
         document.body.classList.add(newTheme);
+    };
+
+    const handleNavbarCollapseChange = (e) => {
+        const shouldCollapse = e.target.checked;
+        setNavbarCollapse(shouldCollapse);
+        if (shouldCollapse) {
+            document.body.classList.add('collapse-on');
+        } else {
+            document.body.classList.remove('collapse-on');
+        }
+    };
+
+    const handleLayoutChange = (e) => {
+        const newLayout = e.target.value;
+        setLayout(newLayout);
     };
 
     const handlePasswordUpdate = async () => {
@@ -38,31 +127,19 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
             return;
         }
 
-        // Call API to update password and show success only on HTTP OK
         if (!callAPIFunc) {
             alert('API client not available');
             return;
         }
 
-        const payload = { currentPassword: currentPassword, newPassword: newPassword };
         try {
-            callAPIFunc.prepareCall('PUT', payload);
-            const tokenSegment = userData && userData.user && userData.user.token ? `/${userData.user.token}` : '';
-            const url = `${callAPIFunc._baseUrl}/login${tokenSegment}`;
-            const resp = await fetch(url, callAPIFunc._options);
-            if (resp.ok) {
-                setCurrentPassword('');
-                setNewPassword('');
-                setConfirmPassword('');
-                setShowPasswordPopup(false);
-                alert('Password updated successfully');
-            } else {
-                const text = await resp.text();
-                alert('Password update failed: ' + (text || resp.statusText));
-            }
-        } catch (err) {
-            console.error('Password update error', err);
-            alert('Password update failed. See console for details.');
+            await callAPIFunc.callApiAsync('login', 'PUT', { currentPassword, newPassword }, false, userData.user.token)
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+            setShowPasswordPopup(false);
+        } catch (err) { 
+
         }
     };
 
@@ -76,6 +153,58 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
         setShowPasswordPopup(false);
     };
 
+    const handleCloseDescriptionPopup = () => {
+        setDescriptionSettings(userData?.user?.description || '');
+        setShowDescriptionPopup(false);
+    };
+
+    const handleProfileDataChange = async () => 
+        {
+            if (!callAPIFunc || !userData?.user) return;
+
+            try {
+                await callAPIFunc.callApiAsync('Users', 'PUT', {"userId": 1, "userName": usernameSettings, "email": emailSettings, "displayName": displayNameSettings, "password": "", "description": descriptionSettings, "role": "Admin", "token":""}, false, userData.user.token);
+                await fetchUserDataFunc();
+            } catch (error) {
+                console.error('Profile update failed:', error);
+                
+            }
+        }
+
+    //saves UserSettings to userData and calls API to save them to backend.
+    const saveDisplaySettings = async () => {
+        if (!callAPIFunc || !userData?.user) return;
+
+        try {
+            // Build settings string: "theme/hiddenNavbar/scheduleLayout"
+            const theme = isDarkMode ? 'dark-mode' : 'light-mode';
+            const settingsString = `${theme}/${navbarCollapse}/${layout}`;
+
+            // Save to localStorage
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('navbarCollapse', navbarCollapse);
+            localStorage.setItem('layout', layout);
+
+            // Mark as saved so cleanup doesn't revert
+            settingsSaved.current = true;
+            
+            // Update original settings to new saved state
+            originalSettings.current = {
+                theme: theme,
+                navbarCollapse: navbarCollapse,
+                layout: layout
+            };
+
+            await callAPIFunc.callApiAsync('Usersettings', 'PUT', {"userId": userData.user.userId, "settings": `${theme}/${navbarCollapse}/${layout}`}, true, userData.user.token);
+            await fetchUserDataFunc();
+        } catch (error) {
+            console.error('Display settings save failed:', error);
+            alert('Failed to save display settings. Please try again.');
+        }
+    };
+
+
+
     return (
         <div className="settings-module">
             <div className='settings-panel'>
@@ -85,21 +214,21 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                 <div className='settings-category'>
                     <div className='settings-column align-left'>
                     <p>Username: {userData.user ? userData.user.username : "Loading..."}</p>
-                    <p>Email: {userData.user ? userData.user.email : "Loading..."}</p>
                     <p>Display Name: {userData.user ? userData.user.displayName : "Loading..."}</p>
+                    <p>Email: {userData.user ? userData.user.email : "Loading..."}</p>
+                    <p>Description</p>
                     </div>
                     <div className='settings-column'>
-                        <input type="text" defaultValue={userData.user ? userData.user.username : "Loading..."}></input>
-                        <input type="text" defaultValue={userData.user ? userData.user.email : "Loading..."}></input>
-                        <input type="text" defaultValue={userData.user ? userData.user.displayName : "Loading..."}></input>
+                        
                     </div>
                     <div className='settings-column'>
-                        <button>Change</button>
-                        <button>Change</button>
-                        <button>Change</button>
+                        <input type="text" defaultValue={userData.user ? userData.user.username : "Loading..."} onChange={(e) => setUsernameSettings(e.target.value)}></input>
+                        <input type="text" defaultValue={userData.user ? userData.user.displayName : "Loading..."} onChange={(e) => setDisplayNameSettings(e.target.value)}></input>
+                        <input type="text" defaultValue={userData.user ? userData.user.email : "Loading..."} onChange={(e) => setEmailSettings(e.target.value)}></input>
+                        <button id='THISBTNHERE' onClick={() => setShowDescriptionPopup(true)}> Change</button>
                     </div>
                 </div>
-                <button className='settings-save-btn'>Save</button>
+                <button className='settings-save-btn' onClick={handleProfileDataChange}>Save</button>
 
                 <h2>Password Settings</h2>
                 <div className='settings-category'>
@@ -112,7 +241,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                         <button onClick={() => setShowPasswordPopup(true)}>Update</button>
                     </div>
                 </div>
-                <button className='settings-save-btn'>Save</button>
 
                 <h2>Display Settings</h2>
                 <div className='settings-category display-grid'>
@@ -128,7 +256,35 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                     </label>
                 </div>
 
-                <button className='settings-save-btn'>Save</button>
+                <div className='settings-category display-grid'>
+                    <p>Collapse Navbar</p>
+
+                    <label className="theme-switch">
+                        <input
+                            type="checkbox"
+                            checked={navbarCollapse}
+                            onChange={handleNavbarCollapseChange}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
+
+                <div className='settings-category display-grid'>
+                    <p>Layout</p>
+
+                    <select 
+                        className="layout-select"
+                        value={layout}
+                        onChange={handleLayoutChange}
+                    >
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+                <button className='settings-save-btn' onClick={saveDisplaySettings}>Save</button>
+                
             </div>
 
             {showPasswordPopup && (
@@ -194,6 +350,30 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                         <div className='password-popup-buttons'>
                             <button onClick={handlePasswordUpdate} className='btn-confirm'>Update Password</button>
                             <button onClick={handleClosePasswordPopup} className='btn-cancel'>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showDescriptionPopup && (
+                <div className='password-popup-overlay'>
+                    <div className='password-popup'>
+                        <h3>Change Description</h3>
+                        <div className='password-popup-content'>
+                            <div className='password-input-group'>
+                                <label>Description</label>
+                                <textarea
+                                    value={descriptionSettings}
+                                    className='description-textarea'
+                                    onChange={(e) => setDescriptionSettings(e.target.value)}
+                                    placeholder='Enter your new description'
+                                    rows={5}
+                                />
+                            </div>
+                        </div>
+                        <div className='password-popup-buttons'>
+                            <button onClick={() => setShowDescriptionPopup(false)} className='btn-confirm'>Done</button>
+                            <button onClick={handleCloseDescriptionPopup} className='btn-cancel'>Cancel</button>
                         </div>
                     </div>
                 </div>

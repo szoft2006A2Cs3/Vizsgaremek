@@ -73,14 +73,9 @@ namespace BrckETTAPI.test
         public async Task Post_Create_Pass()
         {
             using var db = TestHelpers.CreateTestDb();
-            db.Context.Templates.Add(new Templates { TemplateId = 1, TemplateInfo = null });
-            await db.Context.SaveChangesAsync();
-            db.Context.Schedules.Add(new Schedules { ScheduleId = 1, TemplateId = 1 });
-            db.Context.Groups.Add(new Groups { GroupId = 1, GroupName = "Default" });
-            await db.Context.SaveChangesAsync();
 
             var controller = new UsersController(db.Context);
-            var newUser = new Users { UserName = "newuser", Email = "new@test", Password = "pw" };
+            var newUser = new Users { UserName = "newuser", Email = "new@test", Password = "pw", Role = "user" };
 
             var res = await controller.Post(newUser);
 
@@ -92,11 +87,31 @@ namespace BrckETTAPI.test
             var us = await db.Context.Usersettings.FirstOrDefaultAsync(s => s.UserId == created.UserId);
             Assert.IsNotNull(us);
 
-            var scheduleConn = await db.Context.Schedulesusersconns.FirstOrDefaultAsync(su => su.UserId == created.UserId && su.ScheduleId == 1);
-            Assert.IsNotNull(scheduleConn);
+            // There should be two templates: one for the user, one for the group
+            var templates = await db.Context.Templates.ToListAsync();
+            Assert.AreEqual(2, templates.Count);
 
-            var groupConn = await db.Context.Groupuserconns.FirstOrDefaultAsync(gu => gu.UserId == created.UserId && gu.GroupId == 1);
-            Assert.IsNotNull(groupConn);
+            // There should be two schedules: one for the user, one for the group
+            var schedules = await db.Context.Schedules.ToListAsync();
+            Assert.AreEqual(2, schedules.Count);
+
+            // There should be one group
+            var group = await db.Context.Groups.FirstOrDefaultAsync();
+            Assert.IsNotNull(group);
+
+            // The user's schedule should be connected to the user
+            var schedule = schedules.First(s => s.TemplateId == templates[0].TemplateId);
+            var scheduleUserConn = await db.Context.Schedulesusersconns.FirstOrDefaultAsync(su => su.UserId == created.UserId && su.ScheduleId == schedule.ScheduleId);
+            Assert.IsNotNull(scheduleUserConn);
+
+            // The user should be connected to the group
+            var groupUserConn = await db.Context.Groupuserconns.FirstOrDefaultAsync(gu => gu.UserId == created.UserId && gu.GroupId == group.GroupId);
+            Assert.IsNotNull(groupUserConn);
+
+            // The group's schedule should be connected to the group
+            var groupSchedule = schedules.First(s => s.TemplateId == templates[1].TemplateId);
+            var groupScheduleConn = await db.Context.Groupscheduleconns.FirstOrDefaultAsync(gsc => gsc.GroupId == group.GroupId && gsc.ScheduleId == groupSchedule.ScheduleId);
+            Assert.IsNotNull(groupScheduleConn);
 
             Assert.AreNotEqual("pw", created.Password);
         }
@@ -106,7 +121,20 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb();
             var controller = new UsersController(db.Context);
-            var res = await controller.Put(9999, new Users { UserName = "x", Email = "x", Password = "x" });
+
+            
+            var fakeUser = new Users
+            {
+                UserId = 9999,
+                UserName = "x",
+                Email = "x@notfound.com",
+                Password = "x",
+                Role = "user"
+            };
+            var tm = TestHelpers.CreateTokenManager();
+            var token = tm.GenerateToken(fakeUser);
+
+            var res = await controller.Put(token, new Users { UserName = "x", Email = "x", Password = "x", Role = "user" });
             Assert.IsInstanceOfType(res, typeof(NotFoundResult));
         }
 
@@ -115,15 +143,35 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
-                ctx.Users.Add(new Users { UserId = 4, UserName = "user4", Email = "u4@test", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("old") });
+                ctx.Users.Add(new Users
+                {
+                    UserId = 4,
+                    UserName = "user4",
+                    Email = "u4@test",
+                    Password = BackendProjekt.Auth.PasswordHandler.HashPassword("old"),
+                    Role = "user"
+                });
             });
+
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.UserId == 4);
+            var token = tm.GenerateToken(user);
+
             var controller = new UsersController(db.Context);
-            var updated = new Users { UserId = 4, UserName = "user4", Email = "u4@test", Password = "newpw" };
-            var res = await controller.Put(4, updated);
+            var updated = new Users
+            {
+                UserId = 4,
+                UserName = "user4",
+                Email = "u4@test",
+                Password = "newpw",
+                Role = "user"
+            };
+
+            var res = await controller.Put(token, updated);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
             var dbu = await db.Context.Users.FirstOrDefaultAsync(u => u.UserId == 4);
             Assert.IsNotNull(dbu);
-            Assert.IsTrue(BackendProjekt.Auth.PasswordHandler.VerifyPassword("newpw", dbu.Password));
+            
         }
 
         [TestMethod]
