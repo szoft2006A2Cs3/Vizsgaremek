@@ -53,14 +53,14 @@ body:has(.top-navbar).dark-mode {
 }
 
 
-
-.collapse-on .top-navbar.hidden {
+/*
+.top-navbar.hidden {
   transform: translateY(-85%);
   opacity: 0.6;
 }
+*/
 
-
-.collapse-on .top-navbar.visible {
+.top-navbar.visible {
   transform: translateY(0);
 }
 

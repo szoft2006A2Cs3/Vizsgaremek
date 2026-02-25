@@ -1,7 +1,28 @@
 import { useState } from "react";
 import "./css/Calendar.css";
 
-export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule }) {
+/*
+Kérlek ahol meghívod a naptárat ezt használd mivel nem tudom hogy írjam át úgy hogy ne kelljen:
+const [selectedDate, setSelectedDate] = useState(null);
+const [events, setEvents] = useState({});
+
+//Ez a returnbe:
+{selectedDate === null ? (
+        <Calendar
+            events={events}
+            onSelectDate={setSelectedDate}
+        />
+    ) : (
+        <DayView
+            date={selectedDate}
+            events={events}
+            setEvents={setEvents}
+            onBack={() => setSelectedDate(null)}
+        />
+)}
+*/ 
+
+export default function Calendar({ events, onSelectDate }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const monthNames = {0:"Január",1:"Február",2:"Március",3:"Április",4:"Május",5:"Június",6:"Július",7:"Augusztus",8:"Szeptember",9:"Október",10:"November",11:"December"}
     const year = currentDate.getFullYear();
@@ -25,10 +46,8 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule }
     for (let d = 1; d <= daysInMonth; d++) days.push(d);
     for (let e = 1;e <= endOffSet;e++) days.push(null);
 
-
     return (
         <div className="Inner-Calendar-Wrapper">
-            <h1>{selectedSchedule.scheduleInfo}</h1>
             
             <header className="CalendarHeader">
                 <div className="CalendarNav">

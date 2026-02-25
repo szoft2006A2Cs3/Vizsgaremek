@@ -1,0 +1,45 @@
+body:has(.CalendarDayView-root) .CalendarDayView-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: bisque;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-Prev,
+body:has(.CalendarDayView-root) .CalendarDayView-Next {
+  color: #e0e0e0;
+  background: blue;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-HourRow {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-HourRow:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
+  width: 60px;
+  font-weight: bold;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-HourContent {
+  flex: 1;
+}
+body:has(.CalendarDayView-root) .CalendarDayView-Body{
+    background-color: blanchedalmond;
+}
+body:has(.CalendarDayView-root){
+    background-color: burlywood;
+}
