@@ -1,6 +1,7 @@
 import Calendar from './Calendar.jsx'
-import DayView from './DayView.jsx'
+import EventView from './EventView.jsx'
 import './css/CalendarView.css'
+import CalendarDayView from './CalendarDayView.jsx';
 import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -24,7 +25,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         switch(LayoutSettings)
         {
         case "day":
-            res = <></>;
+            res = <CalendarDayView events={events}></CalendarDayView>;
             break;
         case "week":
             res = <></>;
@@ -38,7 +39,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                         onSelectDate={setSelectedDate}
                     />
                 ) : (
-                    <DayView
+                    <EventView
                         callAPIFunc={callAPIFunc}
                         selectedSchedule={selectedSchedule}
                         date={selectedDate}
