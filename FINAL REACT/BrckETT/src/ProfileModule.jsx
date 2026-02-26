@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
 import User from "./js/UserClass";
+import { useState,useEffect } from "react";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc}) 
+export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, hasNotifications, fetchUserDataFunc}) 
 {
     const navigate = useNavigate();
     async function logOutSequence()
@@ -14,12 +15,18 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         localStorage.removeItem('token');
         navigate("/")
     }
+    const [notifVisibility, setNotifVisibility] = useState(hasNotifications ? "visible" : "hidden");
+
+
     //console.log({user});
     return (
         <div className="profile-container">
             <div className="center-piece">
             <Link to={"/profile"}><img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-img" /></Link>
-            <h2 id="Name" className="profile-name">{user.displayName}</h2>
+            <div className="name-notif-container">
+                <h2 id="Name" className="profile-name">{user.displayName}</h2>
+                <Link to={"/profile"} style={{visibility: notifVisibility}} id="notification-icon">!</Link>
+            </div>
             <p id="UName" className="profile-username">@{user.username}</p>
             </div>
 

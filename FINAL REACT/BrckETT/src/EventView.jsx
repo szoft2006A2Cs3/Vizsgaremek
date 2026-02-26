@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./css/Calendar.css";
 
-export default function DayView({ date, events, setEvents, onBack }) {
+export default function EventView({ date, events, setEvents, onBack, callAPIFunc, selectedSchedule}) {
     const key = `${date.year}-${date.month}-${date.day}`;
 
     const addEvent = () => {

@@ -1,6 +1,7 @@
 import User from './UserClass.js';
 
-export default class UserDataClass {
+export default class UserDataClass 
+{
     constructor(object) {
         if (!object) {
             this.user = null;
@@ -38,32 +39,58 @@ export default class UserDataClass {
 
             });
 
-        this.groups = object.groupuserconns.map(conn => 
+        this.groups = []
+        this.pendingGroups = []
+        object.groupuserconns.map(conn => 
             { 
-                var group = 
+                if(conn.permission !== "pending")
                 {
-                    "permission": conn.permission,
-                    "groupId": conn.group.groupId,
-                    "groupName": conn.group.groupName,
-                    "schedules": conn.group.groupscheduleconns.map(gsc => 
-                        {
-                            return (
+                    var group = 
+                    {
+                        "permission": conn.permission,
+                        "groupId": conn.group.groupId,
+                        "groupName": conn.group.groupName,
+                        "schedules": conn.group.groupscheduleconns.map(gsc => 
                             {
-                                "scheduleId": gsc.schedule.scheduleId,
-                                "scheduleInfo": gsc.schedule.scheduleInfo,
-                                "template": {
+                                return (
+                                {
+                                    "scheduleId": gsc.schedule.scheduleId,
+                                    "scheduleInfo": gsc.schedule.scheduleInfo,
+                                    "template": {
                                     "templateId": gsc.schedule.templates.templateId,
                                     "templateInfo": gsc.schedule.templates.templateInfo
-                                }
+                                    }
+                                })
                             })
-                        })
+                        }
+                    this.groups.push(group);
+                }   
+                else
+                {
+                    var pendingGroup = 
+                    {
+                        "permission": conn.permission,
+                        "groupId": conn.group.groupId,
+                        "groupName": conn.group.groupName,
+                    }
+                    this.pendingGroups.push(pendingGroup);
                 }
+                
                 return group;
             });
-
+            
 
 
         console.log(this);
+    }
+
+    hasNotifications() {
+        let result = this.pendingGroups.length > 0;
+
+
+
+
+        return result;
     }
 }
 
