@@ -97,34 +97,8 @@ namespace BackendProjekt.Controllers
             if (string.IsNullOrWhiteSpace(req.CurrentPassword) || string.IsNullOrWhiteSpace(req.NewPassword))
                 return BadRequest("Both current and new passwords are required.");
 
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                return BadRequest("Token is required.");
-            }
-
-
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                token = token.Substring("Bearer ".Length).Trim();
-            }
-
-            JwtSecurityToken jwt;
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                jwt = handler.ReadJwtToken(token);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid JWT format.");
-            }
-
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(email))
-            {
-                return BadRequest("Email claim not found in token.");
-            }
+            var email = TokenManager.GetEmailFromToken(token);
+            if(email == null) return BadRequest("Invalid token: email claim not found.");
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null) return NotFound();

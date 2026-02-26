@@ -28,8 +28,10 @@ function App() {
   
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //Singleton API hívást intező osztály
   const [callAPIInstance, setCallAPIInstance] = useState(new ApiCaller());
   const [user, setUser] = useState(new User(0,"john","john@mail.com","johnny","passwd","admin","token","empty description"));
+  //Singleton osztály, a felhasználó struktúráját tartalmazza
   const [userData, setUserData] = useState(null);
   const [activeForm, setActiveForm] = useState('login'); // 'login' v 'register'
   //console.log(user);
@@ -144,7 +146,7 @@ function App() {
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
         <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e))} hasNotifications={userData.hasNotifications()} fetchUserDataFunc={fetchUserData}></ProfileModule>}></Route>
-        <Route path='/Schedules' element={<CalendarView LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules}></CalendarView>}></Route>
+        <Route path='/Schedules' element={<CalendarView fetchUserDataFunc={fetchUserData} LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules} userData={userData}></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(new UserDataClass(e))}></ProfileDescriptionModule>}></Route>

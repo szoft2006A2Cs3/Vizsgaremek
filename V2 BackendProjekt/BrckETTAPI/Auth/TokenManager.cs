@@ -1,8 +1,10 @@
 ﻿using BackendProjekt.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ZstdSharp.Unsafe;
 
 namespace BackendProjekt.Auth
 {
@@ -56,7 +58,7 @@ namespace BackendProjekt.Auth
                         permissionList.Add(permission.Value);
                     }
                 }
-            }            
+            }
         }
 
         // A token generálásához szükséges a felhasználó adatai közül
@@ -95,6 +97,42 @@ namespace BackendProjekt.Auth
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+
+        public static string GetEmailFromToken(string token) 
+        {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return "";
+            }
+
+
+            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                token = token.Substring("Bearer ".Length).Trim();
+            }
+
+            JwtSecurityToken jwt;
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+
+            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return "";
+            }
+
+            return email;
         }
     }
 }

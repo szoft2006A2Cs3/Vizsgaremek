@@ -6,18 +6,44 @@ import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings}) {
+export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings, userData, fetchUserDataFunc}) {
     const location = useLocation();
-    schedulesList = location.state?.schedulesList || schedulesList;
+    //Ha state-ban át lett adva selectedGroupId, akkor azt használja, különben null-ra állítja
+    let selectedGroupId = location.state?.selectedGroupId || null;
+    if(selectedGroupId != null)
+        {
+            schedulesList = userData.groups.find(g => g.groupId == location.state.selectedGroupId).schedules;
+        }
     const [selectedDate, setSelectedDate] = useState(null);
     const [events, setEvents] = useState({});
 
     const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
     const navigate = useNavigate(); 
 
-    //console.log(schedulesList);
-    //console.log(activeSchedulesList);
     
+    //A bemeneti schedule-t feltölti a backend-re, majd frissíti a userData-t (Group nézetben, a csoporthoz köti az új Schedule-t, egyéni nézetben a User-hoz)
+    async function createNewSchedule(schedule) 
+    {
+        let url = "AdvancedInfo"
+        let params = null;
+
+        if(selectedGroupId == null)
+            {
+                url += "/userCreate"
+                params = callAPIFunc._token;
+            }
+        else
+            {
+                url += "/groupCreate";
+                params = callAPIFunc._token + "/" + selectedGroupId;
+            }
+        await callAPIFunc.callApiAsync(url, "POST", {scheduleInfo:"test", templateInfo:"test"}, true, params)
+
+        //Frissíti a userData-t, (LiftUpState)
+        await fetchUserDataFunc();
+    }
+
+
     function renderCalendar()
     {
         var res;
@@ -59,14 +85,19 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     function renderScheduleList() {
 
       return (
-        <div className="leftSide-list">
-          {schedulesList.map(function (schedule, index) {
-            return (
-              <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
-                {schedule.scheduleInfo}
-              </div>
-            );
-          })}
+        <div className='leftSide'>
+            <div className="leftSide-list">
+            {schedulesList.map(function (schedule, index) {
+                return (
+                <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
+                    {schedule.scheduleInfo}
+                </div>
+                
+                );
+            })}
+            </div>
+
+            <button onClick={createNewSchedule}>Create New</button>
         </div>
       );
     }

@@ -178,34 +178,8 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "Users.Update")]
         public async Task<IActionResult> Put(string token, Users user)
         {
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                return BadRequest("Token is required.");
-            }
-
-
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                token = token.Substring("Bearer ".Length).Trim();
-            }
-
-            JwtSecurityToken jwt;
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                jwt = handler.ReadJwtToken(token);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid JWT format.");
-            }
-
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(email))
-            {
-                return BadRequest("Email claim not found in token.");
-            }
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) { return BadRequest("Invalid token."); }
 
             var olduser = await _context.Users.FirstOrDefaultAsync(p => p.Email == email);
             if (olduser == null) return NotFound();

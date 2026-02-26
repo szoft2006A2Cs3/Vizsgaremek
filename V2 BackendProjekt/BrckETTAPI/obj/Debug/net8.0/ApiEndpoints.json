@@ -27,6 +27,37 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Create",
+    "RelativePath": "api/AdvancedInfo/blockCreate/{token}/{scheduleId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "toknen",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "block",
+        "Type": "BackendProjekt.Model.Blocks",
+        "IsRequired": true
+      },
+      {
+        "Name": "token",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
     "Method": "GetByYear",
     "RelativePath": "api/AdvancedInfo/BlocksInRange/{token}/{scheduleId}/{from}/{to}",
     "HttpMethod": "GET",
@@ -51,6 +82,53 @@
       {
         "Name": "to",
         "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Create",
+    "RelativePath": "api/AdvancedInfo/groupCreate/{token}/{groupId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "schedule",
+        "Type": "BackendProjekt.Controllers.ScheduleCreateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Create",
+    "RelativePath": "api/AdvancedInfo/userCreate/{token}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "schedule",
+        "Type": "BackendProjekt.Controllers.ScheduleCreateRequest",
         "IsRequired": true
       }
     ],

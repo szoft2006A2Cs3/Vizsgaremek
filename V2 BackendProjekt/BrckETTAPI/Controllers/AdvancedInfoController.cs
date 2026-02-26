@@ -1,4 +1,5 @@
-﻿using BackendProjekt.Model;
+﻿using BackendProjekt.Auth;
+using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,13 @@ using System.Threading.Tasks;
 
 namespace BackendProjekt.Controllers
 {
+    public class ScheduleCreateRequest() 
+    {
+        public string? templateInfo { get; set; }
+        public string? scheduleInfo { get; set; }
+    }
+
+
     [Route("api/[controller]")]
     [ApiController]
     /// <summary>
@@ -40,35 +48,13 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
         public async Task<IActionResult> Get(string token)
         {
-            if (string.IsNullOrWhiteSpace(token)) 
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) 
             {
-                return BadRequest("Token is required.");
+                return NotFound();
             }
 
 
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase)) 
-            {
-                token = token.Substring("Bearer ".Length).Trim();
-            }
-                
-            JwtSecurityToken jwt;
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                jwt = handler.ReadJwtToken(token);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid JWT format.");
-            }
-
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(email)) 
-            {
-                return BadRequest("Email claim not found in token.");
-            }
-                
             var resp = await _context.Users
                 .Include(u => u.Usersettings)
                 .Include(u => u.Schedulesusersconns)
@@ -121,7 +107,7 @@ namespace BackendProjekt.Controllers
         }
 
         // POST api/<AdvancedInfoController>
-        
+
         //[HttpPost]
         //[Authorize(Policy = "AdvancedInfo.Create")]
         //public async Task<IActionResult> Post([FromBody] string value)
@@ -149,45 +135,123 @@ namespace BackendProjekt.Controllers
 
 
 
-        //Layout LEKÉRDEZÉSEK------------------------------------------------------------
-        [HttpGet("BlocksInRange/{token}/{scheduleId}/{from}/{to}")]
-        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
-        public async Task<IActionResult> GetByYear(string token, int scheduleId,DateTime from, DateTime to)
+
+
+        //Schedule/Block Update LEKÉRDEZÉSEK------------------------------------------------------------
+
+
+
+        //Schedule/Block Creation LEKÉRDEZÉSEK------------------------------------------------------------
+
+        [HttpPost("groupCreate/{token}/{groupId}")]
+        public async Task<IActionResult> Create(string token, int groupId, ScheduleCreateRequest schedule)
         {
-            if (string.IsNullOrWhiteSpace(token))
+            var email = TokenManager.GetEmailFromToken(token);
+            if(email == null)
             {
-                return BadRequest("Token is required.");
+                return NotFound();
             }
-
-
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                token = token.Substring("Bearer ".Length).Trim();
-            }
-
-            JwtSecurityToken jwt;
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                jwt = handler.ReadJwtToken(token);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid JWT format.");
-            }
-
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(email))
-            {
-                return BadRequest("Email claim not found in token.");
-            }
-
+            //Leellenőrizzük van-e kapcsolat a User-ünk és a megadott ID-val rendelkező Group között, és hogy van-e hozzáférése
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
                 return NotFound();
             }
+
+            if (   !(await _context.Groupuserconns.AnyAsync(guc => guc.GroupId == groupId && guc.UserId == user.UserId && guc.Permission == "admin"))  ) 
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Group-hoz");
+            }
+
+
+            //Először létrehozzuk a template-tt
+            Templates templ = new Templates { TemplateInfo = schedule.templateInfo };
+            _context.Templates.Add(templ);
+            await _context.SaveChangesAsync();
+            //Utána a schedule-t
+            Schedules sched = new Schedules { TemplateId = templ.TemplateId, ScheduleInfo = schedule.scheduleInfo };
+            _context.Schedules.Add(sched);
+            await _context.SaveChangesAsync();
+
+            //Aztán a connection-t
+            _context.Groupscheduleconns.Add(new Groupscheduleconn
+            {
+                GroupId = groupId,
+                ScheduleId = sched.ScheduleId
+            });
+            await _context.SaveChangesAsync();
+
+
+            return Created("Created", schedule);
+        }
+
+        [HttpPost("userCreate/{token}")]
+        public async Task<IActionResult> Create(string token, ScheduleCreateRequest schedule)
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+
+            //Először létrehozzuk a template-tt
+            Templates templ = new Templates { TemplateInfo = schedule.templateInfo };
+            _context.Templates.Add(templ);
+            await _context.SaveChangesAsync();
+            //Utána a schedule-t
+            Schedules sched = new Schedules { TemplateId = templ.TemplateId, ScheduleInfo = schedule.scheduleInfo };
+            _context.Schedules.Add(sched);
+            await _context.SaveChangesAsync();
+
+            //Aztán a connection-t
+            _context.Schedulesusersconns.Add(new Schedulesusersconn
+            {
+                UserId = user.UserId,
+                ScheduleId = sched.ScheduleId
+            });
+            await _context.SaveChangesAsync();
+
+            return Created("Created", schedule);
+        }
+
+        [HttpPost("blockCreate/{token}/{scheduleId}")]
+        public async Task<IActionResult> Create(string toknen, int scheduleId, Blocks block) 
+        {
+            //Leellenőrizzük a felhasználót, és hogy kapcsolódik-e a schedule-hoz, és jogosult-e block létrehozására a schedule-hoz
+
+
+
+            //Hozzáadjuk a block-ot
+            _context.Blocks.Add(block);
+            await _context.SaveChangesAsync();
+            //Hozzáadjuk a Connection-t a block és a schedule között
+
+            await _context.SaveChangesAsync();
+
+
+            return (Created("created", block));
+        }
+
+
+        //Layout LEKÉRDEZÉSEK------------------------------------------------------------
+        [HttpGet("BlocksInRange/{token}/{scheduleId}/{from}/{to}")]
+        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
+        public async Task<IActionResult> GetByYear(string token, int scheduleId,DateTime from, DateTime to)
+        {
+            //------------------------------------------IDE IDE IDE IDE
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) 
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+
 
             bool hasAccess = await UserHasAccessToSchedule(user, scheduleId);
             if (!hasAccess) 

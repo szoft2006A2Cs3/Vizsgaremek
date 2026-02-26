@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
+using BackendProjekt.Auth;
 using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -63,34 +64,8 @@ namespace BackendProjekt.Controllers
         [Authorize(Policy = "UserSettings.Update")]
         public async Task<IActionResult> Put(string token, Usersettings usersetting)
         {
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                return BadRequest("Token is required.");
-            }
-
-
-            if (token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                token = token.Substring("Bearer ".Length).Trim();
-            }
-
-            JwtSecurityToken jwt;
-            try
-            {
-                var handler = new JwtSecurityTokenHandler();
-                jwt = handler.ReadJwtToken(token);
-            }
-            catch (Exception)
-            {
-                return BadRequest("Invalid JWT format.");
-            }
-
-            var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            if (string.IsNullOrEmpty(email))
-            {
-                return BadRequest("Email claim not found in token.");
-            }
+            var email = TokenManager.GetEmailFromToken(token);
+            if(email == null) { return BadRequest("Invalid token."); }
 
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
