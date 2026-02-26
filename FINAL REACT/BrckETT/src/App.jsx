@@ -18,11 +18,8 @@ import UserDataClass from './js/UserDataClass.js';
 
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
-<<<<<<< HEAD
-=======
 import { useNavigate } from 'react-router-dom';
 import { tr } from 'motion/react-client'
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
 
 
 function App() {
@@ -40,15 +37,7 @@ function App() {
 
   useEffect(() => {
     const initializeApp = async () => {
-<<<<<<< HEAD
-      // Apply theme on app load
-      const savedTheme = localStorage.getItem('theme') || 'light-mode';
-      document.body.classList.add(savedTheme);
-
-      // Load token and try auto-login
-=======
       //token betoltes es auto-login megkiserlese
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
       const savedToken = localStorage.getItem('token');
       if (savedToken) {
         callAPIInstance.setToken(savedToken);
@@ -68,10 +57,6 @@ function App() {
           setIsLoggedIn(true);
         } catch (error) {
           console.error('Auto-login failed:', error);
-<<<<<<< HEAD
-          localStorage.removeItem('token'); // Remove invalid token
-        }
-=======
           localStorage.removeItem('token'); // helytelen token törlése
           // nincs userdata, localStorage-ból töltünk
           applySettingsFromLocalStorage();
@@ -79,15 +64,12 @@ function App() {
       } else {
         // nincs token, localStorage-ból töltünk
         applySettingsFromLocalStorage();
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
       }
     };
 
     initializeApp();
   }, []);
 
-<<<<<<< HEAD
-=======
   //settings betoltese userData-bol, ha valtozik
   useEffect(() => {
     if (userData?.userSettings?.settings) {
@@ -148,7 +130,6 @@ function App() {
   }
 
 
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
   function getUserData() 
   {
     if (userData === null) return user;
