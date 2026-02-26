@@ -19,7 +19,7 @@ import UserDataClass from './js/UserDataClass.js';
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { tr } from 'motion/react-client'
+
 
 
 function App() {

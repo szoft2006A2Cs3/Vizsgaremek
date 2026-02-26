@@ -5,14 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
 {
-<<<<<<< HEAD
     const [isDarkMode, setIsDarkMode] = useState(false);
-=======
     const [usernameSettings, setUsernameSettings] = useState(userData.user ? userData.user.username : '');
     const [displayNameSettings, setDisplayNameSettings] = useState(userData.user ? userData.user.displayName : '');
     const [descriptionSettings, setDescriptionSettings] = useState(userData.user ? userData.user.description : '');
 
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [navbarCollapse, setNavbarCollapse] = useState(false);
     const [layout, setLayout] = useState('month');
     
@@ -20,7 +17,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
     const originalSettings = useRef({ theme: '', navbarCollapse: false, layout: 'month' });
     const settingsSaved = useRef(false);
     
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
     const [showPasswordPopup, setShowPasswordPopup] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -35,11 +31,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
 
 
     useEffect(() => {
-<<<<<<< HEAD
-        // Load theme preference on component mount
-        const savedTheme = localStorage.getItem('theme') || 'light-mode';
-        setIsDarkMode(savedTheme === 'dark-mode');
-=======
         // Priority 1: Load from userData.userSettings (format: "theme/hiddenNavbar/scheduleLayout")
         // Priority 2: Fall back to localStorage
         let theme, navbarHidden, layoutValue;
@@ -105,7 +96,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                 }
             }
         };
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
     }, []);
 
     const handleThemeChange = (e) => {
@@ -175,27 +165,7 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
             return;
         }
 
-        const payload = { currentPassword: currentPassword, newPassword: newPassword };
         try {
-<<<<<<< HEAD
-            callAPIFunc.prepareCall('PUT', payload);
-            const tokenSegment = userData && userData.user && userData.user.token ? `/${userData.user.token}` : '';
-            const url = `${callAPIFunc._baseUrl}/login${tokenSegment}`;
-            const resp = await fetch(url, callAPIFunc._options);
-            if (resp.ok) {
-                setCurrentPassword('');
-                setNewPassword('');
-                setConfirmPassword('');
-                setShowPasswordPopup(false);
-                alert('Password updated successfully');
-            } else {
-                const text = await resp.text();
-                alert('Password update failed: ' + (text || resp.statusText));
-            }
-        } catch (err) {
-            console.error('Password update error', err);
-            alert('Password update failed. See console for details.');
-=======
             await callAPIFunc.callApiAsync('login', 'PUT', { currentPassword, newPassword }, false, userData.user.token)
             setCurrentPassword('');
             setNewPassword('');
@@ -204,7 +174,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
             setShowPasswordPopup(false);
         } catch (err) { 
             setPasswordError([err?.message || 'Password update failed. Please check your current password and try again.']);
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
         }
     };
 
@@ -219,8 +188,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
         setShowPasswordPopup(false);
     };
 
-<<<<<<< HEAD
-=======
     const handleCloseDescriptionPopup = () => {
         setDescriptionSettings(userData?.user?.description || '');
         setShowDescriptionPopup(false);
@@ -302,7 +269,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
         }
     };
 
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
     return (
         <div className="settings-module">
             <div className='settings-panel'>
@@ -312,13 +278,8 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                 <div className='settings-category'>
                     <div className='settings-column align-left'>
                     <p>Username: {userData.user ? userData.user.username : "Loading..."}</p>
-<<<<<<< HEAD
-                    <p>Email: {userData.user ? userData.user.email : "Loading..."}</p>
-                    <p>Display Name: {userData.user ? userData.user.displayName : "Loading..."}</p>
-=======
                     <p>Display Name: {userData.user ? userData.user.displayName : "Loading..."}</p>
                     <p>Description</p>
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
                     </div>
                     <div className='settings-column'>
                         <input type="text" defaultValue={userData.user ? userData.user.username : "Loading..."}></input>
@@ -326,14 +287,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                         <input type="text" defaultValue={userData.user ? userData.user.displayName : "Loading..."}></input>
                     </div>
                     <div className='settings-column'>
-<<<<<<< HEAD
-                        <button>Change</button>
-                        <button>Change</button>
-                        <button>Change</button>
-                    </div>
-                </div>
-                <button className='settings-save-btn'>Save</button>
-=======
                         <input id='acc-username' type="text" defaultValue={userData.user ? userData.user.username : "Loading..."} onChange={(e) => setUsernameSettings(e.target.value)}></input>
                         <input id='acc-displayname' type="text" defaultValue={userData.user ? userData.user.displayName : "Loading..."} onChange={(e) => setDisplayNameSettings(e.target.value)}></input>
                         <button id='THISBTNHERE' onClick={() => setShowDescriptionPopup(true)}> Change</button>
@@ -341,7 +294,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                 </div>
                 {accountError && <div className='error-text'>{accountError}</div>}
                 <button className='settings-save-btn' onClick={handleProfileDataChange}>Save</button>
->>>>>>> f76390a257aef87bc513786c7fd352c939a563b4
 
                 <h2>Password Settings</h2>
                 <div className='settings-category'>
