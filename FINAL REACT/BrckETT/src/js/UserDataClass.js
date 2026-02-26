@@ -22,7 +22,7 @@ export default class UserDataClass
             object.token,
             object.description
         );
-        //Structure:    "theme/language/dateformat"
+        //Structure:    "theme/hiddenNavbar/scheduleLayout(day/week/month)"
         this.userSettings = {"settings": object.usersettings.settings};
 
 
@@ -81,7 +81,7 @@ export default class UserDataClass
             
 
 
-        console.log(this);
+        //console.log(this);
     }
 
     hasNotifications() {

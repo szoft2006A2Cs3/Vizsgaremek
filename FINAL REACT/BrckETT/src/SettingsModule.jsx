@@ -1,15 +1,15 @@
-import { tr } from 'motion/react-client';
 import './css/SettingsModule.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import User from './js/UserClass';
 
-export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
+export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc})
 {
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [usernameSettings, setUsernameSettings] = useState(userData.user ? userData.user.username : '');
     const [displayNameSettings, setDisplayNameSettings] = useState(userData.user ? userData.user.displayName : '');
     const [descriptionSettings, setDescriptionSettings] = useState(userData.user ? userData.user.description : '');
 
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const [navbarCollapse, setNavbarCollapse] = useState(false);
     const [layout, setLayout] = useState('month');
     
@@ -18,6 +18,7 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
     const settingsSaved = useRef(false);
     
     const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+    const [showDescriptionPopup, setShowDescriptionPopup] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -101,9 +102,23 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
     const handleThemeChange = (e) => {
         const newTheme = e.target.checked ? 'dark-mode' : 'light-mode';
         setIsDarkMode(e.target.checked);
-        localStorage.setItem('theme', newTheme);
         document.body.classList.remove('light-mode', 'dark-mode');
         document.body.classList.add(newTheme);
+    };
+
+    const handleNavbarCollapseChange = (e) => {
+        const shouldCollapse = e.target.checked;
+        setNavbarCollapse(shouldCollapse);
+        if (shouldCollapse) {
+            document.body.classList.add('collapse-on');
+        } else {
+            document.body.classList.remove('collapse-on');
+        }
+    };
+
+    const handleLayoutChange = (e) => {
+        const newLayout = e.target.value;
+        setLayout(newLayout);
     };
 
     const handlePasswordUpdate = async () => {
@@ -159,7 +174,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
         document.getElementById('passwd2').classList.remove('input-error');
 
 
-        // Call API to update password and show success only on HTTP OK
         if (!callAPIFunc) {
             alert('API client not available');
             return;
@@ -282,9 +296,7 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                     <p>Description</p>
                     </div>
                     <div className='settings-column'>
-                        <input type="text" defaultValue={userData.user ? userData.user.username : "Loading..."}></input>
-                        <input type="text" defaultValue={userData.user ? userData.user.email : "Loading..."}></input>
-                        <input type="text" defaultValue={userData.user ? userData.user.displayName : "Loading..."}></input>
+                        
                     </div>
                     <div className='settings-column'>
                         <input id='acc-username' type="text" defaultValue={userData.user ? userData.user.username : "Loading..."} onChange={(e) => setUsernameSettings(e.target.value)}></input>
@@ -306,7 +318,6 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                         <button onClick={() => setShowPasswordPopup(true)}>Update</button>
                     </div>
                 </div>
-                <button className='settings-save-btn'>Save</button>
 
                 <h2>Display Settings</h2>
                 <div className='settings-category display-grid'>
@@ -322,7 +333,35 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                     </label>
                 </div>
 
-                <button className='settings-save-btn'>Save</button>
+                <div className='settings-category display-grid'>
+                    <p>Collapse Navbar</p>
+
+                    <label className="theme-switch">
+                        <input
+                            type="checkbox"
+                            checked={navbarCollapse}
+                            onChange={handleNavbarCollapseChange}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
+
+                <div className='settings-category display-grid'>
+                    <p>Layout</p>
+
+                    <select 
+                        className="layout-select"
+                        value={layout}
+                        onChange={handleLayoutChange}
+                    >
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+                <button className='settings-save-btn' onClick={saveDisplaySettings}>Save</button>
+                
             </div>
 
             {showPasswordPopup && (
@@ -394,6 +433,30 @@ export default function SettingsModule({userData, setUserDataFunc, callAPIFunc})
                         <div className='password-popup-buttons'>
                             <button onClick={handlePasswordUpdate} className='btn-confirm'>Update Password</button>
                             <button onClick={handleClosePasswordPopup} className='btn-cancel'>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showDescriptionPopup && (
+                <div className='password-popup-overlay'>
+                    <div className='password-popup'>
+                        <h3>Change Description</h3>
+                        <div className='password-popup-content'>
+                            <div className='password-input-group'>
+                                <label>Description</label>
+                                <textarea
+                                    value={descriptionSettings}
+                                    className='description-textarea'
+                                    onChange={(e) => setDescriptionSettings(e.target.value)}
+                                    placeholder='Enter your new description'
+                                    rows={5}
+                                />
+                            </div>
+                        </div>
+                        <div className='password-popup-buttons'>
+                            <button onClick={() => setShowDescriptionPopup(false)} className='btn-confirm'>Done</button>
+                            <button onClick={handleCloseDescriptionPopup} className='btn-cancel'>Cancel</button>
                         </div>
                     </div>
                 </div>

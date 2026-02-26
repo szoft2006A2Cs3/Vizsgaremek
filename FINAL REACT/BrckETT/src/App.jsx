@@ -15,11 +15,10 @@ import ContactUs from './ContactUs.jsx'
 import ProfileDescriptionModule from './ProfileDescriptionModule.jsx'
 import SettingsModule from './SettingsModule.jsx'
 import UserDataClass from './js/UserDataClass.js';
-
+import GroupSelector from './GroupSelector.jsx'
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-
 
 
 function App() {
@@ -43,7 +42,8 @@ function App() {
         callAPIInstance.setToken(savedToken);
         try {
           const userDataResponse = await callAPIInstance.callApiAsync('AdvancedInfo', 'GET', null, true, savedToken);
-          setUserData(new UserDataClass(userDataResponse));
+          const userDataObj = new UserDataClass(userDataResponse);
+          setUserData(userDataObj);
           setUser(new User(
             userDataResponse.userId,
             userDataResponse.userName,
@@ -148,10 +148,8 @@ function App() {
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(new UserDataClass(e))}></ProfileDescriptionModule>}></Route>
-        <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} setUserDataFunc={(e) => setUserData(new UserDataClass(e))}></SettingsModule>}></Route>
-        {/*
-        <Route path='/Groups' element={}></Route>
-        */}
+        <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData}></SettingsModule>}></Route>
+        <Route path='/Groups' element={<GroupSelector groupList={userData.groups}></GroupSelector>}></Route>
       </Routes>
     </>
   ) : (

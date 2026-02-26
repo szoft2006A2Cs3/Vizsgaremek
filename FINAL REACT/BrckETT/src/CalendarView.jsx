@@ -6,7 +6,9 @@ import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-export default function CalendarView({schedulesList}) {
+export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings}) {
+    const location = useLocation();
+    schedulesList = location.state?.schedulesList || schedulesList;
     const [selectedDate, setSelectedDate] = useState(null);
     const [events, setEvents] = useState({});
 
@@ -69,6 +71,7 @@ export default function CalendarView({schedulesList}) {
       );
     }
 
+    
     return (
         <div className='calendarView-container'>
             <div id='render-schedule-list-here' className='calendarView-leftSide'>
