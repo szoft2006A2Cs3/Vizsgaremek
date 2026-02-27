@@ -1,0 +1,78 @@
+body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #f8f8f8;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarweekViewHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn {
+    background: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 0 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn:hover {
+    background: #e6e6e6;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarweekViewHeaderTitle {
+    min-width: 200px;
+    text-align: center;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
+    display: flex;
+    flex: 1;
+    overflow-x: hidden;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
+    flex: 1;
+    border-right: 1px solid #ccc;
+    cursor: pointer;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn:hover {
+    background: #f0f7ff;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
+    background: #e3e3e3;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHours {
+    flex: 1;
+    overflow-y: auto;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewHourCell {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewHourCell:hover {
+    background: #e8f0ff;
+}
