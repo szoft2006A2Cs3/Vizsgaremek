@@ -1,4 +1,3 @@
-import { th } from 'motion/react-client';
 import User from './UserClass.js';
 
 export default class UserDataClass 

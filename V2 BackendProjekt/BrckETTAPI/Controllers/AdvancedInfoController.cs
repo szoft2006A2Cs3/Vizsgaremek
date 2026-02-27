@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BackendProjekt.Controllers
 {
-    public class ScheduleCreateRequest() 
+    public class ScheduleRequest() 
     {
         public string? templateInfo { get; set; }
         public string? scheduleInfo { get; set; }
@@ -190,20 +190,127 @@ namespace BackendProjekt.Controllers
 
         //Schedule/Block Update METÓDUSOK------------------------------------------------------------
 
-        //[HttpPut("groupUpdate/")]
-        //[Authorize(Policy = "AdvancedInfo.Update")]
-        //[HttpPut("userUpdate/")]
-        //[Authorize(Policy = "AdvancedInfo.Update")]
-        //[HttpPut("blockUpdate/")]
-        //[Authorize(Policy = "AdvancedInfo.Update")]
+        [HttpPut("groupUpdate/{token}/{groupId}/{scheduleId}")]
+        [Authorize(Policy = "AdvancedInfo.Update")]
+        public async Task<IActionResult> Update(string token, int groupId, int scheduleId, ScheduleRequest schedule) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
+            if ((! await _context.Groupuserconns.AnyAsync(conn => conn.UserId == user.UserId && conn.GroupId == groupId && conn.Permission == "Admin")) && (await _context.Groupscheduleconns.AnyAsync(conn => conn.GroupId == groupId && conn.ScheduleId == scheduleId)))
+            {
+                return Unauthorized("Nem kapcsolódik a felhasználó a schedule-hoz");
+            }
+
+            var oldSchedule = await _context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == scheduleId);
+            if (oldSchedule == null)
+            {
+                return NotFound();
+            }
+            oldSchedule.ScheduleInfo = schedule.scheduleInfo;
+            oldSchedule.Templates.TemplateInfo = schedule.templateInfo;
+            await _context.SaveChangesAsync();
+
+            return Ok(oldSchedule);
+        }
+
+
+
+        [HttpPut("userUpdate/{token}/{scheduleId}")]
+        [Authorize(Policy = "AdvancedInfo.Update")]
+        public async Task<IActionResult> Update(string token, int scheduleId, ScheduleRequest schedule) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) 
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+            if (!(await _context.Schedulesusersconns.AnyAsync(conn => conn.ScheduleId == scheduleId && conn.UserId == user.UserId)))
+            {
+                return Unauthorized("Nem kapcsolódik a felhasználó a schedule-hoz");
+            }
+            var oldSchedule = await _context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == scheduleId);
+            if (oldSchedule == null) 
+            {
+                return NotFound();
+            }
+            oldSchedule.ScheduleInfo = schedule.scheduleInfo;
+            oldSchedule.Templates.TemplateInfo = schedule.templateInfo;
+            await _context.SaveChangesAsync();
+                
+            return Ok(oldSchedule);
+        }
+
+
+        [HttpPut("blockUpdate/{token}/{scheduleId}/{blockId}")]
+        [Authorize(Policy = "AdvancedInfo.Update")]
+        public async Task<IActionResult> Update(string token,int scheduleId, int blockId, Blocks block)
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var oldBlock = await _context.Blocks.FirstOrDefaultAsync(b => b.BlockId == blockId);
+            if (oldBlock == null)
+            {
+                return NotFound();
+            }
+            bool[] hasAccess = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasAccess[0])
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Block-hoz");
+            }
+            if (hasAccess[1])
+            {
+                var permission = await _context.Groupuserconns
+                    .Where(gu => gu.UserId == user.UserId)
+                    .Join(_context.Groupscheduleconns,
+                          gu => gu.GroupId,
+                          gsc => gsc.GroupId,
+                          (gu, gsc) => new { gu.Permission, gsc.ScheduleId })
+                    .Where(x => x.ScheduleId == scheduleId)
+                    .Select(x => x.Permission)
+                    .FirstOrDefaultAsync();
+                if (permission != "Admin")
+                {
+                    return Unauthorized("A felhasználó nem rendelkezik \"Admin\" hozzáféréssel");
+                }
+            }
+            oldBlock.Title = block.Title;
+            oldBlock.Description = block.Description;
+            oldBlock.Priority = block.Priority;
+            oldBlock.Date = block.Date;
+            oldBlock.TimeStart = block.TimeStart;
+            oldBlock.TimeEnd = block.TimeEnd;
+            await _context.SaveChangesAsync();
+            return Ok(oldBlock);
+        }
 
 
         //Schedule/Block Creation METÓDUSOK------------------------------------------------------------
 
         [HttpPost("groupCreate/{token}/{groupId}")]
         [Authorize(Policy = "AdvancedInfo.Create")]
-        public async Task<IActionResult> Create(string token, int groupId, ScheduleCreateRequest schedule)
+        public async Task<IActionResult> Create(string token, int groupId, ScheduleRequest schedule)
         {
             var email = TokenManager.GetEmailFromToken(token);
             if(email == null)
@@ -217,13 +324,13 @@ namespace BackendProjekt.Controllers
                 return NotFound();
             }
 
-            if (   !(await _context.Groupuserconns.AnyAsync(guc => guc.GroupId == groupId && guc.UserId == user.UserId && guc.Permission == "admin"))  ) 
+            if (! (await _context.Groupuserconns.AnyAsync(guc => guc.GroupId == groupId && guc.UserId == user.UserId && guc.Permission == "Admin"))) 
             {
                 return Unauthorized("Nem fér hozzá a felhasználó az adott Group-hoz");
             }
 
 
-            //Először létrehozzuk a template-tt
+            //Először létrehozzuk a template-t
             Templates templ = new Templates { TemplateInfo = schedule.templateInfo };
             _context.Templates.Add(templ);
             await _context.SaveChangesAsync();
@@ -246,7 +353,7 @@ namespace BackendProjekt.Controllers
 
         [HttpPost("userCreate/{token}")]
         [Authorize(Policy = "AdvancedInfo.Create")]
-        public async Task<IActionResult> Create(string token, ScheduleCreateRequest schedule)
+        public async Task<IActionResult> Create(string token, ScheduleRequest schedule)
         {
             var email = TokenManager.GetEmailFromToken(token);
             if (email == null)

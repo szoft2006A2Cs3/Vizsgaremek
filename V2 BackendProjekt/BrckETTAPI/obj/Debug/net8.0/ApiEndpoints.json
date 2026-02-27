@@ -74,6 +74,37 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Update",
+    "RelativePath": "api/AdvancedInfo/blockUpdate/{token}/{scheduleId}/{blockId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "blockId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "block",
+        "Type": "BackendProjekt.Model.Blocks",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
     "Method": "Create",
     "RelativePath": "api/AdvancedInfo/groupCreate/{token}/{groupId}",
     "HttpMethod": "POST",
@@ -92,7 +123,38 @@
       },
       {
         "Name": "schedule",
-        "Type": "BackendProjekt.Controllers.ScheduleCreateRequest",
+        "Type": "BackendProjekt.Controllers.ScheduleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Update",
+    "RelativePath": "api/AdvancedInfo/groupUpdate/{token}/{groupId}/{scheduleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "schedule",
+        "Type": "BackendProjekt.Controllers.ScheduleRequest",
         "IsRequired": true
       }
     ],
@@ -129,7 +191,33 @@
       },
       {
         "Name": "schedule",
-        "Type": "BackendProjekt.Controllers.ScheduleCreateRequest",
+        "Type": "BackendProjekt.Controllers.ScheduleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Update",
+    "RelativePath": "api/AdvancedInfo/userUpdate/{token}/{scheduleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "schedule",
+        "Type": "BackendProjekt.Controllers.ScheduleRequest",
         "IsRequired": true
       }
     ],

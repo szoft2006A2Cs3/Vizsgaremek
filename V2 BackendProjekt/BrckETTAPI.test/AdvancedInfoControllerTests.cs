@@ -81,7 +81,7 @@ namespace BrckETTAPI.test
                 ctx.Schedulesusersconns.Add(new Schedulesusersconn { UserId = 1, ScheduleId = 2 });
                 ctx.Templates.Add(new Templates { TemplateId = 2, TemplateInfo = "template" });
                 ctx.TemplatesBlocksConns.Add(new TemplatesBlocksConn { TemplateId = 2, BlockId = 2 });
-                ctx.Blocks.Add(new Blocks { BlockId = 2, Date = DateTime.Now, Title = "block" });
+                ctx.Blocks.Add(new Blocks { BlockId = 2, Date = DateTime.Now, Title = "bloc k" });
             });
             var tm = TestHelpers.CreateTokenManager();
             var user = await db.Context.Users.FirstOrDefaultAsync(u => u.Email == "overlap@test");
@@ -117,14 +117,14 @@ namespace BrckETTAPI.test
             {
                 ctx.Users.Add(new Users { UserId = 2, UserName = "group", Email = "group@test", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"), Role = "admin" });
                 ctx.Groups.Add(new Groups { GroupId = 10, GroupName = "g" });
-                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 2, GroupId = 10, Permission = "admin" });
+                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 2, GroupId = 10, Permission = "Admin" });
             });
             var tm = TestHelpers.CreateTokenManager();
             var user = await db.Context.Users.FirstOrDefaultAsync(u => u.Email == "group@test");
             var token = tm.GenerateToken(user!);
 
             var controller = new AdvancedInfoController(db.Context);
-            var req = new ScheduleCreateRequest { templateInfo = "t", scheduleInfo = "s" };
+            var req = new ScheduleRequest { templateInfo = "t", scheduleInfo = "s" };
             var res = await controller.Create(token, 10, req);
             Assert.IsInstanceOfType(res, typeof(CreatedResult));
         }
@@ -143,7 +143,7 @@ namespace BrckETTAPI.test
             var token = tm.GenerateToken(user!);
 
             var controller = new AdvancedInfoController(db.Context);
-            var req = new ScheduleCreateRequest { templateInfo = "t", scheduleInfo = "s" };
+            var req = new ScheduleRequest { templateInfo = "t", scheduleInfo = "s" };
             var res = await controller.Create(token, 11, req);
             Assert.IsInstanceOfType(res, typeof(UnauthorizedObjectResult));
         }
@@ -160,7 +160,7 @@ namespace BrckETTAPI.test
             var token = tm.GenerateToken(user!);
 
             var controller = new AdvancedInfoController(db.Context);
-            var req = new ScheduleCreateRequest { templateInfo = "t", scheduleInfo = "s" };
+            var req = new ScheduleRequest { templateInfo = "t", scheduleInfo = "s" };
             var res = await controller.Create(token, req);
             Assert.IsInstanceOfType(res, typeof(CreatedResult));
         }
@@ -170,7 +170,7 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb();
             var controller = new AdvancedInfoController(db.Context);
-            var req = new ScheduleCreateRequest { templateInfo = "t", scheduleInfo = "s" };
+            var req = new ScheduleRequest { templateInfo = "t", scheduleInfo = "s" };
             var res = await controller.Create("invalidtoken", req);
             Assert.IsInstanceOfType(res, typeof(BadRequestObjectResult));
         }
@@ -253,6 +253,174 @@ namespace BrckETTAPI.test
             var controller = new AdvancedInfoController(db.Context);
             var res = await controller.GetByInRange(token, 31, DateTime.Today.AddDays(-1), DateTime.Today.AddDays(1));
             Assert.IsInstanceOfType(res, typeof(UnauthorizedResult));
+        }
+
+        [TestMethod]
+        public async Task UserUpdate_Positive_ReturnsOk()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Users.Add(new Users { UserId = 100, UserName = "user", Email = "user@update", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"), Role = "admin" });
+                ctx.Templates.Add(new Templates { TemplateId = 100, TemplateInfo = "old" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 100, TemplateId = 100, ScheduleInfo = "old" });
+                ctx.Schedulesusersconns.Add(new Schedulesusersconn { UserId = 100, ScheduleId = 100 });
+            });
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.Email == "user@update");
+            var token = tm.GenerateToken(user);
+
+            var controller = new AdvancedInfoController(db.Context);
+            var req = new ScheduleRequest { templateInfo = "newT", scheduleInfo = "newS" };
+            var res = await controller.Update(token, 100, req);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var updated = (await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == 100));
+            Assert.AreEqual("newS", updated.ScheduleInfo);
+            Assert.AreEqual("newT", updated.Templates.TemplateInfo);
+        }
+
+        [TestMethod]
+        public async Task UserUpdate_Negative_NoAccess_ReturnsUnauthorized()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Users.Add(new Users { UserId = 101, UserName = "user", Email = "user@update2", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"), Role = "admin" });
+                ctx.Templates.Add(new Templates { TemplateId = 101, TemplateInfo = "old" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 101, TemplateId = 101, ScheduleInfo = "old" });
+                // No Schedulesusersconn
+            });
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.Email == "user@update2");
+            var token = tm.GenerateToken(user);
+
+            var controller = new AdvancedInfoController(db.Context);
+            var req = new ScheduleRequest { templateInfo = "newT", scheduleInfo = "newS" };
+            var res = await controller.Update(token, 101, req);
+            Assert.IsInstanceOfType(res, typeof(UnauthorizedObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GroupUpdate_Positive_ReturnsOk()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Users.Add(new Users { UserId = 200, UserName = "admin", Email = "admin@group", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"), Role = "admin" });
+                ctx.Groups.Add(new Groups { GroupId = 200, GroupName = "g" });
+                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 200, GroupId = 200, Permission = "Admin" });
+                ctx.Templates.Add(new Templates { TemplateId = 200, TemplateInfo = "old" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 200, TemplateId = 200, ScheduleInfo = "old" });
+                ctx.Groupscheduleconns.Add(new Groupscheduleconn { GroupId = 200, ScheduleId = 200 });
+            });
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.Email == "admin@group");
+            var token = tm.GenerateToken(user);
+
+            var controller = new AdvancedInfoController(db.Context);
+            var req = new ScheduleRequest { templateInfo = "newT", scheduleInfo = "newS" };
+            var res = await controller.Update(token, 200, 200, req);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var updated = (await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == 200));
+            Assert.AreEqual("newS", updated.ScheduleInfo);
+            Assert.AreEqual("newT", updated.Templates.TemplateInfo);
+        }
+
+        [TestMethod]
+        public async Task GroupUpdate_Negative_NoAdmin_ReturnsUnauthorized()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                ctx.Users.Add(new Users { UserId = 201, UserName = "user", Email = "user@group", Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"), Role = "admin" });
+                ctx.Groups.Add(new Groups { GroupId = 201, GroupName = "g" });
+                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 201, GroupId = 201, Permission = "user" }); // Not Admin
+                ctx.Templates.Add(new Templates { TemplateId = 201, TemplateInfo = "old" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 201, TemplateId = 201, ScheduleInfo = "old" });
+                ctx.Groupscheduleconns.Add(new Groupscheduleconn { GroupId = 201, ScheduleId = 201 });
+            });
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.Email == "user@group");
+            var token = tm.GenerateToken(user);
+
+            var controller = new AdvancedInfoController(db.Context);
+            var req = new ScheduleRequest { templateInfo = "newT", scheduleInfo = "newS" };
+            var res = await controller.Update(token, 201, 201, req);
+            Assert.IsInstanceOfType(res, typeof(UnauthorizedObjectResult));
+        }
+
+        [TestMethod]
+        public async Task BlockUpdate_Negative_InvalidToken_ReturnsNotFound()
+        {
+            using var db = TestHelpers.CreateTestDb();
+            var controller = new AdvancedInfoController(db.Context);
+            var block = new Blocks { BlockId = 1, Title = "b" };
+            var res = await controller.Update("invalidtoken", 1, 1, block);
+            Assert.IsInstanceOfType(res, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task BlockUpdate_Positive_ReturnsOk()
+        {
+            using var db = TestHelpers.CreateTestDb(ctx =>
+            {
+                // Create user with admin role
+                ctx.Users.Add(new Users
+                {
+                    UserId = 10,
+                    UserName = "blockadmin",
+                    Email = "blockadmin@test",
+                    Password = BackendProjekt.Auth.PasswordHandler.HashPassword("pw"),
+                    Role = "admin"
+                });
+
+                // Create group and connect user as Admin
+                ctx.Groups.Add(new Groups { GroupId = 10, GroupName = "g" });
+                ctx.Groupuserconns.Add(new Groupuserconn { UserId = 10, GroupId = 10, Permission = "Admin" });
+
+                // Create template, schedule, and group-schedule connection
+                ctx.Templates.Add(new Templates { TemplateId = 10, TemplateInfo = "template" });
+                ctx.Schedules.Add(new Schedules { ScheduleId = 10, TemplateId = 10, ScheduleInfo = "sched" });
+                ctx.Groupscheduleconns.Add(new Groupscheduleconn { GroupId = 10, ScheduleId = 10 });
+
+                // Create block and link to template
+                ctx.Blocks.Add(new Blocks
+                {
+                    BlockId = 100,
+                    Title = "OldTitle",
+                    Description = "OldDesc",
+                    Priority = "Low",
+                    Date = DateTime.Today,
+                    TimeStart = 1,
+                    TimeEnd = 2
+                });
+                ctx.TemplatesBlocksConns.Add(new TemplatesBlocksConn { TemplateId = 10, BlockId = 100 });
+            });
+
+            var tm = TestHelpers.CreateTokenManager();
+            var user = await db.Context.Users.FirstAsync(u => u.Email == "blockadmin@test");
+            var token = tm.GenerateToken(user);
+
+            var controller = new AdvancedInfoController(db.Context);
+
+            // Prepare updated block
+            var updatedBlock = new Blocks
+            {
+                BlockId = 100,
+                Title = "NewTitle",
+                Description = "NewDesc",
+                Priority = "High",
+                Date = DateTime.Today.AddDays(1),
+                TimeStart = 3,
+                TimeEnd = 4
+            };
+
+            var res = await controller.Update(token, 10, 100, updatedBlock);
+            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+            var okBlock = ((OkObjectResult)res).Value as Blocks;
+            Assert.IsNotNull(okBlock);
+            Assert.AreEqual("NewTitle", okBlock.Title);
+            Assert.AreEqual("NewDesc", okBlock.Description);
+            Assert.AreEqual("High", okBlock.Priority);
+            Assert.AreEqual(DateTime.Today.AddDays(1), okBlock.Date);
+            Assert.AreEqual(3, okBlock.TimeStart);
+            Assert.AreEqual(4, okBlock.TimeEnd);
         }
     }
 }

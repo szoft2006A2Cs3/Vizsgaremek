@@ -2,6 +2,7 @@ import Calendar from './Calendar.jsx'
 import EventView from './EventView.jsx'
 import './css/CalendarView.css'
 import CalendarDayView from './CalendarDayView.jsx';
+import CalendarWeekView from './CalendarWeekView.jsx';
 import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -83,7 +84,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             res = <CalendarDayView events={events}></CalendarDayView>;
             break;
         case "week":
-            res = <></>;
+            res = <CalendarWeekView events={events}></CalendarWeekView>;
             break;
         case "month":
             
