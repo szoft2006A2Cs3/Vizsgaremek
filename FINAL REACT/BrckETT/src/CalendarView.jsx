@@ -36,7 +36,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate+ "/" + toDate;
         let result = await callAPIFunc.callApiAsync("AdvancedInfo/BlocksInRange", "GET", null, true, params)
         setEvents(result);
-        //console.log(result);
+        console.log(result);
     }
 
 
@@ -129,6 +129,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             </div>
 
             <button onClick={() => CreateNewSchedule({"scheduleInfo": "string", "templateInfo": "string"})}>Create New</button>
+            <button onClick={() => CreateBlock({"blockId": 0, "date": "2026-02-27", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"})}></button>
         </div>
       );
     }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection.Metadata;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -90,7 +91,20 @@ namespace BackendProjekt.Controllers
                         }
                     }
                 }
+                //Group adatok törlése, a pending GroupConnectionoknál
+
+                foreach (var gu in resp.Groupuserconns)
+                {
+                    if (gu.Group != null && gu.Permission == "pending")
+                    {
+                        gu.Group.Groupscheduleconns = null;
+                        gu.Group.Groupuserconns = null;
+                    }
+                }
+
+
             }
+
 
 
             return Ok(resp);
@@ -135,9 +149,40 @@ namespace BackendProjekt.Controllers
 
             Console.WriteLine(string.Join("\n", groupedBlocks.Values.ToList()));
 
+            var datesWithMoreThanOneBlock = groupedBlocks.Where(g => g.Value.Count() > 1).Select(g => g.Value).ToList();
 
+            // collect overlapping blocks (per user definition):
+            // A and B overlap if A.TimeStart is between B.TimeStart and B.TimeEnd
+            // OR A.TimeEnd is between B.TimeStart and B.TimeEnd (we check both directions)
+            var overlappingIds = new HashSet<int>();
 
-            return Ok(groupedBlocks.Where(g => g.Value.Count()>1).Select(g => g.Value));
+            foreach (var grp in datesWithMoreThanOneBlock)
+            {
+                var blocksOnDate = grp.OrderBy(b => b.TimeStart).ToList();
+
+                for (int i = 0; i < blocksOnDate.Count; i++)
+                {
+                    var a = blocksOnDate[i];
+                    for (int j = i + 1; j < blocksOnDate.Count; j++)
+                    {
+                        var b = blocksOnDate[j];
+
+                        bool aStartInB = a.TimeStart >= b.TimeStart && a.TimeStart <= b.TimeEnd;
+                        bool aEndInB = a.TimeEnd >= b.TimeStart && a.TimeEnd <= b.TimeEnd;
+                        bool bStartInA = b.TimeStart >= a.TimeStart && b.TimeStart <= a.TimeEnd;
+                        bool bEndInA = b.TimeEnd >= a.TimeStart && b.TimeEnd <= a.TimeEnd;
+
+                        if (aStartInB || aEndInB || bStartInA || bEndInA)
+                        {
+                            overlappingIds.Add(a.BlockId);
+                            overlappingIds.Add(b.BlockId);
+                        }
+                    }
+                }
+            }
+            //Group By Dátum alapján, hogy tudjuk melyik napokon van átfedés
+
+            return Ok(_context.Blocks.Where(b => overlappingIds.Contains(b.BlockId)).GroupBy(b => b.Date, (key, g)=> g.ToList()));
         }
 
 
@@ -249,11 +294,32 @@ namespace BackendProjekt.Controllers
             {
                 return NotFound();
             }
-            
-            if (!await UserHasAccessToSchedule(user, scheduleId))
+
+            bool[] hasConnection = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasConnection[0])
             {
                 return Unauthorized("Nem fér hozzá a felhasználó az adott Schedule-hoz");
             }
+            if (hasConnection[1])
+            {
+                var permission = await _context.Groupuserconns
+                .Where(gu => gu.UserId == user.UserId)
+                .Join(_context.Groupscheduleconns,
+                      gu => gu.GroupId,
+                      gsc => gsc.GroupId,
+                      (gu, gsc) => new { gu.Permission, gsc.ScheduleId })
+                .Where(x => x.ScheduleId == scheduleId)
+                .Select(x => x.Permission)
+                .FirstOrDefaultAsync();
+
+                if (permission != "Admin") 
+                {
+                    return Unauthorized("A felhasználó nem rendelkezik \"Admin\" hozzáféréssel");
+                }
+            }
+
+
+
             var templateId = await _context.Schedules.Where(s => s.ScheduleId == scheduleId).Select(t => t.TemplateId).FirstOrDefaultAsync();
 
 
@@ -289,16 +355,16 @@ namespace BackendProjekt.Controllers
 
 
 
-            bool hasAccess = await UserHasAccessToSchedule(user, scheduleId);
-            if (!hasAccess) 
+            bool[] hasAccess = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasAccess[0]) 
             {
                 return Unauthorized();
             }
 
             var result = await _context.Schedules.Include(s => s.Templates).ThenInclude(t => t.TemplatesBlocksConns).ThenInclude(conn => conn.Blocks).Where(sch => sch.ScheduleId == scheduleId).ToListAsync();
 
-           
-            return Ok(result.Select(r => r.Templates.TemplatesBlocksConns.Select(c => c.Blocks).Where(b => b.Date>=from && b.Date<=to)));
+
+            return Ok(result.Select(r => r.Templates.TemplatesBlocksConns.Select(c => c.Blocks).Select(b => { b.TemplatesBlocksConns = null; return b; }).Where(b => b.Date >= from && b.Date <= to)));
         }
 
 
@@ -311,21 +377,21 @@ namespace BackendProjekt.Controllers
         /// <param name="user"></param>
         /// <param name="scheduleId"></param>
         /// <returns></returns>
-        private async Task<bool> UserHasAccessToSchedule(Users user, int scheduleId)
+        private async Task<bool[]> UserHasAccessToSchedule(Users user, int scheduleId)
         {
-            if (user == null) return false;
+            if (user == null) return [false, false];
 
             // Fast in-memory check if navigation properties are already loaded
             if (user.Schedulesusersconns?.Any(su => su.ScheduleId == scheduleId) == true)
-                return true;
+                return [true, false];
 
             if (user.Groupuserconns?.Any(gu => gu.Group?.Groupscheduleconns?.Any(gs => gs.ScheduleId == scheduleId) == true) == true)
-                return true;
+                return [true, true];
 
             // Fallback to efficient DB queries when navigations aren't loaded
             var direct = await _context.Schedulesusersconns
                 .AnyAsync(su => su.UserId == user.UserId && su.ScheduleId == scheduleId);
-            if (direct) return true;
+            if (direct) return [true, false];
 
             var viaGroup = await _context.Groupuserconns
                 .Where(gu => gu.UserId == user.UserId)
@@ -335,7 +401,7 @@ namespace BackendProjekt.Controllers
                       (gu, gsc) => gsc)
                 .AnyAsync(gsc => gsc.ScheduleId == scheduleId);
 
-            return viaGroup;
+            return [viaGroup, true];
         }
     }
 }

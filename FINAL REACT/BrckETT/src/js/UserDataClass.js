@@ -1,3 +1,4 @@
+import { th } from 'motion/react-client';
 import User from './UserClass.js';
 
 export default class UserDataClass 
@@ -44,7 +45,8 @@ export default class UserDataClass
         this.pendingGroups = []
         object.groupuserconns.map(conn => 
             { 
-                if(conn.permission !== "pending")
+                //console.log(conn);
+                if(conn.permission != "pending")
                 {
                     var group = 
                     {
@@ -71,7 +73,7 @@ export default class UserDataClass
                     var pendingGroup = 
                     {
                         "permission": conn.permission,
-                        "groupId": conn.group.groupId,
+                        "groupId": conn.groupId,
                         "groupName": conn.group.groupName,
                     }
                     this.pendingGroups.push(pendingGroup);
@@ -81,16 +83,18 @@ export default class UserDataClass
             });
             
 
-
+        
         //console.log(this);
     }
 
     async hasNotifications() {
         let result = this.pendingGroups.length > 0;
         let overLaps = await this.callApi.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, this.callApi._token);
-        if(overLaps.length > 0) result = true;
+        if(overLaps.length > 0) { result = true};
         //console.log("hasNotifications: ");
-        //console.log(overLaps);
+        //console.log(result);
+
+
 
         return result;
     }
