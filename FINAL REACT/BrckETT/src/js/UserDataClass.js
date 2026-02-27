@@ -2,7 +2,7 @@ import User from './UserClass.js';
 
 export default class UserDataClass 
 {
-    constructor(object) {
+    constructor(object, callApiFunc) {
         if (!object) {
             this.user = null;
             this.userSettings = null;
@@ -11,7 +11,8 @@ export default class UserDataClass
             this.groupuserconns = [];
             return;
         }
-        
+        this.callApi = callApiFunc;
+
         this.user = new User(
             object.userId,
             object.userName,
@@ -84,11 +85,12 @@ export default class UserDataClass
         //console.log(this);
     }
 
-    hasNotifications() {
+    async hasNotifications() {
         let result = this.pendingGroups.length > 0;
-
-
-
+        let overLaps = await this.callApi.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, this.callApi._token);
+        if(overLaps.length > 0) result = true;
+        //console.log("hasNotifications: ");
+        //console.log(overLaps);
 
         return result;
     }

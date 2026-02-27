@@ -5,10 +5,20 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/AdvancedInfo": {
+    "/api/AdvancedInfo/{token}": {
       "get": {
         "tags": [
           "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -17,7 +27,7 @@
         }
       }
     },
-    "/api/AdvancedInfo/{token}": {
+    "/api/AdvancedInfo/OverLaps/{token}": {
       "get": {
         "tags": [
           "AdvancedInfo"
@@ -137,8 +147,9 @@
         ],
         "parameters": [
           {
-            "name": "toknen",
-            "in": "query",
+            "name": "token",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -150,14 +161,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "token",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],

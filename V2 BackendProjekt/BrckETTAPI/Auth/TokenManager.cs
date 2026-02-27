@@ -105,7 +105,7 @@ namespace BackendProjekt.Auth
         {
             if (string.IsNullOrWhiteSpace(token))
             {
-                return "";
+                return null;
             }
 
 
@@ -122,14 +122,14 @@ namespace BackendProjekt.Auth
             }
             catch (Exception)
             {
-                return "";
+                return null;
             }
 
             var email = jwt.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
             if (string.IsNullOrEmpty(email))
             {
-                return "";
+                return null;
             }
 
             return email;

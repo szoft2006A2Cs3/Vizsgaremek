@@ -44,7 +44,7 @@ function App() {
         callAPIInstance.setToken(savedToken);
         try {
           const userDataResponse = await callAPIInstance.callApiAsync('AdvancedInfo', 'GET', null, true, savedToken);
-          const userDataObj = new UserDataClass(userDataResponse);
+          const userDataObj = new UserDataClass(userDataResponse, callAPIInstance);
           setUserData(userDataObj);
           setUser(new User(
             userDataResponse.userId,
@@ -145,11 +145,11 @@ function App() {
       <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={userData.user.displayName.substring(0,1).toUpperCase()}></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e))} hasNotifications={userData.hasNotifications()} fetchUserDataFunc={fetchUserData}></ProfileModule>}></Route>
+        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} userData={userData} fetchUserDataFunc={fetchUserData}></ProfileModule>}></Route>
         <Route path='/Schedules' element={<CalendarView fetchUserDataFunc={fetchUserData} LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules} userData={userData}></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(new UserDataClass(e))}></ProfileDescriptionModule>}></Route>
+        <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))}></ProfileDescriptionModule>}></Route>
         <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData}></SettingsModule>}></Route>
         <Route path='/Groups' element={<GroupSelector groupList={userData.groups}></GroupSelector>}></Route>
       </Routes>
@@ -162,7 +162,7 @@ function App() {
         <Route path='/' element={<FrontPage></FrontPage>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/loginReg' element={<LoginModule activeForm={activeForm} logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e))} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>  
+        <Route path='/loginReg' element={<LoginModule activeForm={activeForm} logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>  
       </Routes>
       <FooterModule setActiveForm={setActiveForm}></FooterModule>
     </>

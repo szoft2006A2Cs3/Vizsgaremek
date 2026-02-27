@@ -33,17 +33,7 @@ namespace BackendProjekt.Controllers
         {
             _context = context;
         }
-        // GET: api/<AdvancedInfoController>
 
-        [HttpGet]
-        [Authorize(Policy = "AdvancedInfo.Read")]
-        public async Task<IActionResult> Get()
-        {
-            return Ok("Not implemented yet");
-        }
-
-
-        // GET api/<AdvancedInfoController>/5
         [HttpGet("{token}")]
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
         public async Task<IActionResult> Get(string token)
@@ -51,7 +41,7 @@ namespace BackendProjekt.Controllers
             var email = TokenManager.GetEmailFromToken(token);
             if (email == null) 
             {
-                return NotFound();
+                return BadRequest("Invalid JWT Token");
             }
 
 
@@ -106,44 +96,68 @@ namespace BackendProjekt.Controllers
             return Ok(resp);
         }
 
-        // POST api/<AdvancedInfoController>
-
-        //[HttpPost]
-        //[Authorize(Policy = "AdvancedInfo.Create")]
-        //public async Task<IActionResult> Post([FromBody] string value)
-        //{
-        //    return Ok("Not implemented yet");
-        //}
-
-        //// PUT api/<AdvancedInfoController>/5
-        //[Authorize(Policy = "AdvancedInfo.Update")]
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(int id, [FromBody] string value)
-        //{
-        //    return Ok("Not implemented yet");
-        //}
-
-        //// DELETE api/<AdvancedInfoController>/5
-        //[Authorize(Policy = "AdvancedInfo.Delete")]
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    return Ok("Not implemented yet");
-        //}
-
         //OKOS FUNKCIÓK ------------------------------------------------------------
+        [HttpGet("OverLaps/{token}")]
+        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
+        public async Task<IActionResult> GetOverlaps(string token) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) 
+            {
+                return BadRequest("Invalid Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+
+            var templateIdList = await _context.Schedules
+                .Where(s =>
+                    _context.Schedulesusersconns.Any(su => su.UserId == user.UserId && su.ScheduleId == s.ScheduleId)
+                    ||
+                    _context.Groupscheduleconns.Any(gs =>
+                        _context.Groupuserconns.Any(gu => gu.UserId == user.UserId && gu.GroupId == gs.GroupId)
+                        && gs.ScheduleId == s.ScheduleId
+                    )
+                )
+                .Select(s => s.TemplateId)
+                .ToListAsync();
+
+
+            var groupedBlocks = (await _context.TemplatesBlocksConns
+                .Where(tbc => templateIdList.Contains(tbc.TemplateId))
+                .Select(tbc => tbc.Blocks)
+                .ToListAsync())
+                .Where(b => b.Date.HasValue && b.Date >= DateTime.Now.Date)
+                .GroupBy(b => b.Date.Value.Date)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            Console.WriteLine(string.Join("\n", groupedBlocks.Values.ToList()));
+
+
+
+            return Ok(groupedBlocks.Where(g => g.Value.Count()>1).Select(g => g.Value));
+        }
 
 
 
 
+        //Schedule/Block Update METÓDUSOK------------------------------------------------------------
 
-        //Schedule/Block Update LEKÉRDEZÉSEK------------------------------------------------------------
+        //[HttpPut("groupUpdate/")]
+        //[Authorize(Policy = "AdvancedInfo.Update")]
+        //[HttpPut("userUpdate/")]
+        //[Authorize(Policy = "AdvancedInfo.Update")]
+        //[HttpPut("blockUpdate/")]
+        //[Authorize(Policy = "AdvancedInfo.Update")]
 
 
 
-        //Schedule/Block Creation LEKÉRDEZÉSEK------------------------------------------------------------
+        //Schedule/Block Creation METÓDUSOK------------------------------------------------------------
 
         [HttpPost("groupCreate/{token}/{groupId}")]
+        [Authorize(Policy = "AdvancedInfo.Create")]
         public async Task<IActionResult> Create(string token, int groupId, ScheduleCreateRequest schedule)
         {
             var email = TokenManager.GetEmailFromToken(token);
@@ -186,6 +200,7 @@ namespace BackendProjekt.Controllers
         }
 
         [HttpPost("userCreate/{token}")]
+        [Authorize(Policy = "AdvancedInfo.Create")]
         public async Task<IActionResult> Create(string token, ScheduleCreateRequest schedule)
         {
             var email = TokenManager.GetEmailFromToken(token);
@@ -220,17 +235,38 @@ namespace BackendProjekt.Controllers
         }
 
         [HttpPost("blockCreate/{token}/{scheduleId}")]
-        public async Task<IActionResult> Create(string toknen, int scheduleId, Blocks block) 
+        [Authorize(Policy = "AdvancedInfo.Create")]
+        public async Task<IActionResult> Create(string token, int scheduleId, Blocks block) 
         {
             //Leellenőrizzük a felhasználót, és hogy kapcsolódik-e a schedule-hoz, és jogosult-e block létrehozására a schedule-hoz
-
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
+            if (!await UserHasAccessToSchedule(user, scheduleId))
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Schedule-hoz");
+            }
+            var templateId = await _context.Schedules.Where(s => s.ScheduleId == scheduleId).Select(t => t.TemplateId).FirstOrDefaultAsync();
 
 
             //Hozzáadjuk a block-ot
             _context.Blocks.Add(block);
             await _context.SaveChangesAsync();
             //Hozzáadjuk a Connection-t a block és a schedule között
-
+            var conn = new TemplatesBlocksConn
+            {
+                TemplateId = templateId,
+                BlockId = block.BlockId
+            };
+            _context.TemplatesBlocksConns.Add(conn);
             await _context.SaveChangesAsync();
 
 
@@ -241,7 +277,7 @@ namespace BackendProjekt.Controllers
         //Layout LEKÉRDEZÉSEK------------------------------------------------------------
         [HttpGet("BlocksInRange/{token}/{scheduleId}/{from}/{to}")]
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
-        public async Task<IActionResult> GetByYear(string token, int scheduleId,DateTime from, DateTime to)
+        public async Task<IActionResult> GetByInRange(string token, int scheduleId,DateTime from, DateTime to)
         {
             //------------------------------------------IDE IDE IDE IDE
             var email = TokenManager.GetEmailFromToken(token);
@@ -269,7 +305,7 @@ namespace BackendProjekt.Controllers
 
 
         /// <summary>
-        /// Segédosztály
+        /// SegédMetódus
         /// Megadja hogy az adott user kapcsolódik-e vagy egyénileg, vagy csoportokon keresztül a megadott schedule-hoz
         /// </summary>
         /// <param name="user"></param>

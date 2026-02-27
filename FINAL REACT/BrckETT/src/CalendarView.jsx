@@ -15,14 +15,34 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             schedulesList = userData.groups.find(g => g.groupId == location.state.selectedGroupId).schedules;
         }
     const [selectedDate, setSelectedDate] = useState(null);
-    const [events, setEvents] = useState({});
+    const [events, setEvents] = useState([]);
 
     const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
     const navigate = useNavigate(); 
 
+
+    //Ezekbe a változókba kell hogy mitől, meddig kérje le a blokkokat (setter fügvényekkel, lehet LiftUpState-tel is)
+    const [fromDate, setFromDate] = useState((new Date().getFullYear() +" - " + (new Date().getMonth()+1) + " - " + new Date().getDate()));
+    const [toDate, setToDate] = useState((new Date().getFullYear() +" - " + (new Date().getMonth()+1) + " - " + new Date().getDate()));
     
+
+    //UseEffect, ha változik a from/to Date
+    useEffect(() => 
+        {
+            getBlocksFromTo();
+        }, [fromDate, toDate, selectedSchedule])
+    //Lekérdezi, a megadott schedule-hez, a megadott intervallumban lévő blokkokat, és beállítja azokat az events-be
+    async function getBlocksFromTo() {
+        const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate+ "/" + toDate;
+        let result = await callAPIFunc.callApiAsync("AdvancedInfo/BlocksInRange", "GET", null, true, params)
+        setEvents(result);
+        //console.log(result);
+    }
+
+
     //A bemeneti schedule-t feltölti a backend-re, majd frissíti a userData-t (Group nézetben, a csoporthoz köti az új Schedule-t, egyéni nézetben a User-hoz)
-    async function createNewSchedule(schedule) 
+    //schedule --->  {scheduleInfo: "string", templateInfo: "string"}
+    async function CreateNewSchedule(schedule) 
     {
         let url = "AdvancedInfo"
         let params = null;
@@ -37,11 +57,20 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                 url += "/groupCreate";
                 params = callAPIFunc._token + "/" + selectedGroupId;
             }
-        await callAPIFunc.callApiAsync(url, "POST", {scheduleInfo:"test", templateInfo:"test"}, true, params)
+        await callAPIFunc.callApiAsync(url, "POST", schedule, true, params)
 
         //Frissíti a userData-t, (LiftUpState)
         await fetchUserDataFunc();
     }
+
+    //A bemeneti block-ot feltölti a backend-re, majd frissíti az events useState-et 
+    //block ---> {"blockId": 0, "date": "2026-02-26", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"}
+    async function CreateBlock(block) {
+        const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId;
+        await callAPIFunc.callApiAsync("AdvancedInfo/blockCreate", "POST", block, true, params)
+        getBlocksFromTo();
+    }
+
 
 
     function renderCalendar()
@@ -57,6 +86,8 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             res = <></>;
             break;
         case "month":
+            
+
             res = (selectedDate === null ? (
                     <Calendar
                         selectedSchedule={selectedSchedule}
@@ -97,7 +128,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             })}
             </div>
 
-            <button onClick={createNewSchedule}>Create New</button>
+            <button onClick={() => CreateNewSchedule({"scheduleInfo": "string", "templateInfo": "string"})}>Create New</button>
         </div>
       );
     }

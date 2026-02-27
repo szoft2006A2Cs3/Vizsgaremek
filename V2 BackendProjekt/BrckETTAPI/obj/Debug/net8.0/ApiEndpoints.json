@@ -2,16 +2,6 @@
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
     "Method": "Get",
-    "RelativePath": "api/AdvancedInfo",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
-    "Method": "Get",
     "RelativePath": "api/AdvancedInfo/{token}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -34,9 +24,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "toknen",
+        "Name": "token",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
         "Name": "scheduleId",
@@ -47,18 +37,13 @@
         "Name": "block",
         "Type": "BackendProjekt.Model.Blocks",
         "IsRequired": true
-      },
-      {
-        "Name": "token",
-        "Type": "",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
-    "Method": "GetByYear",
+    "Method": "GetByInRange",
     "RelativePath": "api/AdvancedInfo/BlocksInRange/{token}/{scheduleId}/{from}/{to}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -108,6 +93,22 @@
       {
         "Name": "schedule",
         "Type": "BackendProjekt.Controllers.ScheduleCreateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "GetOverlaps",
+    "RelativePath": "api/AdvancedInfo/OverLaps/{token}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

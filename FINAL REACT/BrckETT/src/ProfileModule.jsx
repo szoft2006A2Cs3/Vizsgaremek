@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
 import User from "./js/UserClass";
-import { useState,useEffect } from "react";
+import { useState,useEffect, use } from "react";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, hasNotifications, fetchUserDataFunc}) 
+export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, userData, fetchUserDataFunc}) 
 {
     const navigate = useNavigate();
     async function logOutSequence()
@@ -15,8 +15,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         localStorage.removeItem('token');
         navigate("/")
     }
-    const [notifVisibility, setNotifVisibility] = useState(hasNotifications ? "visible" : "hidden");
-
+    const [notifVisibility, setNotifVisibility] = useState(userData?.hasNotifications() ? "visible" : "hidden");
 
     //console.log({user});
     return (
@@ -38,6 +37,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
                 <Link to={"/Groups"}><button><link-text>Groups</link-text></button></Link>
                 <Link to={"/Settings"}><button><link-text>Settings</link-text></button></Link>
                 <button id="Logout-Btn" onClick={logOutSequence}><Link to={"/"}><img className="logoutIcon" src="/src/assets/logoutIcon.png"></img></Link></button>
+                
             </div>
         </div>
     );

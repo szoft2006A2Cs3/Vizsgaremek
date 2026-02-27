@@ -4,7 +4,7 @@ namespace BackendProjekt.Model
     public class Context : DbContext
     {
         public DbSet<Blocks> Blocks { get; set; }
-        public DbSet<TemplatesBlocksConn> templatesBlocksConns { get; set; }
+        public DbSet<TemplatesBlocksConn> TemplatesBlocksConns { get; set; }
         public DbSet<Groups> Groups { get; set; }
         public DbSet<Groupscheduleconn> Groupscheduleconns { get; set; }
         public DbSet<Groupuserconn> Groupuserconns { get; set; }
