@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "./assets/Brckett Logo.png";
 import Image2 from "./assets/naptar.png";
 import Image3 from "./assets/masem.png";
+import Bg from "./assets/BrckettBg.mp4";
 
 export default function FrontPage()
 {
@@ -62,46 +63,103 @@ const handleMouseUp = () => {
  return (
     <>
       <div className="front-page-container">
-      
-        <div className="carousel-container">
-          <div className="image-carousel" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}onMouseLeave={handleMouseUp}> 
-              <button className="arrow left" onClick={prevImage}>&#10094;</button>
-              <img key={currentIndex} src={images[currentIndex]} alt={`Slide ${currentIndex + 1}`} className="carousel-image" draggable="false" style={{transform: `translateX(${translate}px)`, transition: isDragging ? "none" : "transform 0.3s ease"}}/>
 
-              <div className="dots">
-                  {images.map((_, index) => (
-                <span 
+      <section className="carousel-section">
+
+        <div className="carousel-container">
+          <div 
+            className="image-carousel"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            <button className="arrow left" onClick={prevImage}>
+              &#10094;
+            </button>
+
+            <img
+              key={currentIndex}
+              src={images[currentIndex]}
+              alt={`Slide ${currentIndex + 1}`}
+              className="carousel-image"
+              draggable="false"
+              style={{
+                transform: `translateX(${translate}px)`,
+                transition: isDragging ? "none" : "transform 0.3s ease"
+              }}
+            />
+
+            <div className="dots">
+              {images.map((_, index) => (
+                <span
                   key={index}
                   className={`dot ${index === currentIndex ? "active" : ""}`}
                   onClick={() => setCurrentIndex(index)}
                 />
-                ))}
-              </div>
-              
-
-              <button className="arrow right" onClick={nextImage}>&#10095;</button>
+              ))}
             </div>
+
+            <button className="arrow right" onClick={nextImage}>
+              &#10095;
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider"></div>
+
+      <section className="preview-section">
+        <div className="frontpage-previews">
+
+          <div className="about-container front-preview">
+            <h1>About Brckett</h1>
+            <Link to="/about" className="frontpage-link">
+              <p>
+                <span>
+                  Brckett is a scheduling application designed to help users manage their time effectively.
+                </span>
+              </p>
+            </Link>
           </div>
 
-
-
-
-          <div className="frontpage-previews">
-            
-              <div className="about-container front-preview">
-                <h1>About Brckett</h1>
-                <Link to="/about" className="frontpage-link"><p><span>Brckett is a scheduling application designed to help users manage their time effectively.</span></p></Link>
-              </div>
-            
-
-            
-              <div className="contact-container front-preview">
-                <h1>Contact Us</h1>
-                <Link to="/contact" className="frontpage-link"><p><span>If you have any questions, feedback, or need assistance with Brckett, please don't hesitate to reach out to us.</span></p></Link>
-              </div>
+          <div className="contact-container front-preview">
+            <h1>Contact Us</h1>
+            <Link to="/contact" className="frontpage-link">
+              <p>
+                <span>
+                  If you have any questions, feedback, or need assistance with Brckett, please don't hesitate to reach out to us.
+                </span>
+              </p>
+            </Link>
           </div>
+          
+              <div className="section-divider"></div>
+
+          <section className="legal-section">
+            <div className="legal-inner">
+
+            <div className="legal-left">
+            <span className="legal-date">
+                2026.04.27
+            </span>
+              <span className="legal-copy">
+                © 2026 BrckEtt
+              </span>
+            </div>
+
+            <div className="legal-links">
+            <Link to="/faq" className="legal-link">FAQ</Link>
+            <Link to="/terms" className="legal-link">Felhasználói feltételek</Link>
+            </div>
+
+            </div>
+          </section>
 
         </div>
+      </section>
+
+    </div>
         
         
     </>

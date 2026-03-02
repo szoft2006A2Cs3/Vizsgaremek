@@ -18,11 +18,12 @@
     letter-spacing: 0.5px;
     cursor: pointer;
     user-select: none;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(182, 46, 250, 0.73);
     backdrop-filter: blur(18px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255,255,255,0.3);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+    color: #a8fa50;
 }
 
 
@@ -48,7 +49,7 @@
     width: 60%;
     height: 4px;
     border-radius: 10px;
-    background: linear-gradient(90deg, #6c8cff, #72ffd4);
+    background: linear-gradient(90deg, #75af37, #a8fa50);
     opacity: 0;
     transition: opacity 0.25s ease;
 }
@@ -67,7 +68,9 @@
     opacity: 0;
     transform: translateY(5px);
     transition: all 0.25s ease;
+    color: #a8fa50;
 }
+
 
 .group-card:hover::after {
     opacity: 0.8;
