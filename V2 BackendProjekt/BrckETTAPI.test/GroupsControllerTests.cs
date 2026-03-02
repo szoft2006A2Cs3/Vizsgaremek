@@ -101,5 +101,44 @@ namespace BrckETTAPI.test
             var res = await controller.Delete(20);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
         }
+
+        // Chain test: Create -> Get -> Update -> Delete
+        [TestMethod]
+        public async Task Groups_Chain_CRUD_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb();
+
+            var controller = new GroupsController(db.Context);
+
+            // Create
+            var toCreate = new Groups { GroupName = "ChainGroup" };
+            var postRes = await controller.Post(toCreate);
+            Assert.IsInstanceOfType(postRes, typeof(CreatedAtActionResult));
+
+            var created = await db.Context.Groups.FirstOrDefaultAsync(g => g.GroupName == "ChainGroup");
+            Assert.IsNotNull(created);
+
+            // Get
+            var getRes = await controller.Get(created.GroupId);
+            Assert.IsInstanceOfType(getRes, typeof(OkObjectResult));
+            var got = ((OkObjectResult)getRes).Value as Groups;
+            Assert.IsNotNull(got);
+            Assert.AreEqual("ChainGroup", got.GroupName);
+
+            // Update
+            var updated = new Groups { GroupName = "ChainGroupUpdated" };
+            var putRes = await controller.Put(created.GroupId, updated);
+            Assert.IsInstanceOfType(putRes, typeof(OkObjectResult));
+
+            var dbval = await db.Context.Groups.FirstOrDefaultAsync(g => g.GroupId == created.GroupId);
+            Assert.IsNotNull(dbval);
+            Assert.AreEqual("ChainGroupUpdated", dbval.GroupName);
+
+            // Delete
+            var delRes = await controller.Delete(created.GroupId);
+            Assert.IsInstanceOfType(delRes, typeof(OkObjectResult));
+            var deleted = await db.Context.Groups.FirstOrDefaultAsync(g => g.GroupId == created.GroupId);
+            Assert.IsNull(deleted);
+        }
     }
 }

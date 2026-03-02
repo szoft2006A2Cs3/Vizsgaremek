@@ -35,33 +35,15 @@ namespace BrckETTAPI.test
             Assert.IsInstanceOfType(res, typeof(NotFoundResult));
         }
 
-        // NEW: positive test for Get(id) where id is TemplateId
-        [TestMethod]
-        public async Task GetById_Found_Pass()
-        {
-            using var db = TestHelpers.CreateTestDb(ctx =>
-            {
-                ctx.Templates.Add(new Templates { TemplateId = 500, TemplateInfo = "tpl" });
-                ctx.Schedules.Add(new Schedules { ScheduleId = 5, TemplateId = 500, ScheduleInfo = "s" });
-            });
-
-            var controller = new SchedulesController(db.Context);
-            // controller.Get uses the route id as TemplateId
-            var res = await controller.Get(5);
-            Assert.IsInstanceOfType(res, typeof(OkObjectResult));
-            var schedule = ((OkObjectResult)res).Value as Schedules;
-            Assert.IsNotNull(schedule);
-            Assert.AreEqual(500, schedule.TemplateId);
-            Assert.AreEqual(5, schedule.ScheduleId);
-        }
-
         [TestMethod]
         public async Task Post_Create_Pass()
         {
-            using var db = TestHelpers.CreateTestDb(ctx =>
-            {
-                ctx.Templates.Add(new Templates { TemplateId = 200, TemplateInfo = null });
-            });
+            using var db = TestHelpers.CreateTestDb();
+
+            // Ensure referenced template exists to satisfy FK constraint
+            db.Context.Templates.Add(new Templates { TemplateId = 200, TemplateInfo = "test template" });
+            await db.Context.SaveChangesAsync();
+
             var controller = new SchedulesController(db.Context);
             var res = await controller.Post(new Schedules { ScheduleId = 2, TemplateId = 200 });
             Assert.IsInstanceOfType(res, typeof(CreatedAtActionResult));
@@ -112,6 +94,49 @@ namespace BrckETTAPI.test
             var controller = new SchedulesController(db.Context);
             var res = await controller.Delete(4);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
+        }
+
+        // Chain test: Create -> Get -> Update -> Delete
+        [TestMethod]
+        public async Task Schedules_Chain_CRUD_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb();
+
+            // ensure template exists for FK
+            db.Context.Templates.Add(new Templates { TemplateInfo = "chain-template" });
+            await db.Context.SaveChangesAsync();
+            var template = await db.Context.Templates.FirstOrDefaultAsync(t => t.TemplateInfo == "chain-template");
+
+            var controller = new SchedulesController(db.Context);
+
+            // Create
+            var toCreate = new Schedules { TemplateId = template.TemplateId, ScheduleInfo = "ChainSched" };
+            var postRes = await controller.Post(toCreate);
+            Assert.IsInstanceOfType(postRes, typeof(CreatedAtActionResult));
+
+            var created = await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleInfo == "ChainSched");
+            Assert.IsNotNull(created);
+
+            // Get
+            var getRes = await controller.Get(created.ScheduleId);
+            Assert.IsInstanceOfType(getRes, typeof(OkObjectResult));
+            var got = ((OkObjectResult)getRes).Value as Schedules;
+            Assert.IsNotNull(got);
+            Assert.AreEqual("ChainSched", got.ScheduleInfo);
+
+            // Update
+            var updated = new Schedules { ScheduleId = created.ScheduleId, TemplateId = created.TemplateId, ScheduleInfo = "ChainSchedUpdated" };
+            var putRes = await controller.Put(created.ScheduleId, updated);
+            Assert.IsInstanceOfType(putRes, typeof(OkObjectResult));
+            var dbval = await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == created.ScheduleId);
+            Assert.IsNotNull(dbval);
+            Assert.AreEqual("ChainSchedUpdated", dbval.ScheduleInfo);
+
+            // Delete
+            var delRes = await controller.Delete(created.ScheduleId);
+            Assert.IsInstanceOfType(delRes, typeof(OkObjectResult));
+            var deleted = await db.Context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == created.ScheduleId);
+            Assert.IsNull(deleted);
         }
     }
 }

@@ -80,12 +80,10 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
-                ctx.Blocks.Add(new Blocks { BlockId = 5, Description ="asd", Date=new DateTime(), Priority="Top", Title = "Old", TimeStart = 10, TimeEnd = 20 });
+                ctx.Blocks.Add(new Blocks { BlockId = 5, Description = "asd", Date = new System.DateTime(), Priority = "Top", Title = "Old", TimeStart = 10, TimeEnd = 20 });
             });
-            await db.Context.SaveChangesAsync();
-
             var controller = new BlocksController(db.Context);
-            var updated = new Blocks { BlockId = 5, Description = "asd", Date = new DateTime(), Priority = "Top", Title = "Updated", TimeStart = 30, TimeEnd = 40 };
+            var updated = new Blocks { BlockId = 5, Description = "asd", Date = new System.DateTime(), Priority = "Top", Title = "Updated", TimeStart = 30, TimeEnd = 40 };
             var result = await controller.Put(5, updated);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var dbval = await db.Context.Blocks.FirstOrDefaultAsync(b => b.BlockId == 5);
@@ -114,6 +112,46 @@ namespace BrckETTAPI.test
             var result = await controller.Delete(77);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var deleted = await db.Context.Blocks.FirstOrDefaultAsync(b => b.BlockId == 77);
+            Assert.IsNull(deleted);
+        }
+
+        // Chain test: Create -> Get -> Update -> Delete
+        [TestMethod]
+        public async Task Blocks_Chain_CRUD_Pass()
+        {
+            using var db = TestHelpers.CreateTestDb();
+
+            var controller = new BlocksController(db.Context);
+
+            // Create
+            var toCreate = new Blocks { Title = "ChainBlock", TimeStart = 5, TimeEnd = 6 };
+            var postRes = await controller.Post(toCreate);
+            Assert.IsInstanceOfType(postRes, typeof(CreatedResult));
+
+            var created = await db.Context.Blocks.FirstOrDefaultAsync(b => b.Title == "ChainBlock");
+            Assert.IsNotNull(created);
+
+            // Get
+            var getRes = await controller.Get(created.BlockId);
+            Assert.IsInstanceOfType(getRes, typeof(OkObjectResult));
+            var got = ((OkObjectResult)getRes).Value as Blocks;
+            Assert.IsNotNull(got);
+            Assert.AreEqual(5, got.TimeStart);
+
+            // Update
+            var updated = new Blocks { BlockId = created.BlockId, Title = "ChainBlockUpdated", TimeStart = 10, TimeEnd = 11, Priority = got.Priority, Description = got.Description, Date = got.Date };
+            var putRes = await controller.Put(created.BlockId, updated);
+            Assert.IsInstanceOfType(putRes, typeof(OkObjectResult));
+
+            var dbval = await db.Context.Blocks.FirstOrDefaultAsync(b => b.BlockId == created.BlockId);
+            Assert.IsNotNull(dbval);
+            Assert.AreEqual("ChainBlockUpdated", dbval.Title);
+            Assert.AreEqual(10, dbval.TimeStart);
+
+            // Delete
+            var delRes = await controller.Delete(created.BlockId);
+            Assert.IsInstanceOfType(delRes, typeof(OkObjectResult));
+            var deleted = await db.Context.Blocks.FirstOrDefaultAsync(b => b.BlockId == created.BlockId);
             Assert.IsNull(deleted);
         }
     }
