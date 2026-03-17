@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj": {}
+    "I:\\Bálint\\13.osztály\\vizsgaremek\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj": {
+    "I:\\Bálint\\13.osztály\\vizsgaremek\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj",
+        "projectUniqueName": "I:\\Bálint\\13.osztály\\vizsgaremek\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj",
         "projectName": "BackendProjekt",
-        "projectPath": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj",
-        "packagesPath": "C:\\Users\\idont\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\idont\\OneDrive\\Desktop\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\obj\\",
+        "projectPath": "I:\\Bálint\\13.osztály\\vizsgaremek\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\BackendProjekt.csproj",
+        "packagesPath": "C:\\Users\\mulle\\.nuget\\packages\\",
+        "outputPath": "I:\\Bálint\\13.osztály\\vizsgaremek\\Vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\idont\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mulle\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

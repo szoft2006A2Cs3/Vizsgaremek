@@ -117,3 +117,55 @@ body:has(.calendarView-container)  .PlusBtn {
     cursor: pointer; 
     font-size: 20px;
 }
+
+body:has(.calendarView-container) .overplay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vw;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+body:has(.calendarView-container) .modal{
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 350px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+}
+
+body:has(.calendarView-container) .modalRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body:has(.calendarView-container) .modalDisabledInput{
+    background-color: #f0f0f0;
+    color: #666;
+    cursor: not-allowed;
+}
+
+body:has(.calendarView-container) .modalButtonGroup{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;   
+}
+
+body:has(.calendarView-container) .modalSaveBtnb{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
