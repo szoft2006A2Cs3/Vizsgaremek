@@ -37,9 +37,56 @@ body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
 body:has(.CalendarDayView-root) .CalendarDayView-HourContent {
   flex: 1;
 }
-body:has(.CalendarDayView-root) .CalendarDayView-Body{
-    background-color: blanchedalmond;
+
+body:has(.CalendarDayView-root) .CalendarDayView-Body {
+  background-color: blanchedalmond;
 }
-body:has(.CalendarDayView-root){
-    background-color: burlywood;
+
+body:has(.CalendarDayView-root) {
+  background-color: burlywood;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-Event {
+  padding: 3px 6px;
+  border-radius: 6px;
+  margin-bottom: 3px;
+  font-size: 0.8rem;
+  color: black;
+}
+
+.priority-1 {
+  background-color: #ff0000 !important;
+  color: white;
+}
+
+.priority-2 {
+  background-color: aqua !important;
+  color: black;
+}
+
+.priority-3 {
+  background-color: yellow !important;
+  color: black;
+}
+
+/* Mobil nézet */
+@media (max-width: 768px) {
+  body:has(.CalendarDayView-root) .CalendarDayView-Header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
+    width: 45px;
+    font-size: 0.75rem;
+  }
+
+  body:has(.CalendarDayView-root) .CalendarDayView-HourRow {
+    padding: 4px;
+  }
+
+  body:has(.CalendarDayView-root) .CalendarDayView-Event {
+    font-size: 0.75rem;
+    padding: 2px 4px;
+  }
 }

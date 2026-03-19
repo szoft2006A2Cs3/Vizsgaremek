@@ -1,28 +1,50 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 
 export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) {
-    
-
     return (
         <div className="overlay">
             <div className="modal">
-                <h2>Esemény rögzitése</h2>
-                <input type="text" placeholder="Név" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })}></input>
+                <h2>Esemény rögzítése</h2>
+                {/*Ide majd a username-t adjuk át */}
+                <input
+                    type="text"
+                    placeholder="Név"
+                    readOnly
+                    value={formData.name}
+                    className="modalDisabledInput"
+                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                />
                 <div className="modalRow">
                     <label>Kezdet:</label>
-                    <input type="time" value={formData.start} onChange={e => setFormData({ ...formData, start: e.target.value })}></input>
+                    <input
+                        type="time"
+                        value={formData.start}
+                        onChange={e => setFormData({ ...formData, start: e.target.value })}
+                    />
                 </div>
                 <div className="modalRow">
                     <label>Vég:</label>
-                    <input type="time" value={formData.end} onChange={e => setFormData({ ...formData, end: e.target.value })}></input>
+                    <input
+                        type="time"
+                        value={formData.end}
+                        onChange={e => setFormData({ ...formData, end: e.target.value })}
+                    />
                 </div>
-                <input type="text" placeholder="Esemény neve" value={formData.eventName} onChange={e => setFormData({ ...formData, eventName: e.target.value })}></input>
-                <input type="text" value="" readOnly className="modalDisabledInput"></input>
-                <select value={formData.priority} onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) })}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                <input
+                    type="text"
+                    placeholder="Esemény neve"
+                    value={formData.eventName}
+                    onChange={e => setFormData({ ...formData, eventName: e.target.value })}
+                />
+                
+                <select
+                    value={formData.priority}
+                    onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) })}
+                >
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
                 </select>
                 <div className="modalButtonGroup">
                     <button onClick={addEventFunc} className="modalSaveBtn">Mentés</button>
@@ -30,5 +52,5 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
                 </div>
             </div>
         </div>
-    )
+    );
 }
