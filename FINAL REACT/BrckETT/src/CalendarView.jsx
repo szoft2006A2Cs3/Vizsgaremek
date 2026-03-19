@@ -3,149 +3,140 @@ import EventView from './EventView.jsx'
 import './css/CalendarView.css'
 import CalendarDayView from './CalendarDayView.jsx';
 import CalendarWeekView from './CalendarWeekView.jsx';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings, userData, fetchUserDataFunc}) {
     const location = useLocation();
-    //Ha state-ban át lett adva selectedGroupId, akkor azt használja, különben null-ra állítja
     let selectedGroupId = location.state?.selectedGroupId || null;
-    if(selectedGroupId != null)
-        {
-            schedulesList = userData.groups.find(g => g.groupId == location.state.selectedGroupId).schedules;
-        }
+    if (selectedGroupId != null) {
+        schedulesList = userData.groups.find(g => g.groupId == location.state.selectedGroupId).schedules;
+    }
+
     const [selectedDate, setSelectedDate] = useState(null);
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([]); //egységes event objektumokhoz
 
     const [selectedSchedule, setSelectedSchedule] = useState(schedulesList[0]);
     const navigate = useNavigate(); 
 
+    const [fromDate, setFromDate] = useState(null);
+    const [toDate, setToDate] = useState(null);
 
-    //Ezekbe a változókba kell hogy mitől, meddig kérje le a blokkokat (setter fügvényekkel, lehet LiftUpState-tel is)
-    const [fromDate, setFromDate] = useState((new Date().getFullYear() +" - " + (new Date().getMonth()+1) + " - " + new Date().getDate()));
-    const [toDate, setToDate] = useState((new Date().getFullYear() +" - " + (new Date().getMonth()+1) + " - " + new Date().getDate()));
-    
-
-    //UseEffect, ha változik a from/to Date
-    useEffect(() => 
-        {
+    useEffect(() => {
+        if (fromDate && toDate) {
             getBlocksFromTo();
-        }, [fromDate, toDate, selectedSchedule])
-    //Lekérdezi, a megadott schedule-hez, a megadott intervallumban lévő blokkokat, és beállítja azokat az events-be
+        }
+    }, [fromDate, toDate, selectedSchedule]);
+
     async function getBlocksFromTo() {
-        const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate+ "/" + toDate;
-        let result = await callAPIFunc.callApiAsync("AdvancedInfo/BlocksInRange", "GET", null, true, params)
+        const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate + "/" + toDate;
+        let result = await callAPIFunc.callApiAsync("AdvancedInfo/BlocksInRange", "GET", null, true, params);
+        // A backend formátumát átalakítani a fenti egységes event formára, ha kell
         setEvents(result);
-        console.log(result);
     }
 
-
-    //A bemeneti schedule-t feltölti a backend-re, majd frissíti a userData-t (Group nézetben, a csoporthoz köti az új Schedule-t, egyéni nézetben a User-hoz)
-    //schedule --->  {scheduleInfo: "string", templateInfo: "string"}
-    async function CreateNewSchedule(schedule) 
-    {
-        let url = "AdvancedInfo"
+    async function CreateNewSchedule(schedule) {
+        let url = "AdvancedInfo";
         let params = null;
 
-        if(selectedGroupId == null)
-            {
-                url += "/userCreate"
-                params = callAPIFunc._token;
-            }
-        else
-            {
-                url += "/groupCreate";
-                params = callAPIFunc._token + "/" + selectedGroupId;
-            }
-        await callAPIFunc.callApiAsync(url, "POST", schedule, true, params)
-
-        //Frissíti a userData-t, (LiftUpState)
+        if (selectedGroupId == null) {
+            url += "/userCreate";
+            params = callAPIFunc._token;
+        } else {
+            url += "/groupCreate";
+            params = callAPIFunc._token + "/" + selectedGroupId;
+        }
+        await callAPIFunc.callApiAsync(url, "POST", schedule, true, params);
         await fetchUserDataFunc();
     }
 
-    //A bemeneti block-ot feltölti a backend-re, majd frissíti az events useState-et 
-    //block ---> {"blockId": 0, "date": "2026-02-26", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"}
     async function CreateBlock(block) {
         const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId;
-        await callAPIFunc.callApiAsync("AdvancedInfo/blockCreate", "POST", block, true, params)
+        await callAPIFunc.callApiAsync("AdvancedInfo/blockCreate", "POST", block, true, params);
         getBlocksFromTo();
     }
 
+    function handleRangeChange(from, to) {
+        const fmt = d => `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+        setFromDate(fmt(from));
+        setToDate(fmt(to));
+    }
 
+    function renderCalendar() {
+        if (selectedDate !== null) {
+            return (
+                <EventView
+                    callAPIFunc={callAPIFunc}
+                    selectedSchedule={selectedSchedule}
+                    date={selectedDate}
+                    events={events}
+                    setEvents={setEvents}
+                    onBack={() => setSelectedDate(null)}
+                />
+            );
+        }
 
-    function renderCalendar()
-    {
-        var res;
-
-        switch(LayoutSettings)
-        {
-        case "day":
-            res = <CalendarDayView events={events}></CalendarDayView>;
-            break;
-        case "week":
-            res = <CalendarWeekView events={events}></CalendarWeekView>;
-            break;
-        case "month":
-            
-
-            res = (selectedDate === null ? (
+        switch (LayoutSettings) {
+            case "day":
+                return (
+                    <CalendarDayView
+                        events={events}
+                        onSelectDate={setSelectedDate}
+                        onRangeChange={handleRangeChange}
+                    />
+                );
+            case "week":
+                return (
+                    <CalendarWeekView
+                        events={events}
+                        onSelectDate={setSelectedDate}
+                        onRangeChange={handleRangeChange}
+                    />
+                );
+            case "month":
+                return (
                     <Calendar
                         selectedSchedule={selectedSchedule}
                         events={events}
                         callAPIFunc={callAPIFunc}
                         onSelectDate={setSelectedDate}
+                        onRangeChange={handleRangeChange}
                     />
-                ) : (
-                    <EventView
-                        callAPIFunc={callAPIFunc}
-                        selectedSchedule={selectedSchedule}
-                        date={selectedDate}
-                        events={events}
-                        setEvents={setEvents}
-                        onBack={() => setSelectedDate(null)}
-                />));
-            break;
-        case "year":
-            res = <></>;
-            break;
-        }    
-
-        return res;
+                );
+            case "year":
+                return <></>;
+        }
     }
 
     function renderScheduleList() {
-
-      return (
-        <div className='leftSide'>
-            <div className="leftSide-list">
-            {schedulesList.map(function (schedule, index) {
-                return (
-                <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
-                    {schedule.scheduleInfo}
+        return (
+            <div className='leftSide'>
+                <div className="leftSide-list">
+                    {schedulesList.map(function (schedule, index) {
+                        return (
+                            <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
+                                {schedule.scheduleInfo}
+                            </div>
+                        );
+                    })}
                 </div>
-                
-                );
-            })}
-            </div>
 
-            <button onClick={() => CreateNewSchedule({"scheduleInfo": "string", "templateInfo": "string"})}>Create New</button>
-            <button onClick={() => CreateBlock({"blockId": 0, "date": "2026-02-27", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"})}></button>
-        </div>
-      );
+                <button onClick={() => CreateNewSchedule({"scheduleInfo": "string", "templateInfo": "string"})}>Create New</button>
+                {/* ide majd CreateBlock kerülhet */}
+            </div>
+        );
     }
 
-    
     return (
         <div className='calendarView-container'>
-            <div id='render-schedule-list-here' className='calendarView-leftSide'>
+            <div className='calendarView-leftSide'>
                 {renderScheduleList()}
             </div>
 
-
-
-            <div id='render-calendar-here' className='calendarView-rightSide'>
+            <div className='calendarView-rightSide'>
                 {renderCalendar()}
             </div>
         </div>
-)}
+    );
+}

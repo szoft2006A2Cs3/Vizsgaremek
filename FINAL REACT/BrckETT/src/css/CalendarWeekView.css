@@ -76,3 +76,62 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewHourCell {
 body:has(.CalendarweekViewContainer) .CalendarWeekViewHourCell:hover {
     background: #e8f0ff;
 }
+
+body:has(.CalendarweekViewContainer) .CalendarWeekView-Event {
+    padding: 3px 6px;
+    border-radius: 6px;
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.priority-1 {
+    background-color: #ff0000 !important;
+    color: white;
+}
+
+.priority-2 {
+    background-color: aqua !important;
+    color: black;
+}
+
+.priority-3 {
+    background-color: yellow !important;
+    color: black;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewHourEvents {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Mobil nézet */
+@media (max-width: 768px) {
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
+        flex-direction: column;
+        overflow-x: visible;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
+        border-right: none;
+        border-bottom: 2px solid #ccc;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewHourCell {
+        padding: 6px;
+        font-size: 0.85rem;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-Event {
+        font-size: 0.75rem;
+        padding: 2px 4px;
+    }
+}

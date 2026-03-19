@@ -65,3 +65,32 @@ body:has(.calendarView-container).dark-mode {
   flex: 1;
   background: var(--CWbackground);
 }
+
+/* Mobil nézet*/
+@media (max-width: 768px) {
+
+    .calendarView-container {
+        flex-direction: column;
+        margin-top: 0 !important;
+    }
+
+    .calendarView-leftSide {
+        width: 100% !important;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid var(--CWbtnborder);
+    }
+
+    .calendarView-leftSide:hover {
+        width: 100% !important;
+    }
+
+    .leftSide-list {
+        max-height: 200px;
+    }
+
+    .calendarView-rightSide {
+        width: 100%;
+        padding: 10px;
+    }
+}

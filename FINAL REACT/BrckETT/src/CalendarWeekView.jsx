@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./css/CalendarWeekView.css";
 
-function CalendarWeekView() {
-
+function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     function getWeekDays(date) {
         const startOfWeek = new Date(date);
-        startOfWeek.setDate(date.getDate() - date.getDay()); // vasárnap
-
+        startOfWeek.setDate(date.getDate() - date.getDay());
         const days = [];
         for (let i = 0; i < 7; i++) {
             const d = new Date(startOfWeek);
@@ -17,6 +15,14 @@ function CalendarWeekView() {
         }
         return days;
     }
+
+    const weekDays = getWeekDays(currentDate);
+
+    useEffect(() => {
+        const start = weekDays[0];
+        const end = weekDays[6];
+        onRangeChange(start, end);
+    }, [currentDate]);
 
     function goToPreviousWeek() {
         const newDate = new Date(currentDate);
@@ -30,11 +36,34 @@ function CalendarWeekView() {
         setCurrentDate(newDate);
     }
 
-    function openEventViewAlert() {
-        alert("EventView csatolást csináld meg és annak a kinézetét is!!!!!!!!!!");
+    function handleDayClick(day) {
+        onSelectDate({
+            year: day.getFullYear(),
+            month: day.getMonth() + 1,
+            day: day.getDate()
+        });
     }
 
-    const weekDays = getWeekDays(currentDate);
+    function getEventsForDayAndHour(day, hour) {
+        const y = day.getFullYear();
+        const m = day.getMonth() + 1;
+        const d = day.getDate();
+        return events.filter(ev =>
+            ev.year === y &&
+            ev.month === m &&
+            ev.day === d &&
+            parseInt(ev.start.split(':')[0], 10) === hour
+        );
+    }
+
+    function getPriorityClass(priority) {
+        switch (priority) {
+            case 1: return 'priority-1';
+            case 2: return 'priority-2';
+            case 3: return 'priority-3';
+            default: return '';
+        }
+    }
 
     const monthName = currentDate.toLocaleString("hu-HU", { month: "long" });
     const year = currentDate.getFullYear();
@@ -56,7 +85,7 @@ function CalendarWeekView() {
                         <div 
                             key={index} 
                             className="CalendarWeekViewDayColumn"
-                            onClick={openEventViewAlert}
+                            onClick={() => handleDayClick(day)}
                         >
                             <div className="CalendarWeekViewDayHeader">
                                 {day.toLocaleString("hu-HU", { weekday: "long" })}
@@ -68,7 +97,17 @@ function CalendarWeekView() {
                                 {Array.from({ length: 24 }).map(function(_, hour) {
                                     return (
                                         <div key={hour} className="CalendarWeekViewHourCell">
-                                            {hour}:00
+                                            <div className="CalendarWeekViewHourLabel">{hour}:00</div>
+                                            <div className="CalendarWeekViewHourEvents">
+                                                {getEventsForDayAndHour(day, hour).map(ev => (
+                                                    <div
+                                                        key={ev.id}
+                                                        className={`CalendarWeekView-Event ${getPriorityClass(ev.priority)}`}
+                                                    >
+                                                        {ev.title}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     );
                                 })}

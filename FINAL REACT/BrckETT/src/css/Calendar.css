@@ -169,3 +169,89 @@ body:has(.calendarView-container) .modalSaveBtnb{
     border-radius: 4px;
     cursor: pointer;
 }
+
+body:has(.calendarView-container) .priority-1 {
+    background-color: #ff0000 !important;
+    color: white;
+}
+
+body:has(.calendarView-container) .priority-2 {
+    background-color: aqua !important;
+    color: black;
+}
+
+body:has(.calendarView-container) .priority-3 {
+    background-color: yellow !important;
+    color: black;
+}
+
+body:has(.calendarView-container) .CalendarDayEventDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 4px;
+}
+
+body:has(.calendarView-container) .CalendarDayView-Event {
+    padding: 3px 6px;
+    border-radius: 6px;
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+}
+
+body:has(.calendarView-container) .CalendarWeekView-Event {
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    font-size: 0.75rem;
+}
+
+body:has(.calendarView-container) .CalendarEventPriorityDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* Mobil nézet*/
+@media (max-width: 768px) {
+
+    .calendarView-container {
+        flex-direction: column;
+    }
+
+    .calendarView-leftSide {
+        width: 100%;
+        order: 2;
+    }
+
+    .calendarView-rightSide {
+        width: 100%;
+        order: 1;
+    }
+
+    .CalendarHeader {
+        padding: 20px !important;
+        font-size: 18px !important;
+    }
+
+    .Calendar {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .CalendarDiv {
+        padding: 10px !important;
+        min-height: 50px !important;
+    }
+
+    .CalendarEventItem {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .modal {
+        width: 90% !important;
+        min-width: unset !important;
+    }
+}
