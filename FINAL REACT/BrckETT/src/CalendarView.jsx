@@ -65,7 +65,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     }
 
     //A bemeneti block-ot feltölti a backend-re, majd frissíti az events useState-et 
-    //block ---> {"blockId": 0, "date": "2026-02-26", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"}
+    //block ---> {"blockId": 0, "date": "2026-02-26", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string", "IsIgnored": false}
     async function CreateBlock(block) {
         const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId;
         await callAPIFunc.callApiAsync("AdvancedInfo/blockCreate", "POST", block, true, params)
@@ -130,7 +130,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
             </div>
 
             <button onClick={() => CreateNewSchedule({"scheduleInfo": "string", "templateInfo": "string"})}>Create New</button>
-            <button onClick={() => CreateBlock({"blockId": 0, "date": "2026-02-27", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string"})}></button>
+            <button onClick={() => CreateBlock({"blockId": 0, "date": "2026-02-27", "description": "string", "priority": "string", "timeStart": 0, "timeEnd": 0, "title": "string", "IsIgnored": false})}></button>
         </div>
       );
     }

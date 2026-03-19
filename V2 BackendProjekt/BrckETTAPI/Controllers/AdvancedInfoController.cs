@@ -301,6 +301,7 @@ namespace BackendProjekt.Controllers
             oldBlock.Date = block.Date;
             oldBlock.TimeStart = block.TimeStart;
             oldBlock.TimeEnd = block.TimeEnd;
+            oldBlock.IsIgnored = block.IsIgnored;
             await _context.SaveChangesAsync();
             return Ok(oldBlock);
         }

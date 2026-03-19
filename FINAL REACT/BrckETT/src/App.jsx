@@ -16,6 +16,7 @@ import ProfileDescriptionModule from './ProfileDescriptionModule.jsx'
 import SettingsModule from './SettingsModule.jsx'
 import UserDataClass from './js/UserDataClass.js';
 import GroupSelector from './GroupSelector.jsx'
+import NotificationComponent from './NotificationComponent.jsx';
 //ROUTER
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
@@ -149,7 +150,8 @@ function App() {
         <Route path='/Schedules' element={<CalendarView fetchUserDataFunc={fetchUserData} LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules} userData={userData}></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/profile' element={<ProfileDescriptionModule user={getUserData()} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))}></ProfileDescriptionModule>}></Route>
+        <Route path='/profile' element={<ProfileDescriptionModule></ProfileDescriptionModule>}></Route>
+        <Route path='/notifications' element={<NotificationComponent userData={userData} callAPIFunc={callAPIInstance} fetchUserDataFunc={fetchUserData}></NotificationComponent>}></Route>
         <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData}></SettingsModule>}></Route>
         <Route path='/Groups' element={<GroupSelector groupList={userData.groups}></GroupSelector>}></Route>
       </Routes>

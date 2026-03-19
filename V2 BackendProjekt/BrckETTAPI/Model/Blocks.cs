@@ -20,6 +20,8 @@ namespace BackendProjekt.Model
         public int TimeEnd { get; set; }
         [Column("title")]
         public string? Title { get; set; }
+        [Column("isIgnored")]
+        public bool IsIgnored { get; set; }
         public ICollection<TemplatesBlocksConn>? TemplatesBlocksConns { get; set; }
 
     }

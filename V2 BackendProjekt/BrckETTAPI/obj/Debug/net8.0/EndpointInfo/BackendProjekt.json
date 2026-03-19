@@ -1325,6 +1325,9 @@
             "type": "string",
             "nullable": true
           },
+          "isIgnored": {
+            "type": "boolean"
+          },
           "templatesBlocksConns": {
             "type": "array",
             "items": {

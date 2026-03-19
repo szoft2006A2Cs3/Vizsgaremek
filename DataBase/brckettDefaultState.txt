@@ -72,6 +72,7 @@ CREATE TABLE `blocks` (
   `timeEnd` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
+  `isIgnored` bool NOT NULL,
   `priority` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 

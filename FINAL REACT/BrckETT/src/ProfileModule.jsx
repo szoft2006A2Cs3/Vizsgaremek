@@ -33,7 +33,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
             <Link to={"/profile"}><img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-img" /></Link>
             <div className="name-notif-container">
                 <h2 id="Name" className="profile-name">{user.displayName}</h2>
-                <Link to={"/profile"} style={{visibility: notifVisibility}} id="notification-icon">!</Link>
+                <Link to={"/notifications"} style={{visibility: notifVisibility}} id="notification-icon">!</Link>
             </div>
             <p id="UName" className="profile-username">@{user.username}</p>
             </div>
