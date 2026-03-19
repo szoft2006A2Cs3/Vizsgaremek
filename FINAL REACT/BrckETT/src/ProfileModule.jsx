@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
 import User from "./js/UserClass";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 //import {User} from "./assets/UserClass.js";
 
 export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, userData, fetchUserDataFunc}) 
@@ -15,7 +15,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         localStorage.removeItem('token');
         navigate("/")
     }
-    const [notifVisibility, setNotifVisibility] = useState("hidden");
+    const [notifVisibility, setNotifVisibility] = useState("");
 
     useEffect(() => {
         const updateNotifVisibility = async () => {
@@ -25,6 +25,8 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         updateNotifVisibility();
     }, [userData]);
     
+    
+
     //console.log(userData.hasNotifications());
     //console.log({user});
     return (

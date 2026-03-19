@@ -66,6 +66,8 @@ body:has(.calendarView-container).dark-mode {
   background: var(--CWbackground);
 }
 
+
+
 /* Mobil nézet*/
 @media (max-width: 768px) {
 

@@ -45,6 +45,33 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, 
             default: return '';
         }
     }
+    function drawDots(dayEvents)
+    {
+        if(dayEvents.length <= 3){
+        return dayEvents.map(ev => (
+            <div
+                key={ev.id}
+                className={`CalendarDayEventDot ${getPriorityClass(ev.priority)}`}
+            />
+    ))}
+    else
+        {
+            let list = [];
+            for(let i = 0; i < 3; i++)
+            {
+                list.push(
+                    <div
+                    key={i}
+                    className={`CalendarDayEventDot ${getPriorityClass(dayEvents[i].priority)}`}
+                    />
+                )  
+            }
+            list.push(<div className="CalendarDotPlus">+</div>);
+            return list;
+        }
+    }
+
+
 
     return (
         <div className="Inner-Calendar-Wrapper">
@@ -84,12 +111,7 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, 
                         >
                             <div className="CalendarDayNumber">{day}</div>
                             <div className="CalendarDayEvents">
-                                {dayEvents.map(ev => (
-                                    <div
-                                        key={ev.id}
-                                        className={`CalendarDayEventDot ${getPriorityClass(ev.priority)}`}
-                                    />
-                                ))}
+                                {drawDots(dayEvents)}
                             </div>
                         </div>)
                 })}

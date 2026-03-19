@@ -7,6 +7,7 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
             <div className="modal">
                 <h2>Esemény rögzítése</h2>
                 {/*Ide majd a username-t adjuk át */}
+                {/*Meg kell a description is*/}
                 <input
                     type="text"
                     placeholder="Név"
@@ -37,7 +38,13 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
                     value={formData.eventName}
                     onChange={e => setFormData({ ...formData, eventName: e.target.value })}
                 />
-                
+                <input
+                    type="text"
+                    placeholder="Leírás"
+                    value={formData.description}
+                    onChange={e => setFormData({ ...formData, description: e.target.value })}
+                />
+
                 <select
                     value={formData.priority}
                     onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) })}

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "./assets/Brckett Logo.png";
 import Image2 from "./assets/naptar.png";
 import Image3 from "./assets/masem.png";
-import Bg from "./assets/BrckettBg.mp4";
+
 
 export default function FrontPage()
 {

@@ -191,7 +191,8 @@
               "ViewState": "AgIAAHQAAAAAAAAAAAASwC8BAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T11:46:33.627Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -472,8 +473,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\BlocksControllerTests.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T07:09:01.113Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T07:09:01.113Z"
             },
             {
               "$type": "Document",

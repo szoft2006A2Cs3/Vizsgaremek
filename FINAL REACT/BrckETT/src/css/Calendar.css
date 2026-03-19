@@ -123,7 +123,7 @@ body:has(.calendarView-container) .overplay{
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     background-color: rgba(0,0,0,0.7);
     display: flex;
     justify-content: center;
@@ -186,8 +186,8 @@ body:has(.calendarView-container) .priority-3 {
 }
 
 body:has(.calendarView-container) .CalendarDayEventDot {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     margin-top: 4px;
 }
@@ -207,12 +207,34 @@ body:has(.calendarView-container) .CalendarWeekView-Event {
 }
 
 body:has(.calendarView-container) .CalendarEventPriorityDot {
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 6px;
 }
+body:has(.calendarView-container) .CalendarDotPlus
+{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 4px;
+    background-color: transparent;
+    color: rgb(238, 213, 255);
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    text-shadow: 0px 0px 8px #fa5cff;
+    align-items: center;
+    font-size: 20px;
+}
+.CalendarDayEvents
+{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
 
 /* Mobil nézet*/
 @media (max-width: 768px) {
