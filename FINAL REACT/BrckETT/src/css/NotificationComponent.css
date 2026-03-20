@@ -1,0 +1,120 @@
+.notification-component-container
+{
+    margin-top: 10%;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    background: transparent;
+}
+/*
+body:has(.notification-component-container) .notification-categories
+{
+
+}
+*/
+body:has(.notification-component-container) .overlap-notifications
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+body:has(.notification-component-container) .overlap-date
+{
+    font-size: 28px;
+    font-weight: 700;
+    color: #a8fa50;
+}
+body:has(.notification-component-container) .overlap-item-row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+}
+body:has(.notification-component-container) .overlap-item-column
+{
+    font-size: 22px;
+    font-weight: 500;
+    color: #a8fa50;;
+}
+/*
+body:has(.notification-component-container) .overlap-item-row .overlap-item-column:nth-child(1)
+{
+    font-weight: 700;
+    color: #6f3fb3;
+}
+*/
+
+body:has(.notification-component-container) .pending-invite-notification
+{
+    display: flex;
+    flex-direction: row;
+    font-size: 22px;
+    font-weight: 500;
+    color: #a8fa50;
+    align-items: center;
+    justify-content: space-evenly;
+
+    gap: 20px;
+}
+
+
+/*RADIO gombok stílusa*/
+body:has(.notification-component-container) .overlap-item
+{
+    margin-bottom: 20px;
+}
+
+
+body:has(.notification-component-container) .settings-category{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: center;
+    margin: auto;
+}
+
+
+body:has(.notification-component-container) .radio-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+}
+
+body:has(.notification-component-container) .radio-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+body:has(.notification-component-container) .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #a8fa50;
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+body:has(.notification-component-container) .slider::before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    top: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+body:has(.notification-component-container) .radio-switch input:checked + .slider {
+    background-color: #6f3fb3;
+}
+
+body:has(.notification-component-container) .radio-switch input:checked + .slider::before {
+    transform: translateX(30px);
+}
