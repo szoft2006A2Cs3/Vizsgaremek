@@ -407,6 +407,56 @@
         }
       }
     },
+    "/api/AdvancedInfo/GroupUserConn/{token}/{groupId}": {
+      "post": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupUserConnAction"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupUserConnAction"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupUserConnAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Blocks": {
       "get": {
         "tags": [
@@ -1348,6 +1398,15 @@
           "newPassword": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GroupUserConnAction": {
+        "type": "object",
+        "properties": {
+          "accept": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

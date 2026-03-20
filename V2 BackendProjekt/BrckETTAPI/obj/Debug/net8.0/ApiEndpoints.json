@@ -162,6 +162,32 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "UpdateGroupUserConn",
+    "RelativePath": "api/AdvancedInfo/GroupUserConn/{token}/{groupId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "action",
+        "Type": "BackendProjekt.Controllers.GroupUserConnAction",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
     "Method": "GetOverlaps",
     "RelativePath": "api/AdvancedInfo/OverLaps/{token}",
     "HttpMethod": "GET",

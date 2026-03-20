@@ -18,7 +18,10 @@ namespace BackendProjekt.Controllers
         public string? templateInfo { get; set; }
         public string? scheduleInfo { get; set; }
     }
-
+    public class GroupUserConnAction() 
+    {
+        public bool Accept { get; set; }
+    }
 
     [Route("api/[controller]")]
     [ApiController]
@@ -181,10 +184,30 @@ namespace BackendProjekt.Controllers
                 }
             }
             //Group By Dátum alapján, hogy tudjuk melyik napokon van átfedés
+            var res = _context.TemplatesBlocksConns.Where(c => overlappingIds.Contains(c.BlockId))
+                .Join(_context.Templates,
+                    c => c.TemplateId,
+                    t => t.TemplateId,
+                    (c,t) => new {c, t.TemplateId })
+                .Join(_context.Schedules,
+                    c => c.TemplateId,
+                    s => s.TemplateId,
+                    (c,s) => new {c.c, s.ScheduleId })
+                .Join(_context.Blocks,
+                c => c.c.BlockId,
+                b => b.BlockId,
+                (c,b) => new {c.ScheduleId, b.BlockId, b.Date, b.Description, b.Priority, b.TimeStart, b.TimeEnd, b.Title, b.IsIgnored })
+                .GroupBy(b => b.Date, (key, g) => g.ToList());
 
-            return Ok(_context.Blocks.Where(b => overlappingIds.Contains(b.BlockId)).GroupBy(b => b.Date, (key, g)=> g.ToList()));
+
+            return Ok(res);
         }
 
+        //.Join(_context.Groupscheduleconns,
+        //gu => gu.GroupId,
+        //              gsc => gsc.GroupId,
+        //              (gu, gsc) => gsc)
+        //
 
 
 
@@ -474,7 +497,29 @@ namespace BackendProjekt.Controllers
 
             return Ok(result.Select(r => r.Templates.TemplatesBlocksConns.Select(c => c.Blocks).Select(b => { b.TemplatesBlocksConns = null; return b; }).Where(b => b.Date >= from && b.Date <= to)));
         }
+        [HttpPost("GroupUserConn/{token}/{groupId}")]
+        [Authorize(Policy = "AdvancedInfo.Update")]
+        public async Task<IActionResult> UpdateGroupUserConn(string token,int groupId, GroupUserConnAction action) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null) 
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var connection = await _context.Groupuserconns.Where(conn => conn.UserId == user.UserId && conn.GroupId == groupId).FirstOrDefaultAsync();
+            if (action.Accept)
+            {
+                connection.Permission = "user";
+            }
+            else 
+            {
+                _context.Groupuserconns.Remove(connection);
+            }
+            await _context.SaveChangesAsync();
 
+            return Ok(action.Accept ? "Invite Accepted" : "Invite Declined");
+        }
 
 
 

@@ -34,7 +34,15 @@ export default function GroupSelector({ groupList })
                     onClick={OnClickHandler}
                     className="group-card"
                 >
-                    {group.groupName}
+                {group.groupName}
+
+                <button
+                    className="invite-btn"
+                    onClick={(e) => {
+                    e.stopPropagation(); // fontos!
+                    console.log("Invite:", group.groupId);
+                    }}
+                >Invite</button>
                 </div>
             ))}
         </div>
