@@ -238,10 +238,26 @@ body:has(.front-page-container) {
 .carousel-section {
   height: 105vh;
   width: 100%;
-  background: #68bc0e;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.carousel-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.carousel-section .carousel-container {
+  position: relative;
+  z-index: 1;
 }
 
 .preview-section {
@@ -263,10 +279,11 @@ body:has(.front-page-container) {
 
 .legal-section {
   width: 100%;
-  height: 15vh;
+  min-height: 15vh;
   background: #362353;
   display: flex;
   align-items: center;
+  margin: 0;
 }
 
 .legal-inner {

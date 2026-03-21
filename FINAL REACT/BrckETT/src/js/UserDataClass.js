@@ -90,8 +90,17 @@ export default class UserDataClass
 
     async hasNotifications(callApiFunc) {
         let result = this.pendingGroups.length > 0;
-        let overLaps = await callApiFunc.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, callApiFunc._token);
-        if(overLaps.length > 0) { result = true};
+        let overLaps = await this.callApi.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, this.callApi._token);
+        let i = 0;
+        while(!result && i < overLaps.length)
+            {
+                console.log()
+                if(overLaps[i].filter(ol => !ol.isIgnored).length > 1) { result = true};
+                i++;
+            }
+
+
+        
         //console.log("hasNotifications: ");
         //console.log(result);
 

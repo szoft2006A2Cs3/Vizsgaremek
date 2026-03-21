@@ -10,6 +10,7 @@
 
 .group-card {
     position: relative;
+    overflow: hidden;
     padding: 50px 30px;
     border-radius: 24px;
     text-align: center;
@@ -75,4 +76,34 @@
 .group-card:hover::after {
     opacity: 0.8;
     transform: translateY(0);
+}
+
+.invite-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    color: #a8fa50;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.25s ease;
+}
+
+.group-card:hover .invite-btn {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.invite-btn:hover {
+    background: linear-gradient(90deg, #75af37, #a8fa50);
+    color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(168, 250, 80, 0.4);
 }
