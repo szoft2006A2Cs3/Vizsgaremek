@@ -357,7 +357,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
                         <option value="day">Day</option>
                         <option value="week">Week</option>
                         <option value="month">Month</option>
-                        <option value="year">Year</option>
+                        {/*<option value="year">Year</option>*/}
                     </select>
                 </div>
                 <button className='settings-save-btn' onClick={saveDisplaySettings}>Save</button>

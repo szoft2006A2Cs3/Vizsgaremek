@@ -146,7 +146,7 @@ function App() {
       <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={userData.user.displayName.substring(0,1).toUpperCase()}></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
-        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} userData={userData} fetchUserDataFunc={fetchUserData}></ProfileModule>}></Route>
+        <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} userData={userData} fetchUserDataFunc={fetchUserData} callAPIFunc={callAPIInstance}></ProfileModule>}></Route>
         <Route path='/Schedules' element={<CalendarView fetchUserDataFunc={fetchUserData} LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules} userData={userData}></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>

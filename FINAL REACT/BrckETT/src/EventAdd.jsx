@@ -49,9 +49,9 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
                     value={formData.priority}
                     onChange={e => setFormData({ ...formData, priority: parseInt(e.target.value) })}
                 >
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
+                    <option value={1}>Fontos</option>
+                    <option value={2}>Közepes</option>
+                    <option value={3}>Alacsony</option>
                 </select>
                 <div className="modalButtonGroup">
                     <button onClick={addEventFunc} className="modalSaveBtn">Mentés</button>

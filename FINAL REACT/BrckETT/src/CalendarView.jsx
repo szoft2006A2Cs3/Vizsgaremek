@@ -3,7 +3,7 @@ import EventView from './EventView.jsx'
 import './css/CalendarView.css'
 import CalendarDayView from './CalendarDayView.jsx';
 import CalendarWeekView from './CalendarWeekView.jsx';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
@@ -26,8 +26,12 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     useEffect(() => {
         if (fromDate && toDate) {
             getBlocksFromTo();
+            console.log("FromDate: " + fromDate);
+            console.log("ToDate: " + toDate);
         }
     }, [fromDate, toDate, selectedSchedule]);
+    //Ezzel a useeffectel kellene a pontokat berenderelni
+    useEffect(() => {console.log(events)}, [events]);
 
     async function getBlocksFromTo() {
         const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate + "/" + toDate;
@@ -39,7 +43,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     async function CreateNewSchedule(schedule) {
         let url = "AdvancedInfo";
         let params = null;
-
+        //console.log("Selected Group ID:", selectedGroupId);
         if (selectedGroupId == null) {
             url += "/userCreate";
             params = callAPIFunc._token;

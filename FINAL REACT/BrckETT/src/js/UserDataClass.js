@@ -88,9 +88,9 @@ export default class UserDataClass
 
     //true ha vannak értesítése false, ha nincsnek
 
-    async hasNotifications() {
+    async hasNotifications(callApiFunc) {
         let result = this.pendingGroups.length > 0;
-        let overLaps = await this.callApi.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, this.callApi._token);
+        let overLaps = await callApiFunc.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, callApiFunc._token);
         if(overLaps.length > 0) { result = true};
         //console.log("hasNotifications: ");
         //console.log(result);

@@ -4,7 +4,7 @@ import User from "./js/UserClass";
 import { useState, useEffect, use } from "react";
 //import {User} from "./assets/UserClass.js";
 
-export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, userData, fetchUserDataFunc}) 
+export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, userData, fetchUserDataFunc, callAPIFunc}) 
 {
     const navigate = useNavigate();
     async function logOutSequence()
@@ -19,7 +19,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
 
     useEffect(() => {
         const updateNotifVisibility = async () => {
-            const hasNotifications = await userData?.hasNotifications();
+            const hasNotifications = await userData?.hasNotifications(callAPIFunc);
             setNotifVisibility(hasNotifications ? "visible" : "hidden");
         };
         updateNotifVisibility();
