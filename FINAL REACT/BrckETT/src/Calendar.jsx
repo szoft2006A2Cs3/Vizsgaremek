@@ -3,7 +3,7 @@ import "./css/Calendar.css";
 
 export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, events, onRangeChange }) {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const monthNames = { 0: "Január", 1: "Február", 2: "Március", 3: "Április", 4: "Május", 5: "Június", 6: "Július", 7: "Augusztus", 8: "Szeptember", 9: "Október", 10: "November", 11: "December" }
+    const monthNames = { 0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December" }
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
@@ -79,20 +79,20 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, 
 
             <header className="CalendarHeader">
                 <div className="CalendarNav">
-                    <div className="CalendarBtn" onClick={prevMonth} id="previousBtn">◀ Előző</div>
+                    <div className="CalendarBtn" onClick={prevMonth} id="previousBtn">◀ Previous</div>
                     <div id="currentSelectedMonthHeader" className="CalendarBtnReset" onClick={reset}>{year}. {monthNames[month]}</div>
-                    <div className="CalendarBtn" onClick={nextMonth} id="nextBtn">Következő ▶</div>
+                    <div className="CalendarBtn" onClick={nextMonth} id="nextBtn">Next ▶</div>
                 </div>
             </header>
 
             <div className="CalendarWeekdays">
-                <div>Hétfő</div>
-                <div>Kedd</div>
-                <div>Szerda</div>
-                <div>Csütörtök</div>
-                <div>Péntek</div>
-                <div>Szombat</div>
-                <div>Vasárnap</div>
+                <div>Monday</div>
+                <div>Tuesday</div>
+                <div>Wednesday</div>
+                <div>Thursday</div>
+                <div>Friday</div>
+                <div>Saturday</div>
+                <div>Sunday</div>
             </div>
             <div className="Calendar">
                 {days.map((day, index) => {

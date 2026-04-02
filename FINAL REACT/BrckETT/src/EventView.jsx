@@ -59,7 +59,7 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
         <div className="DayviewContainer">
 
             <div className="CalendarNav">
-                <div className="CalendarBtn" onClick={onBack}>◀ Vissza</div>
+                <div className="CalendarBtn" onClick={onBack}>◀ Back</div>
 
                 <div style={{ fontSize: 20, fontWeight: "bold" }}>
                     {date.year}. {monthNames[date.month - 1]} {date.day}. {dayName}
