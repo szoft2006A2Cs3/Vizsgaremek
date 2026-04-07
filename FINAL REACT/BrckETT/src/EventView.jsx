@@ -2,12 +2,11 @@ import { useState, useEffect, use } from "react";
 import "./css/Calendar.css";
 import EventAdd from "./EventAdd";
 
-export default function EventView({ date, events, setEvents, onBack, callAPIFunc, selectedSchedule, createNewBlockFunc }) {
+export default function EventView({ date, events, setEvents, onBack, callAPIFunc, selectedSchedule, createNewBlockFunc, updateBlockFunc }) {
     const key = `${date.year}-${date.month}-${date.day}`;
 
     const [formData,setFormData] = useState({
         blockId:0,
-        name: '',
         timeStart : 0,
         timeEnd : 0,
         eventName : '',
@@ -19,11 +18,56 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
     useEffect(() => {console.log(events)}, [events]);
 
     const [popUpState, setPopUpState] = useState("hidden");
+    const [popUpStateUpdate, setPopUpStateUpdate] = useState("hidden");
+    const [eventToUpdateId, setEventToUpdateId] = useState(null);
+
+    const updateEvent = (id) => {
+        const eventToUpdate = events.find(ev => ev.blockId === id);
+        if (eventToUpdate) {
+            setFormData({
+                timeStart: eventToUpdate.timeStart,
+                timeEnd: eventToUpdate.timeEnd,
+                eventName: eventToUpdate.title,
+                priority: eventToUpdate.priority,
+                date: new Date(date.year, date.month - 1, date.day),
+                description: eventToUpdate.description
+            });
+        }
+        setEventToUpdateId(id);
+        setPopUpStateUpdate("visible");
+    };
+    const updateFinalize = (id) => 
+        {
+
+            console.log(id);
+            setPopUpStateUpdate("hidden");
+            const updatedEvent = {
+                blockId: id,
+                date: `${date.year}-${(date.month).toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}T00:00:00`,
+                timeStart: formData.timeStart,
+                timeEnd: formData.timeEnd,
+                title: formData.eventName,
+                priority: `${formData.priority}`,
+                description: formData.description,
+            };
+            let updatedEvents = events
+            for(let elem in updatedEvents)
+                {
+                    if(updatedEvents[elem].blockId === id)
+                    {
+                        updatedEvents[elem] = updatedEvent;
+                    }
+                }
+            setEvents(updatedEvents);
+            console.log(events);
+            // Itt kellene meghívni a backend API-t, hogy elmentsük a frissített eseményt
+            updateBlockFunc(updatedEvent);
+        }
 
     const addEvent = () => {
         const newEvent = {
             blockId: 0,
-            date: new Date(date.year, date.month - 1, date.day),
+            date: new Date(date.year, date.month - 1, date.day+1),
             timeStart: formData.timeStart,
             timeEnd: formData.timeEnd,
             title: formData.eventName,
@@ -57,7 +101,11 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
             ev.date === `${date.year}-${(date.month).toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}T00:00:00`
         )
         .sort((a, b) => a.timeStart - b.timeStart);
+        
     
+
+
+
     function minutesToTime(minutes) {
         const hrs = Math.floor(minutes / 60);
         const mins = minutes % 60;
@@ -85,6 +133,13 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
                         <span className={`CalendarEventPriorityDot priority-${ev.priority}`} />
                         {minutesToTime(ev.timeStart)} - {minutesToTime(ev.timeEnd)} &nbsp; {ev.title}
                         <span
+                            className="UpdateBtn"
+                            onClick={() => updateEvent(ev.blockId)}
+                        >
+                            Edit
+                        </span>
+                        
+                        <span
                             className="DeleteBtn"
                             onClick={() => deleteEvent(ev.blockId)}
                         >
@@ -101,6 +156,14 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
                         setFormData={setFormData}
                         addEventFunc={addEvent}
                         onCancel={() => setPopUpState("hidden")}
+                    />
+                )}
+                {popUpStateUpdate === "visible" && (
+                    <EventAdd
+                        formData={formData}
+                        setFormData={setFormData}
+                        updateEventFunc={() => updateFinalize(eventToUpdateId)}
+                        onCancel={() => setPopUpStateUpdate("hidden")}
                     />
                 )}
             </div>

@@ -369,7 +369,7 @@ body:has(.notification-component-container) {
     height: 0;
 }
 
-.slider {
+body:has(.notification-component-container) .slider {
     position: absolute;
     cursor: pointer;
     inset: 0;
@@ -378,7 +378,7 @@ body:has(.notification-component-container) {
     transition: 0.4s;
 }
 
-.slider::before {
+body:has(.notification-component-container) .slider::before {
     content: "";
     position: absolute;
     height: 22px;

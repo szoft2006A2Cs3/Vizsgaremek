@@ -63,6 +63,14 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         getBlocksFromTo();
     }
 
+    async function UpdateBlock(block) {
+        const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + block.blockId;
+        await callAPIFunc.callApiAsync("AdvancedInfo/blockUpdate", "PUT", block, true, params);
+        getBlocksFromTo();
+    }
+
+
+
     function handleRangeChange(from, to) {
         const fmt = d => `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
         setFromDate(fmt(from));
@@ -79,6 +87,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                     events={events}
                     setEvents={setEvents}
                     createNewBlockFunc={CreateBlock}
+                    updateBlockFunc={UpdateBlock}
                     onBack={() => setSelectedDate(null)}
                 />
             );

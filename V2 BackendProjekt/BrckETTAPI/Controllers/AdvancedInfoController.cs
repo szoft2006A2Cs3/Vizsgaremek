@@ -237,6 +237,85 @@ namespace BackendProjekt.Controllers
         //
 
 
+        //Létrehoz egy pending groupuserconn-t ha minden hozzáférés klappol
+        [HttpPost("groupInvite/{token}/{groupId}/{emailToInvite}")]
+        [Authorize(Policy = "AdvamcedInfo.Create")]
+        public async Task<IActionResult> InviteUser(string token, int groupId, string email)
+        {
+            var senderEmail = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return NotFound();
+            }
+            var senderUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == senderEmail);
+            var recieverUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (senderUser == null || recieverUser == null)
+            {
+                return NotFound();
+            }
+
+            if (!await _context.Groupuserconns.AnyAsync(conn => conn.UserId == senderUser.UserId && conn.GroupId == groupId && conn.Permission == "Admin"))
+            {
+                return Unauthorized("Nem kapcsolódik a felhasználó a schedule-hoz");
+            }
+            _context.Groupuserconns.Add(new Groupuserconn { GroupId = groupId, UserId = recieverUser.UserId, Permission = "Pending" });
+            await _context.SaveChangesAsync();
+
+            return Created("Invite Sent", email);
+        }
+        [HttpPost("groupCreate/{token}")]
+        public async Task<IActionResult> createNewGroup(string token, Groups group) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+
+            var grptemplate = new Templates
+            {
+                TemplateInfo = "Default Group Template"
+            };
+            _context.Templates.Add(grptemplate);
+            await _context.SaveChangesAsync();
+            var grpschedule = new Schedules
+            {
+                ScheduleInfo = "Default Group Schedule",
+                TemplateId = grptemplate.TemplateId
+            };
+            _context.Schedules.Add(grpschedule);
+            _context.Groups.Add(group);
+            await _context.SaveChangesAsync();
+
+            //create connection if referenced group exists
+            var groupUserConn = new Groupuserconn
+            {
+                Permission = "Admin",
+                UserId = user.UserId,
+                GroupId = group.GroupId
+            };
+            var groupScheduleConn = new Groupscheduleconn
+            {
+                GroupId = group.GroupId,
+                ScheduleId = grpschedule.ScheduleId
+            };
+            _context.Groupuserconns.Add(groupUserConn);
+            _context.Groupscheduleconns.Add(groupScheduleConn);
+            await _context.SaveChangesAsync();
+
+
+            return Created("Group Created", $"{groupUserConn.GroupId}{groupUserConn.Permission}");
+        }
+
+
+
+
 
         //Schedule/Block Update METÓDUSOK------------------------------------------------------------
 
@@ -515,6 +594,7 @@ namespace BackendProjekt.Controllers
         //Schedule/Block/Group Törlés METÓDUSOK------------------------------------------------------------
 
         [HttpDelete("DeleteBlock/{token}/{scheduleId}/{blockId}")]
+        [Authorize(Policy = "AdvancedInfo.Delete")]
         public async Task<IActionResult> Delete(string token, int scheduleId, int blockId)
         {
             var email = TokenManager.GetEmailFromToken(token);
@@ -558,6 +638,7 @@ namespace BackendProjekt.Controllers
             return Ok("Block Deleted");
         }
         [HttpDelete("DeleteGroup/{token}/{groupId}")]
+        [Authorize(Policy = "AdvancedInfo.Delete")]
         public async Task<IActionResult> Delete(string token, int groupId)
         {
             var email = TokenManager.GetEmailFromToken(token);
@@ -584,6 +665,7 @@ namespace BackendProjekt.Controllers
             return Ok("Group Deleted");
         }
         [HttpDelete("DeleteSchedule/{token}/{scheduleId}")]
+        [Authorize(Policy = "AdvancedInfo.Delete")]
         public async Task<IActionResult> DeleteSched(string token, int scheduleId)
         {
             var email = TokenManager.GetEmailFromToken(token);

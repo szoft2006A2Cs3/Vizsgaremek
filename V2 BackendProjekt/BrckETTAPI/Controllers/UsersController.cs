@@ -155,7 +155,7 @@ namespace BackendProjekt.Controllers
             //create connection if referenced group exists
             var groupUserConn = new Groupuserconn
             {
-                Permission = "user",
+                Permission = "Admin",
                 UserId = user.UserId,
                 GroupId = group.GroupId
             };

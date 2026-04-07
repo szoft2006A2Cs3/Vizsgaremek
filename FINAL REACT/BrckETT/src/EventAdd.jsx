@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 import "./css/EventAdd.css";
 
-export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) {
+export default function EventAdd({addEventFunc,formData,setFormData, onCancel, updateEventFunc}) {
     function convertTimeToMinutes(time) {
         const [hours, minutes] = time.split(':').map(Number);
         return hours * 60 + minutes;
@@ -11,7 +11,7 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
         const mins = minutes % 60;
         return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
     }
-
+    let res = addEventFunc ? addEventFunc : updateEventFunc;
 
     return (
         <div className="overlay">
@@ -57,7 +57,7 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) 
                     <option value={3}>Low</option>
                 </select>
                 <div className="modalButtonGroup">
-                    <button onClick={addEventFunc} className="modalSaveBtn">Save</button>
+                    <button onClick={res} className="modalSaveBtn">Save</button>
                     <button onClick={onCancel}>Cancel</button>
                 </div>
             </div>

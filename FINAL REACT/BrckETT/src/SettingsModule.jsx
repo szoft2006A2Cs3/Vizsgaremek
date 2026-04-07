@@ -5,6 +5,7 @@ import User from './js/UserClass';
 
 export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc, setIsLoggedInFunc})
 {
+    const nav = useNavigate();
     const [usernameSettings, setUsernameSettings] = useState(userData.user ? userData.user.username : '');
     const [displayNameSettings, setDisplayNameSettings] = useState(userData.user ? userData.user.displayName : '');
     const [descriptionSettings, setDescriptionSettings] = useState(userData.user ? userData.user.description : '');
@@ -288,6 +289,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
 
     function deleteAccount() 
     {
+        nav("/")
         callAPIFunc.callApiAsync('Users', 'DELETE', null, true, userData.user.token)
     }
 

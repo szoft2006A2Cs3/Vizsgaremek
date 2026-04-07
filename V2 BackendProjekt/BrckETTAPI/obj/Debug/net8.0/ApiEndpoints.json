@@ -173,6 +173,27 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "createNewGroup",
+    "RelativePath": "api/AdvancedInfo/groupCreate/{token}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "group",
+        "Type": "BackendProjekt.Model.Groups",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
     "Method": "Create",
     "RelativePath": "api/AdvancedInfo/groupCreate/{token}/{groupId}",
     "HttpMethod": "POST",
@@ -192,6 +213,37 @@
       {
         "Name": "schedule",
         "Type": "BackendProjekt.Controllers.ScheduleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "InviteUser",
+    "RelativePath": "api/AdvancedInfo/groupInvite/{token}/{groupId}/{emailToInvite}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "emailToInvite",
+        "Type": "",
         "IsRequired": true
       }
     ],
