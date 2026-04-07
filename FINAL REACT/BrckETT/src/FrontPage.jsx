@@ -6,37 +6,49 @@ import Image2 from "./assets/naptar.png";
 import Image3 from "./assets/masem.png";
 import BgVideo from "./assets/BrckEtt_BG.mp4";
 
+const slides = [
+  {
+    image: Image,
+    alt: "Brckett logo",
+  },
+  {
+    image: Image2,
+    alt: "Random Calendar",
+  },
+  {
+    image: Image3,
+    alt: "Horcsog",
+  },
+];
+
 
 export default function FrontPage()
 {
-    const images = [Image, Image2, Image3];
-
-    
-
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [translate, setTranslate] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
 
     const prevImage = () => {
-    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
   };
 
     const nextImage = () => {
-    setCurrentIndex((currentIndex + 1) % images.length);
+    setCurrentIndex((currentIndex + 1) % slides.length);
   };
 
   useEffect(() => {
   const interval = setInterval(() => {
-    setCurrentIndex(prev => (prev + 1) % images.length);
+    setCurrentIndex(prev => (prev + 1) % slides.length);
   }, 5000);
 
   return () => clearInterval(interval);
-}, [images.length]);
-
-const [translate, setTranslate] = useState(0);
-const [isDragging, setIsDragging] = useState(false);
+}, []);
 
 const startX = useRef(0);
+const pointerIdRef = useRef(null);
 const sectionRef = useRef(null);
 const videoRef = useRef(null);
+const currentSlide = slides[currentIndex];
 
 
 // Átvett kód az internetről a videó körbevágásához, hogy csak a carousel szakaszban látszódjon
@@ -63,18 +75,24 @@ useEffect(() => {
 
 
 
-const handleMouseDown = (e) => {
+const handlePointerDown = (e) => {
   setIsDragging(true);
   startX.current = e.clientX;
+  pointerIdRef.current = e.pointerId;
+  e.currentTarget.setPointerCapture?.(e.pointerId);
 };
 
-const handleMouseMove = (e) => {
+const handlePointerMove = (e) => {
   if (!isDragging) return;
   const diff = e.clientX - startX.current;
   setTranslate(diff);
 };
 
-const handleMouseUp = () => {
+const handlePointerUp = (e) => {
+  if (pointerIdRef.current !== null && e.currentTarget.hasPointerCapture?.(pointerIdRef.current)) {
+    e.currentTarget.releasePointerCapture(pointerIdRef.current);
+  }
+  pointerIdRef.current = null;
   setIsDragging(false);
 
   if (translate > 100) {
@@ -94,44 +112,68 @@ const handleMouseUp = () => {
         <video className="carousel-bg-video" ref={videoRef} autoPlay muted loop playsInline>
           <source src={BgVideo} type="video/mp4" />
         </video>
-        
-        <div className="carousel-container">
-          <div 
-            className="image-carousel"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-          >
-            <button className="arrow left" onClick={prevImage}>
-              &#10094;
-            </button>
 
-            <img
-              key={currentIndex}
-              src={images[currentIndex]}
-              alt={`Slide ${currentIndex + 1}`}
-              className="carousel-image"
-              draggable="false"
-              style={{
-                transform: `translateX(${translate}px)`,
-                transition: isDragging ? "none" : "transform 0.3s ease"
-              }}
-            />
+        <div className="shell">
+          <div className="copy">
+            <span className="nameplate">Brckett Schedule Manager</span>
+            <h1>Plan your week without the usual clutter.</h1>
 
-            <div className="dots">
-              {images.map((_, index) => (
-                <span
-                  key={index}
-                  className={`dot ${index === currentIndex ? "active" : ""}`}
-                  onClick={() => setCurrentIndex(index)}
-                />
-              ))}
+            <p></p>
+
+            <div className="actions">
+              <Link to="/loginReg" className="action-button start-button-primary">Get stared</Link>
+              <Link to="/about" className="action-button learn-button-secondary">Learn more</Link>
             </div>
+          </div>
 
-            <button className="arrow right" onClick={nextImage}>
-              &#10095;
-            </button>
+          <div className="carousel-container">
+            <div className="image-carousel">
+              <div className="carousel-topbar">
+                <span className="carousel-featured">Featured</span>
+                <span className="carousel-count">{String(currentIndex + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+              </div>
+
+              <div
+                className="carousel-media"
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerUp}
+                onPointerLeave={handlePointerUp}
+              >
+                <button type="button" className="arrow left" aria-label="Previous slide" onPointerDown={(e) => e.stopPropagation()} onClick={prevImage}>
+                  &#10094;
+                </button>
+
+                <img
+                  key={currentIndex}
+                  src={currentSlide.image}
+                  alt={currentSlide.alt}
+                  className="carousel-image"
+                  draggable="false"
+                  style={{
+                    transform: `translateX(${translate}px)`,
+                    transition: isDragging ? "none" : "transform 0.3s ease"
+                  }}
+                />
+
+                <button type="button" className="arrow right" aria-label="Next slide" onPointerDown={(e) => e.stopPropagation()} onClick={nextImage}>
+                  &#10095;
+                </button>
+              </div>
+
+              <div className="dots" aria-label="Carousel navigation">
+                {slides.map((slide, index) => (
+                  <button
+                    key={slide.alt}
+                    type="button"
+                    className={`dot ${index === currentIndex ? "active" : ""}`}
+                    aria-label={`Go to slide ${index + 1}`}
+                    onClick={() => setCurrentIndex(index)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -177,7 +219,7 @@ const handleMouseUp = () => {
 
           <div className="legal-links">
             <Link to="/faq" className="legal-link">FAQ</Link>
-            <Link to="/terms" className="legal-link">Felhasználói feltételek</Link>
+            <Link to="/terms" className="legal-link">Terms of Use</Link>
           </div>
         </div>
       </section>
