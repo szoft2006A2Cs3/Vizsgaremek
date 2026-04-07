@@ -112,7 +112,32 @@ export default function GroupSelector({ groupList })
                                         {(group.schedules?.length ?? 0) === 0 && (
                                             <span className='group-schedule-chip muted'>No schedules yet</span>
                                         )}
+
+
                                     </div>
+                                    <div className='group-card-actions'>
+                                    <button
+                                        className="group-primary-btn"
+                                        type="button"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            handleSelectGroup(group.groupId);
+                                        }}
+                                    >
+                                        Open schedules
+                                    </button>
+
+                                    <button
+                                        className="group-secondary-btn"
+                                        type="button"
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            console.log("Invite:", group.groupId);
+                                        }}
+                                    >
+                                        Invite
+                                    </button>
+                                </div>
                                 </article>
 
                                 <button

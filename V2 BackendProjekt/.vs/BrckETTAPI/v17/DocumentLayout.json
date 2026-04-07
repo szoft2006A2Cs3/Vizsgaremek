@@ -160,8 +160,7 @@
               "ViewState": "AgIAACAAAAAAAAAAAAAwwDYAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-16T21:17:20.962Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -197,7 +196,7 @@
               "RelativeDocumentMoniker": "BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
               "ToolTip": "E:\\Sulis Dolgok\\vizsgaremek\\V2 BackendProjekt\\BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
               "RelativeToolTip": "BrckETTAPI\\Controllers\\AdvancedInfoController.cs",
-              "ViewState": "AgIAAN4AAAAAAAAAAAAUwOAAAABhAAAAAAAAAA==",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAEwJ4BAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T11:46:33.627Z",
               "IsPinned": true,
@@ -310,8 +309,7 @@
               "RelativeToolTip": "BrckETTAPI\\Model\\Groups.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-27T08:00:21.611Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-27T08:00:21.611Z"
             },
             {
               "$type": "Document",
@@ -431,8 +429,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\GroupsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T11:57:46.587Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T11:57:46.587Z"
             },
             {
               "$type": "Document",
@@ -444,8 +441,7 @@
               "RelativeToolTip": "BrckETTAPI\\appsettings.Development.json",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAADQAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-25T11:56:34.423Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T11:56:34.423Z"
             },
             {
               "$type": "Document",
@@ -457,8 +453,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAHQAAAAAAAAAAAAIwKgAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T08:04:44.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T08:04:44.948Z"
             },
             {
               "$type": "Document",
