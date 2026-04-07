@@ -53,14 +53,6 @@ export default function GroupSelector({ groupList })
         });
     }
 
-    function handleCardKeyDown(event, groupId)
-    {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            handleSelectGroup(groupId);
-        }
-    }
-
     return (
         <div className='groupSelector-page'>
             <div className='groupSelector-shell'>
@@ -93,65 +85,43 @@ export default function GroupSelector({ groupList })
                 ) : (
                     <div className='groupSelector-container'>
                         {groups.map((group) => (
-                            <article
-                                key={group.groupId}
-                                onClick={() => handleSelectGroup(group.groupId)}
-                                onKeyDown={(event) => handleCardKeyDown(event, group.groupId)}
-                                className="group-card"
-                                role="button"
-                                tabIndex={0}
-                            >
-                                <div className='group-card-top'>
-                                    <div className='group-card-badge'>{getGroupInitials(group.groupName)}</div>
-                                    <div className='group-card-meta'>
-                                        <span className='group-card-permission'>{formatDisplayText(group.permission)}</span>
-                                        <span className='group-card-count'>{group.schedules?.length ?? 0} schedule{(group.schedules?.length ?? 0) === 1 ? '' : 's'}</span>
+                            <div className='group-card-shell' key={group.groupId}>
+                                <article className="group-card">
+                                    <div className='group-card-top'>
+                                        <div className='group-card-badge'>{getGroupInitials(group.groupName)}</div>
+                                        <div className='group-card-meta'>
+                                            <span className='group-card-permission'>{formatDisplayText(group.permission)}</span>
+                                            <span className='group-card-count'>{group.schedules?.length ?? 0} schedule{(group.schedules?.length ?? 0) === 1 ? '' : 's'}</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className='group-card-content'>
-                                    <h2>{formatDisplayText(group.groupName)}</h2>
-                                    <p>{getGroupPreview(group)}</p>
-                                </div>
+                                    <div className='group-card-content'>
+                                        <h2>{formatDisplayText(group.groupName)}</h2>
+                                        <p>{getGroupPreview(group)}</p>
+                                    </div>
 
-                                <div className='group-card-preview'>
-                                    {(group.schedules ?? []).slice(0, 3).map((schedule) => (
-                                        <span className='group-schedule-chip' key={schedule.scheduleId}>
-                                            {formatDisplayText(schedule.scheduleInfo)}
-                                        </span>
-                                    ))}
-                                    {(group.schedules?.length ?? 0) > 3 && (
-                                        <span className='group-schedule-chip muted'>+{group.schedules.length - 3} more</span>
-                                    )}
-                                    {(group.schedules?.length ?? 0) === 0 && (
-                                        <span className='group-schedule-chip muted'>No schedules yet</span>
-                                    )}
-                                </div>
+                                    <div className='group-card-preview'>
+                                        {(group.schedules ?? []).slice(0, 3).map((schedule) => (
+                                            <span className='group-schedule-chip' key={schedule.scheduleId}>
+                                                {formatDisplayText(schedule.scheduleInfo)}
+                                            </span>
+                                        ))}
+                                        {(group.schedules?.length ?? 0) > 3 && (
+                                            <span className='group-schedule-chip muted'>+{group.schedules.length - 3} more</span>
+                                        )}
+                                        {(group.schedules?.length ?? 0) === 0 && (
+                                            <span className='group-schedule-chip muted'>No schedules yet</span>
+                                        )}
+                                    </div>
+                                </article>
 
-                                <div className='group-card-actions'>
-                                    <button
-                                        className="group-primary-btn"
-                                        type="button"
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                            handleSelectGroup(group.groupId);
-                                        }}
-                                    >
-                                        Open schedules
-                                    </button>
-
-                                    <button
-                                        className="group-secondary-btn"
-                                        type="button"
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                            console.log("Invite:", group.groupId);
-                                        }}
-                                    >
-                                        Invite
-                                    </button>
-                                </div>
-                            </article>
+                                <button
+                                    className="group-primary-btn group-card-cta"
+                                    type="button"
+                                >
+                                    New Group
+                                </button>
+                            </div>
                         ))}
                     </div>
                 )}
