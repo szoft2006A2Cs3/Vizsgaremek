@@ -3,6 +3,8 @@ using BackendProjekt.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection.Metadata;
 using System.Security.Claims;
@@ -22,6 +24,19 @@ namespace BackendProjekt.Controllers
     {
         public bool Accept { get; set; }
     }
+    public class BlockRequest() 
+    {
+        public int BlockId { get; set; }
+        public DateTime? Date { get; set; }
+        public string? Description { get; set; }
+        public string? Priority { get; set; }
+        public int TimeStart { get; set; }
+        public int TimeEnd { get; set; }
+        public string? Title { get; set; }
+        public ICollection<TemplatesBlocksConn>? TemplatesBlocksConns { get; set; }
+        public bool isIgnored { get; set; }
+    }
+
 
     [Route("api/[controller]")]
     [ApiController]
@@ -184,20 +199,32 @@ namespace BackendProjekt.Controllers
                 }
             }
             //Group By Dátum alapján, hogy tudjuk melyik napokon van átfedés
-            var res = _context.TemplatesBlocksConns.Where(c => overlappingIds.Contains(c.BlockId))
-                .Join(_context.Templates,
-                    c => c.TemplateId,
-                    t => t.TemplateId,
-                    (c,t) => new {c, t.TemplateId })
-                .Join(_context.Schedules,
-                    c => c.TemplateId,
-                    s => s.TemplateId,
-                    (c,s) => new {c.c, s.ScheduleId })
-                .Join(_context.Blocks,
-                c => c.c.BlockId,
-                b => b.BlockId,
-                (c,b) => new {c.ScheduleId, b.BlockId, b.Date, b.Description, b.Priority, b.TimeStart, b.TimeEnd, b.Title, b.IsIgnored })
-                .GroupBy(b => b.Date, (key, g) => g.ToList());
+            var res = _context.TemplatesBlocksConns
+    .Where(c => overlappingIds.Contains(c.BlockId))
+    .Join(_context.Templates,
+        c => c.TemplateId,
+        t => t.TemplateId,
+        (c, t) => new { c, t.TemplateId })
+    .Join(_context.Schedules,
+        c => c.TemplateId,
+        s => s.TemplateId,
+        (c, s) => new { c.c, s.ScheduleId })
+    .Join(_context.Blocks,
+        c => c.c.BlockId,
+        b => b.BlockId,
+        (c, b) => new
+        {
+            c.ScheduleId,
+            b.BlockId,
+            b.Date,
+            b.Description,
+            b.Priority,
+            b.TimeStart,
+            b.TimeEnd,
+            b.Title,
+            IsIgnored = _context.isIgnored.Any(i => i.Block_Id == b.BlockId && i.User_Id == user.UserId)
+        })
+    .GroupBy(b => b.Date, (key, g) => g.ToList());
 
 
             return Ok(res);
@@ -280,7 +307,7 @@ namespace BackendProjekt.Controllers
 
         [HttpPut("blockUpdate/{token}/{scheduleId}/{blockId}")]
         [Authorize(Policy = "AdvancedInfo.Update")]
-        public async Task<IActionResult> Update(string token,int scheduleId, int blockId, Blocks block)
+        public async Task<IActionResult> Update(string token,int scheduleId, int blockId, BlockRequest block)
         {
             var email = TokenManager.GetEmailFromToken(token);
             if (email == null)
@@ -324,7 +351,22 @@ namespace BackendProjekt.Controllers
             oldBlock.Date = block.Date;
             oldBlock.TimeStart = block.TimeStart;
             oldBlock.TimeEnd = block.TimeEnd;
-            oldBlock.IsIgnored = block.IsIgnored;
+
+
+            //IDE KELL UPDATE
+            if (block.isIgnored && !_context.isIgnored.Any(i => i.Block_Id == block.BlockId && i.User_Id == user.UserId))
+            {
+                _context.isIgnored.Add(new isIgnored
+                {
+                    Block_Id = block.BlockId,
+                    User_Id = user.UserId
+                });
+            }
+            else if(!block.isIgnored && _context.isIgnored.Any(i => i.Block_Id == block.BlockId && i.User_Id == user.UserId))
+            {
+                _context.isIgnored.Remove(_context.isIgnored.FirstOrDefault(i => i.Block_Id == block.BlockId && i.User_Id == user.UserId));
+            }
+ 
             await _context.SaveChangesAsync();
             return Ok(oldBlock);
         }
@@ -469,6 +511,125 @@ namespace BackendProjekt.Controllers
 
             return (Created("created", block));
         }
+
+        //Schedule/Block/Group Törlés METÓDUSOK------------------------------------------------------------
+
+        [HttpDelete("DeleteBlock/{token}/{scheduleId}/{blockId}")]
+        public async Task<IActionResult> Delete(string token, int scheduleId, int blockId)
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var block = await _context.Blocks.FirstOrDefaultAsync(b => b.BlockId == blockId);
+            if (block == null)
+            {
+                return NotFound();
+            }
+            bool[] hasAccess = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasAccess[0])
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Block-hoz");
+            }
+            if (hasAccess[1])
+            {
+                var permission = await _context.Groupuserconns
+                    .Where(gu => gu.UserId == user.UserId)
+                    .Join(_context.Groupscheduleconns,
+                          gu => gu.GroupId,
+                          gsc => gsc.GroupId,
+                          (gu, gsc) => new { gu.Permission, gsc.ScheduleId })
+                    .Where(x => x.ScheduleId == scheduleId)
+                    .Select(x => x.Permission)
+                    .FirstOrDefaultAsync();
+                if (permission != "Admin")
+                {
+                    return Unauthorized("A felhasználó nem rendelkezik \"Admin\" hozzáféréssel");
+                }
+            }
+            _context.Blocks.Remove(block);
+            await _context.SaveChangesAsync();
+            return Ok("Block Deleted");
+        }
+        [HttpDelete("DeleteGroup/{token}/{groupId}")]
+        public async Task<IActionResult> Delete(string token, int groupId)
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.GroupId == groupId);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            if (!await _context.Groupuserconns.AnyAsync(conn => conn.UserId == user.UserId && conn.GroupId == groupId && conn.Permission == "Admin"))
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Group-hoz");
+            }
+            _context.Groups.Remove(group);
+            await _context.SaveChangesAsync();
+            return Ok("Group Deleted");
+        }
+        [HttpDelete("DeleteSchedule/{token}/{scheduleId}")]
+        public async Task<IActionResult> DeleteSched(string token, int scheduleId)
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var schedule = await _context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == scheduleId);
+            if (schedule == null)
+            {
+                return NotFound();
+            }
+            bool[] hasAccess = await UserHasAccessToSchedule(user, scheduleId);
+            if (!hasAccess[0])
+            {
+                return Unauthorized("Nem fér hozzá a felhasználó az adott Schedule-hoz");
+            }
+            if (hasAccess[1])
+            {
+                var permission = await _context.Groupuserconns
+                    .Where(gu => gu.UserId == user.UserId)
+                    .Join(_context.Groupscheduleconns,
+                          gu => gu.GroupId,
+                          gsc => gsc.GroupId,
+                          (gu, gsc) => new { gu.Permission, gsc.ScheduleId })
+                    .Where(x => x.ScheduleId == scheduleId)
+                    .Select(x => x.Permission)
+                    .FirstOrDefaultAsync();
+                if (permission != "Admin")
+                {
+                    return Unauthorized("A felhasználó nem rendelkezik \"Admin\" hozzáféréssel");
+                }
+            }
+            _context.Schedules.Remove(schedule);
+            await _context.SaveChangesAsync();
+            return Ok("Schedule Deleted");
+        }
+
+
+
+
 
 
         //Layout LEKÉRDEZÉSEK------------------------------------------------------------

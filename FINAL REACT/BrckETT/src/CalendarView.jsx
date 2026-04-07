@@ -37,7 +37,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         const params = callAPIFunc._token + "/" + selectedSchedule.scheduleId + "/" + fromDate + "/" + toDate;
         let result = await callAPIFunc.callApiAsync("AdvancedInfo/BlocksInRange", "GET", null, true, params);
         // A backend formátumát átalakítani a fenti egységes event formára, ha kell
-        setEvents(result);
+        setEvents(result[0]);
     }
 
     async function CreateNewSchedule(schedule) {
@@ -78,6 +78,7 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                     date={selectedDate}
                     events={events}
                     setEvents={setEvents}
+                    createNewBlockFunc={CreateBlock}
                     onBack={() => setSelectedDate(null)}
                 />
             );

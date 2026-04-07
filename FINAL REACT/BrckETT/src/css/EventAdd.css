@@ -1,0 +1,14 @@
+.DayviewContainer
+{
+    height: 100%;
+}
+
+#pop-up-container
+{
+    position: absolute;
+    margin: auto;
+    top: 30%;
+    left: 30%;
+    right: 30%;
+    
+}

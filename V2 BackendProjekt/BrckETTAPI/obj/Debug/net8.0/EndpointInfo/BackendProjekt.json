@@ -195,17 +195,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blocks"
+                "$ref": "#/components/schemas/BlockRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Blocks"
+                "$ref": "#/components/schemas/BlockRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Blocks"
+                "$ref": "#/components/schemas/BlockRequest"
               }
             }
           }
@@ -351,6 +351,108 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdvancedInfo/DeleteBlock/{token}/{scheduleId}/{blockId}": {
+      "delete": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scheduleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "blockId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdvancedInfo/DeleteGroup/{token}/{groupId}": {
+      "delete": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdvancedInfo/DeleteSchedule/{token}/{scheduleId}": {
+      "delete": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scheduleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1181,21 +1283,18 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Users/{id}": {
+      },
       "delete": {
         "tags": [
           "Users"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "token",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -1343,7 +1442,7 @@
   },
   "components": {
     "schemas": {
-      "Blocks": {
+      "BlockRequest": {
         "type": "object",
         "properties": {
           "blockId": {
@@ -1375,8 +1474,50 @@
             "type": "string",
             "nullable": true
           },
+          "templatesBlocksConns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplatesBlocksConn"
+            },
+            "nullable": true
+          },
           "isIgnored": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Blocks": {
+        "type": "object",
+        "properties": {
+          "blockId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeStart": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
           },
           "templatesBlocksConns": {
             "type": "array",

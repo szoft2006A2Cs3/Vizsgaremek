@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import User from './js/UserClass';
 
-export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc})
+export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc, setIsLoggedInFunc})
 {
     const [usernameSettings, setUsernameSettings] = useState(userData.user ? userData.user.username : '');
     const [displayNameSettings, setDisplayNameSettings] = useState(userData.user ? userData.user.displayName : '');
@@ -25,6 +25,7 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showDeleteAccountPopup, setShowDeleteAccountPopup] = useState(false);
 
 
     const [passwordError, setPasswordError] = useState([]);
@@ -283,6 +284,13 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
         }
     };
 
+
+
+    function deleteAccount() 
+    {
+        callAPIFunc.callApiAsync('Users', 'DELETE', null, true, userData.user.token)
+    }
+
     return (
         <div className="settings-module">
             <div className='settings-panel'>
@@ -361,7 +369,9 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
                     </select>
                 </div>
                 <button className='settings-save-btn' onClick={saveDisplaySettings}>Save</button>
-                
+                <button className='settings-delete-account-btn' onClick={() => setShowDeleteAccountPopup(true)}>
+                    Delete Account
+                </button>
             </div>
 
             {showPasswordPopup && (
@@ -461,6 +471,20 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
                     </div>
                 </div>
             )}
+
+            {showDeleteAccountPopup && (
+                <div className='password-popup-overlay'>
+                    <div className='password-popup'>
+                        <h3>Delete Account</h3>
+                        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                        <div className='password-popup-buttons'>
+                            <button onClick={() => {setShowDeleteAccountPopup(false); deleteAccount() ;setIsLoggedInFunc(false)}} className='btn-confirm'>Yes, Delete Account</button>
+                            <button onClick={() => setShowDeleteAccountPopup(false)} className='btn-cancel'>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }

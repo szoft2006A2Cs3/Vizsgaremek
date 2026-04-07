@@ -1,35 +1,38 @@
 import { useState,useEffect } from "react"
-
+import "./css/EventAdd.css";
 
 export default function EventAdd({addEventFunc,formData,setFormData, onCancel}) {
+    function convertTimeToMinutes(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+    function convertMinutesToTime(minutes) {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    }
+
+
     return (
         <div className="overlay">
             <div className="modal">
                 <h2>Event Registration</h2>
                 {/*Ide majd a username-t adjuk át */}
                 {/*Meg kell a description is*/}
-                <input
-                    type="text"
-                    placeholder="Név"
-                    readOnly
-                    value={formData.name}
-                    className="modalDisabledInput"
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                />
                 <div className="modalRow">
                     <label>Start:</label>
                     <input
                         type="time"
-                        value={formData.start}
-                        onChange={e => setFormData({ ...formData, start: e.target.value })}
+                        value={convertMinutesToTime(formData.timeStart)}
+                        onChange={e => setFormData({ ...formData, timeStart: convertTimeToMinutes(e.target.value) })}
                     />
                 </div>
                 <div className="modalRow">
                     <label>End:</label>
                     <input
                         type="time"
-                        value={formData.end}
-                        onChange={e => setFormData({ ...formData, end: e.target.value })}
+                        value={convertMinutesToTime(formData.timeEnd)}
+                        onChange={e => setFormData({ ...formData, timeEnd: convertTimeToMinutes(e.target.value) })}
                     />
                 </div>
                 <input

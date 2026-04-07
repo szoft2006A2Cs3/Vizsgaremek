@@ -1,46 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import "./css/Calendar.css";
 import EventAdd from "./EventAdd";
 
-export default function EventView({ date, events, setEvents, onBack, callAPIFunc, selectedSchedule}) {
+export default function EventView({ date, events, setEvents, onBack, callAPIFunc, selectedSchedule, createNewBlockFunc }) {
     const key = `${date.year}-${date.month}-${date.day}`;
 
     const [formData,setFormData] = useState({
+        blockId:0,
         name: '',
-        start : '00:00',
-        end : '23:59',
+        timeStart : 0,
+        timeEnd : 0,
         eventName : '',
-        priority : 1,
-        year: date.year,
-        month: date.month,
-        day: date.day
+        priority : '1',
+        date: new Date(date.year, date.month - 1, date.day),
+        description : ''
     });
+
+    useEffect(() => {console.log(events)}, [events]);
 
     const [popUpState, setPopUpState] = useState("hidden");
 
     const addEvent = () => {
         const newEvent = {
-            id: Date.now(),
-            year: formData.year,
-            month: formData.month,
-            day: formData.day,
-            start: formData.start,
-            end: formData.end,
+            blockId: 0,
+            date: new Date(date.year, date.month - 1, date.day),
+            timeStart: formData.timeStart,
+            timeEnd: formData.timeEnd,
             title: formData.eventName,
-            priority: formData.priority
+            priority: `${formData.priority}`,
+            description: formData.description,
         };
         setEvents([...events, newEvent]);
         setPopUpState("hidden");
+
+        // Itt kellene meghívni a backend API-t, hogy elmentsük az új eseményt
+        createNewBlockFunc(newEvent);
     };
 
     const deleteEvent = (id) => {
         const updated = events.filter(ev =>
-            !(ev.id === id &&
-              ev.year === date.year &&
-              ev.month === date.month &&
-              ev.day === date.day)
+            !(ev.blockId === id &&
+              ev.date === `${date.year}-${(date.month).toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}T00:00:00`)
         );
         setEvents(updated);
+
+        // Itt kellene meghívni a backend API-t, hogy töröljük az eseményt
+        callAPIFunc.callApiAsync("AdvancedInfo/DeleteBlock", "DELETE", null, true, `${callAPIFunc._token}/${selectedSchedule.scheduleId}/${id}`);
     };
 
     const monthNames = {0:"Január",1:"Február",2:"Március",3:"Április",4:"Május",5:"Június",6:"Július",7:"Augusztus",8:"Szeptember",9:"Október",10:"November",11:"December"}
@@ -49,12 +54,18 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
 
     const dayEvents = events
         .filter(ev =>
-            ev.year === date.year &&
-            ev.month === date.month &&
-            ev.day === date.day
+            ev.date === `${date.year}-${(date.month).toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}T00:00:00`
         )
-        .sort((a, b) => a.start.localeCompare(b.start));
+        .sort((a, b) => a.timeStart - b.timeStart);
+    
+    function minutesToTime(minutes) {
+        const hrs = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    }
 
+
+        
     return (
         <div className="DayviewContainer">
 
@@ -70,12 +81,12 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
 
             <div className="CalendarEvents">
                 {dayEvents.map((ev) => (
-                    <div key={ev.id} className="CalendarEventItem">
+                    <div key={ev.blockId} className="CalendarEventItem">
                         <span className={`CalendarEventPriorityDot priority-${ev.priority}`} />
-                        {ev.start} - {ev.end} &nbsp; {ev.title}
+                        {minutesToTime(ev.timeStart)} - {minutesToTime(ev.timeEnd)} &nbsp; {ev.title}
                         <span
                             className="DeleteBtn"
-                            onClick={() => deleteEvent(ev.id)}
+                            onClick={() => deleteEvent(ev.blockId)}
                         >
                             🗑
                         </span>

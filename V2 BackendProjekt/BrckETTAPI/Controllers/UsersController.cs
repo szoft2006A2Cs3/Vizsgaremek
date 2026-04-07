@@ -201,12 +201,20 @@ namespace BackendProjekt.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{token}")]
         [Authorize(Policy = "Users.Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string token)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(p => p.UserId == id);
-            if (user == null) return NotFound();
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid JWT Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return Ok(user);

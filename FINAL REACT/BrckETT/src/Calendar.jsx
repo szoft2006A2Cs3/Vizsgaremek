@@ -30,31 +30,35 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, 
 
     function getEventsForDay(day) {
         if (!day) return [];
-        return events.filter(ev =>
-            ev.year === year &&
-            ev.month === (month + 1) &&
-            ev.day === day
-        );
+        const key = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T00:00:00`;
+        const dayEvents = events.filter(ev => ev.date === key);
+        
+        //console.log(key);
+        //console.log(dayEvents);
+
+        return dayEvents;
     }
 
     function getPriorityClass(priority) {
         switch (priority) {
-            case 1: return 'priority-1';
-            case 2: return 'priority-2';
-            case 3: return 'priority-3';
+            case '1': return 'priority-1';
+            case '2': return 'priority-2';
+            case '3': return 'priority-3';
             default: return '';
         }
     }
     function drawDots(dayEvents)
     {
-        if(dayEvents.length <= 3){
+        //console.log(dayEvents);
+        if(dayEvents.length <= 3 && dayEvents.length > 0){
+            //console.log(dayEvents);
         return dayEvents.map(ev => (
             <div
-                key={ev.id}
+                key={ev.blockId}
                 className={`CalendarDayEventDot ${getPriorityClass(ev.priority)}`}
             />
     ))}
-    else
+    else if(dayEvents.length > 3)
         {
             let list = [];
             for(let i = 0; i < 3; i++)

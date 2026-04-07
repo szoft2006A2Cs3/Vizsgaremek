@@ -97,7 +97,75 @@
       },
       {
         "Name": "block",
-        "Type": "BackendProjekt.Model.Blocks",
+        "Type": "BackendProjekt.Controllers.BlockRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Delete",
+    "RelativePath": "api/AdvancedInfo/DeleteBlock/{token}/{scheduleId}/{blockId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "blockId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "Delete",
+    "RelativePath": "api/AdvancedInfo/DeleteGroup/{token}/{groupId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.AdvancedInfoController",
+    "Method": "DeleteSched",
+    "RelativePath": "api/AdvancedInfo/DeleteSchedule/{token}/{scheduleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "scheduleId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -660,22 +728,6 @@
   },
   {
     "ContainingType": "BackendProjekt.Controllers.UsersController",
-    "Method": "Delete",
-    "RelativePath": "api/Users/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BackendProjekt.Controllers.UsersController",
     "Method": "Get",
     "RelativePath": "api/Users/{input}",
     "HttpMethod": "GET",
@@ -711,6 +763,22 @@
       {
         "Name": "user",
         "Type": "BackendProjekt.Model.Users",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackendProjekt.Controllers.UsersController",
+    "Method": "Delete",
+    "RelativePath": "api/Users/{token}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

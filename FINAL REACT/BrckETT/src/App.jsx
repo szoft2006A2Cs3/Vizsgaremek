@@ -152,7 +152,7 @@ function App() {
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/profile' element={<ProfileDescriptionModule></ProfileDescriptionModule>}></Route>
         <Route path='/notifications' element={<NotificationComponent userData={userData} callAPIFunc={callAPIInstance} fetchUserDataFunc={fetchUserData}></NotificationComponent>}></Route>
-        <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData}></SettingsModule>}></Route>
+        <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData} setIsLoggedInFunc={setIsLoggedIn}></SettingsModule>}></Route>
         <Route path='/Groups' element={<GroupSelector groupList={userData.groups}></GroupSelector>}></Route>
       </Routes>
     </>

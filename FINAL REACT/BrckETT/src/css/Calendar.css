@@ -132,7 +132,7 @@ body:has(.calendarView-container) .overplay{
 }
 
 body:has(.calendarView-container) .modal{
-    background-color: #fff;
+    background-color: blueviolet;
     padding: 25px;
     border-radius: 12px;
     display: flex;
@@ -150,7 +150,7 @@ body:has(.calendarView-container) .modalRow{
 
 body:has(.calendarView-container) .modalDisabledInput{
     background-color: #f0f0f0;
-    color: #666;
+    color: #6e00a1;
     cursor: not-allowed;
 }
 
@@ -161,7 +161,7 @@ body:has(.calendarView-container) .modalButtonGroup{
     margin-top: 10px;   
 }
 
-body:has(.calendarView-container) .modalSaveBtnb{
+body:has(.calendarView-container) .modalSaveBtn{
     background-color: #4CAF50;
     color: white;
     border: none;

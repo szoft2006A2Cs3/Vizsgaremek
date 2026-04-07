@@ -72,9 +72,20 @@ CREATE TABLE `blocks` (
   `timeEnd` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `isIgnored` bool NOT NULL,
   `priority` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `blocks`
+--
+CREATE TABLE `isignored` (
+  `block_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+
 
 -- --------------------------------------------------------
 
@@ -294,6 +305,84 @@ VALUES
 (1, 1);
 
 -- === Connect schedules and users ===
+
+
+
+
+
+
+-- =========================
+-- templatesblocksconn
+-- =========================
+ALTER TABLE templatesblocksconn
+  ADD CONSTRAINT fk_tbc_template
+    FOREIGN KEY (template_id) REFERENCES templates(template_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_tbc_block
+    FOREIGN KEY (block_id) REFERENCES blocks(block_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- groupscheduleconn
+-- =========================
+ALTER TABLE groupscheduleconn
+  ADD CONSTRAINT fk_gsc_group
+    FOREIGN KEY (group_id) REFERENCES groups(group_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_gsc_schedule
+    FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- groupuserconn
+-- =========================
+ALTER TABLE groupuserconn
+  ADD CONSTRAINT fk_guc_user
+    FOREIGN KEY (user_Id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_guc_group
+    FOREIGN KEY (group_Id) REFERENCES groups(group_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- schedules
+-- =========================
+ALTER TABLE schedules
+  ADD CONSTRAINT fk_schedules_template
+    FOREIGN KEY (template_id) REFERENCES templates(template_id)
+    ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- =========================
+-- schedulesusersconn
+-- =========================
+ALTER TABLE schedulesusersconn
+  ADD CONSTRAINT fk_suc_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_suc_schedule
+    FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- usersettings
+-- =========================
+ALTER TABLE usersettings
+  ADD CONSTRAINT fk_usersettings_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =========================
+-- isIgnored
+-- =========================
+ALTER TABLE isIgnored
+  ADD PRIMARY KEY (user_id, block_id),
+  ADD KEY (block_id),
+  ADD CONSTRAINT fk_isignored_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT fk_isignored_block
+    FOREIGN KEY (block_id) REFERENCES blocks(block_id)
+    ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 COMMIT;

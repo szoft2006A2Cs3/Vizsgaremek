@@ -3,6 +3,21 @@ body:has(.settings-module) {
     min-height: 100vh;
 }
 
+
+body:has(.settings-module) .settings-delete-account-btn {
+    background-color: #e62e2e;
+    border: 2px solid rgb(121, 0, 0);
+    margin-top: 20px;
+    width: 100%;
+}
+body:has(.settings-module) .settings-delete-account-btn:hover {
+    background-color: #f15050;
+    border: 2px solid rgb(121, 0, 0);
+    margin-top: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
 .settings-module {
     display: flex;
     justify-content: center;

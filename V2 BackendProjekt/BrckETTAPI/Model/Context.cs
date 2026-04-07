@@ -13,6 +13,7 @@ namespace BackendProjekt.Model
         public DbSet<Templates> Templates { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Usersettings> Usersettings { get; set; }
+        public DbSet<isIgnored> isIgnored { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)
         {

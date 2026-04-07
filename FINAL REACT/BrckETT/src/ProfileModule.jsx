@@ -47,6 +47,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
                 <Link to={"/Schedules"}><button><link-text>Schedules</link-text></button></Link>
                 <Link to={"/Groups"}><button><link-text>Groups</link-text></button></Link>
                 <Link to={"/Settings"}><button><link-text>Settings</link-text></button></Link>
+                <Link to={"/Notifications"}><button><link-text>Notifications</link-text></button></Link>
                 <button id="Logout-Btn" onClick={logOutSequence}><Link to={"/"}><img className="logoutIcon" src="/src/assets/logoutIcon.png"></img></Link></button>
                 
             </div>

@@ -63,7 +63,6 @@ namespace BackendProjekt.Controllers
             oldBlock.TimeStart = block.TimeStart;
             oldBlock.TimeEnd = block.TimeEnd;
             oldBlock.Title = block.Title;
-            oldBlock.IsIgnored = block.IsIgnored;
 
 
             await _context.SaveChangesAsync();
