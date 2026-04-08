@@ -272,7 +272,10 @@ export default function GroupSelector({OWNuserId, groupList, callAPIFunc, fetchU
                         ))}
                     </div>
                 )}
-                <button
+                
+
+                <div className='groupSelector-nav'>
+                    <button
                     className="group-primary-btn group-card-cta"
                     type="button"
                     onClick={() => {
@@ -281,8 +284,6 @@ export default function GroupSelector({OWNuserId, groupList, callAPIFunc, fetchU
                     }}>
                     New Group
                     </button>
-
-                <div className='groupSelector-nav'>
                     <button
                         className='group-secondary-btn groupSelector-backBtn'
                         type='button'
@@ -290,6 +291,7 @@ export default function GroupSelector({OWNuserId, groupList, callAPIFunc, fetchU
                     >
                         Back to profile
                     </button>
+                    
                 </div>
             </div>
             {editPopUp === "visible" && (

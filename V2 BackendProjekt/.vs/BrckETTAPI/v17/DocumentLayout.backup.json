@@ -199,8 +199,7 @@
               "ViewState": "AgIAAAkDAAAAAAAAAAAawBgDAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-24T11:46:33.627Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -298,8 +297,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\BrckETTAPI.test.csproj",
               "ViewState": "AgIAABcAAAAAvCUdG6jYvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-27T00:40:01.093Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-27T00:40:01.093Z"
             },
             {
               "$type": "Document",
@@ -455,8 +453,7 @@
               "RelativeToolTip": "BrckETTAPI\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAHQAAAAAAAAAAAAIwKgAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T08:04:44.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T08:04:44.948Z"
             },
             {
               "$type": "Document",
@@ -540,8 +537,7 @@
               "RelativeToolTip": "BrckETTAPI.test\\UsersControllerTests.cs",
               "ViewState": "AgIAANIAAAAAAAAAAAAgwNMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T06:57:28.821Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T06:57:28.821Z"
             }
           ]
         }

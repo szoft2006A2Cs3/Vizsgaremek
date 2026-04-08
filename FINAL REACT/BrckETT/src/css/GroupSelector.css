@@ -53,6 +53,7 @@ body:has(.groupSelector-page) {
 .groupSelector-nav {
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
 }
 
 .groupSelector-backBtn {
