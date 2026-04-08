@@ -150,7 +150,7 @@ function App() {
         <Route path='/Schedules' element={<CalendarView fetchUserDataFunc={fetchUserData} LayoutSettings={userData.userSettings.settings.split("/")[2]} callAPIFunc={callAPIInstance} schedulesList={userData.schedules} userData={userData}></CalendarView>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
-        <Route path='/profile' element={<ProfileDescriptionModule></ProfileDescriptionModule>}></Route>
+        <Route path='/profile' element={<ProfileDescriptionModule userData={userData}></ProfileDescriptionModule>}></Route>
         <Route path='/notifications' element={<NotificationComponent userData={userData} callAPIFunc={callAPIInstance} fetchUserDataFunc={fetchUserData}></NotificationComponent>}></Route>
         <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData} setIsLoggedInFunc={setIsLoggedIn}></SettingsModule>}></Route>
         <Route path='/Groups' element={<GroupSelector fetchUserDataFunc={fetchUserData} OWNuserId={userData.user.userId} groupList={userData.groups} callAPIFunc={callAPIInstance}></GroupSelector>}></Route>

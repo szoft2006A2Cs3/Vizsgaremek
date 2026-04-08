@@ -281,6 +281,16 @@ export default function GroupSelector({OWNuserId, groupList, callAPIFunc, fetchU
                     }}>
                     New Group
                     </button>
+
+                <div className='groupSelector-nav'>
+                    <button
+                        className='group-secondary-btn groupSelector-backBtn'
+                        type='button'
+                        onClick={() => navigate('/')}
+                    >
+                        Back to profile
+                    </button>
+                </div>
             </div>
             {editPopUp === "visible" && (
                 <div className="popup-overlay edit-overlay" onClick={() => setEditPopup("hidden")}>

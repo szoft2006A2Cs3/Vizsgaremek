@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./css/NotificationComponent.css";
 
 export default function NotificationComponent({ userData, callAPIFunc, fetchUserDataFunc }) {
@@ -187,6 +188,10 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
     return (
         <div className="notification-component-container">
             <div className="notifications-shell">
+                <Link className="notifications-back-button" to="/">
+                    Back to profile
+                </Link>
+
                 <div className="notifications-hero">
                     <div className="notifications-title-block">
                         <span className="section-chip">Control Center</span>
