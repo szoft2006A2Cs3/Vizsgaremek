@@ -36,6 +36,11 @@ namespace BackendProjekt.Controllers
         public ICollection<TemplatesBlocksConn>? TemplatesBlocksConns { get; set; }
         public bool isIgnored { get; set; }
     }
+    public class PermissionRequest() 
+    {
+        public int UserId { get; set; }
+        public string Permission { get; set; }
+    }
 
 
     [Route("api/[controller]")]
@@ -129,6 +134,95 @@ namespace BackendProjekt.Controllers
         }
 
         //OKOS FUNKCIÓK ------------------------------------------------------------
+
+
+        [HttpGet("Members/{token}/{groupId}")]
+        [Authorize(Policy = "AdvancedInfo.ReadByToken")]
+        public async Task<IActionResult> GetMembers(string token, int groupId) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (!await _context.Groupuserconns.AnyAsync(c => c.GroupId == groupId && c.UserId == user.UserId && c.Permission == "Admin")) 
+            {
+                return Unauthorized("Nincs hozzáférésed");
+            }
+
+            return Ok(await _context.Groupuserconns.Where(c => c.GroupId == groupId).Join(_context.Users, c => c.UserId, u => u.UserId, (c, u) => new {u.UserId, u.UserName, c.Permission }).ToListAsync());
+        }
+
+
+
+
+
+        [HttpPut("EditGroup/{token}/{groupId}/{groupName}")]
+        [Authorize(Policy = "AdvancedInfo.Update")]
+        public async Task<IActionResult> EditGroup(string token, int groupId, string groupName, List<PermissionRequest> req) 
+        {
+            var email = TokenManager.GetEmailFromToken(token);
+            if (email == null)
+            {
+                return BadRequest("Invalid Token");
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (!await _context.Groupuserconns.AnyAsync(c => c.GroupId == groupId && c.UserId == user.UserId && c.Permission == "Admin"))
+            {
+                return Unauthorized("Nincs hozzáférésed");
+            }
+            var grp = await _context.Groups.FirstOrDefaultAsync(g => g.GroupId == groupId);
+            if (grp == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                grp.GroupName = groupName;
+            }
+            foreach (var elem in req) 
+            {
+                if (elem.Permission != "Remove")
+                {
+                    (await _context.Groupuserconns.FirstOrDefaultAsync(c => c.GroupId == groupId && c.UserId == elem.UserId)).Permission = elem.Permission;
+                }
+                else 
+                {
+                    var conn = await _context.Groupuserconns.FirstOrDefaultAsync(c => c.GroupId == groupId && c.UserId == elem.UserId);
+                    _context.Groupuserconns.Remove(conn);
+                }
+            }
+            if (!await _context.Groupuserconns.AnyAsync(c => c.GroupId == groupId && c.Permission == "Admin")) 
+            {
+                _context.Groups.Remove(grp);
+            }
+
+            await _context.SaveChangesAsync();
+
+
+
+            return Ok();
+        }
+
+
+
+
+
+
+
+
+
+
+
         [HttpGet("OverLaps/{token}")]
         [Authorize(Policy = "AdvancedInfo.ReadByToken")]
         public async Task<IActionResult> GetOverlaps(string token) 
@@ -239,16 +333,16 @@ namespace BackendProjekt.Controllers
 
         //Létrehoz egy pending groupuserconn-t ha minden hozzáférés klappol
         [HttpPost("groupInvite/{token}/{groupId}/{emailToInvite}")]
-        [Authorize(Policy = "AdvamcedInfo.Create")]
-        public async Task<IActionResult> InviteUser(string token, int groupId, string email)
+        [Authorize(Policy = "AdvancedInfo.Create")]
+        public async Task<IActionResult> InviteUser(string token, int groupId, string emailToInvite)
         {
             var senderEmail = TokenManager.GetEmailFromToken(token);
-            if (email == null)
+            if (senderEmail == null)
             {
                 return NotFound();
             }
             var senderUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == senderEmail);
-            var recieverUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var recieverUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailToInvite);
             if (senderUser == null || recieverUser == null)
             {
                 return NotFound();
@@ -258,10 +352,15 @@ namespace BackendProjekt.Controllers
             {
                 return Unauthorized("Nem kapcsolódik a felhasználó a schedule-hoz");
             }
-            _context.Groupuserconns.Add(new Groupuserconn { GroupId = groupId, UserId = recieverUser.UserId, Permission = "Pending" });
+
+            if (await _context.Groupuserconns.AnyAsync(c => c.GroupId == groupId && c.UserId == recieverUser.UserId)) 
+            {
+                return NotFound("@Already Has Connection to group");
+            }
+            _context.Groupuserconns.Add(new Groupuserconn { GroupId = groupId, UserId = recieverUser.UserId, Permission = "pending" });
             await _context.SaveChangesAsync();
 
-            return Created("Invite Sent", email);
+            return Created("Invite Sent", $"!{emailToInvite}");
         }
         [HttpPost("groupCreate/{token}")]
         public async Task<IActionResult> createNewGroup(string token, Groups group) 
@@ -289,8 +388,9 @@ namespace BackendProjekt.Controllers
                 ScheduleInfo = "Default Group Schedule",
                 TemplateId = grptemplate.TemplateId
             };
+            var grp = new Groups {GroupName = group.GroupName };
             _context.Schedules.Add(grpschedule);
-            _context.Groups.Add(group);
+            _context.Groups.Add(grp);
             await _context.SaveChangesAsync();
 
             //create connection if referenced group exists
@@ -298,11 +398,11 @@ namespace BackendProjekt.Controllers
             {
                 Permission = "Admin",
                 UserId = user.UserId,
-                GroupId = group.GroupId
+                GroupId = grp.GroupId
             };
             var groupScheduleConn = new Groupscheduleconn
             {
-                GroupId = group.GroupId,
+                GroupId = grp.GroupId,
                 ScheduleId = grpschedule.ScheduleId
             };
             _context.Groupuserconns.Add(groupUserConn);
@@ -319,7 +419,7 @@ namespace BackendProjekt.Controllers
 
         //Schedule/Block Update METÓDUSOK------------------------------------------------------------
 
-        [HttpPut("groupUpdate/{token}/{groupId}/{scheduleId}")]
+        [HttpPut("scheduleUpdate/{token}/{groupId}/{scheduleId}")]
         [Authorize(Policy = "AdvancedInfo.Update")]
         public async Task<IActionResult> Update(string token, int groupId, int scheduleId, ScheduleRequest schedule) 
         {
@@ -345,12 +445,37 @@ namespace BackendProjekt.Controllers
                 return NotFound();
             }
             oldSchedule.ScheduleInfo = schedule.scheduleInfo;
-            oldSchedule.Templates.TemplateInfo = schedule.templateInfo;
+            (await _context.Templates.FirstOrDefaultAsync(t => t.TemplateId == oldSchedule.TemplateId)).TemplateInfo = schedule.templateInfo;
             await _context.SaveChangesAsync();
 
             return Ok(oldSchedule);
         }
-
+        //[HttpPut("scheduleUpdate/{token}/{scheduleId}")]
+        //[Authorize(Policy = "AdvancedInfo.Update")]
+        //public async Task<IActionResult> Update(string token, int scheduleId, ScheduleRequest schedule) 
+        //{
+        //    var email = TokenManager.GetEmailFromToken(token);
+        //    if (email == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (!await _context.Schedulesusersconns.AnyAsync(c => c.UserId == user.UserId && c.ScheduleId == scheduleId)) 
+        //    {
+        //        return Unauthorized("Nem kapcsolódik a schedule-hoz");
+        //    }
+        //    var oldschedule = await _context.Schedules.FirstOrDefaultAsync(s => s.ScheduleId == scheduleId);
+        //    if (oldschedule == null) {return NotFound(); }
+        //    oldschedule.ScheduleInfo = schedule.scheduleInfo;
+        //    oldschedule.Templates.TemplateInfo = schedule.templateInfo;
+        //    await _context.SaveChangesAsync();
+        //
+        //    return Ok(oldschedule);
+        //}
 
 
         [HttpPut("userUpdate/{token}/{scheduleId}")]
@@ -377,7 +502,7 @@ namespace BackendProjekt.Controllers
                 return NotFound();
             }
             oldSchedule.ScheduleInfo = schedule.scheduleInfo;
-            oldSchedule.Templates.TemplateInfo = schedule.templateInfo;
+            (await _context.Templates.FirstOrDefaultAsync(t => t.TemplateId == oldSchedule.TemplateId)).TemplateInfo = schedule.templateInfo;
             await _context.SaveChangesAsync();
                 
             return Ok(oldSchedule);
@@ -453,7 +578,7 @@ namespace BackendProjekt.Controllers
 
         //Schedule/Block Creation METÓDUSOK------------------------------------------------------------
 
-        [HttpPost("groupCreate/{token}/{groupId}")]
+        [HttpPost("scheduleCreate/{token}/{groupId}")]
         [Authorize(Policy = "AdvancedInfo.Create")]
         public async Task<IActionResult> Create(string token, int groupId, ScheduleRequest schedule)
         {
@@ -753,7 +878,7 @@ namespace BackendProjekt.Controllers
             var connection = await _context.Groupuserconns.Where(conn => conn.UserId == user.UserId && conn.GroupId == groupId).FirstOrDefaultAsync();
             if (action.Accept)
             {
-                connection.Permission = "user";
+                connection.Permission = "User";
             }
             else 
             {

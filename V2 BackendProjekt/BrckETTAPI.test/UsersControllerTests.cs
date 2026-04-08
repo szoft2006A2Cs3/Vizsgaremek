@@ -172,7 +172,20 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb();
             var controller = new UsersController(db.Context);
-            var res = await controller.Delete(9999);
+
+            // Create a token for a user that does not exist in the DB
+            var fakeUser = new Users
+            {
+                UserId = 9999,
+                UserName = "x",
+                Email = "x@notfound.com",
+                Password = "x",
+                Role = "admin"
+            };
+            var tm = TestHelpers.CreateTokenManager();
+            var token = tm.GenerateToken(fakeUser);
+
+            var res = await controller.Delete(token);
             Assert.IsInstanceOfType(res, typeof(NotFoundResult));
         }
 
@@ -181,10 +194,14 @@ namespace BrckETTAPI.test
         {
             using var db = TestHelpers.CreateTestDb(ctx =>
             {
-                ctx.Users.Add(new Users { UserId = 6, UserName = "user6", Email = "del@test", Password = "x" });
+                ctx.Users.Add(new Users { UserId = 6, UserName = "user6", Email = "del@test", Password = "x", Role = "admin" });
             });
+            var user = await db.Context.Users.FirstOrDefaultAsync(u => u.UserId == 6);
+            var tm = TestHelpers.CreateTokenManager();
+            var token = tm.GenerateToken(user!);
+
             var controller = new UsersController(db.Context);
-            var res = await controller.Delete(6);
+            var res = await controller.Delete(token);
             Assert.IsInstanceOfType(res, typeof(OkObjectResult));
             var dbu = await db.Context.Users.FirstOrDefaultAsync(u => u.UserId == 6);
             Assert.IsNull(dbu);
@@ -218,8 +235,11 @@ namespace BrckETTAPI.test
             Assert.AreEqual("chainuser-upd", dbu.UserName);
             Assert.AreEqual("chain-upd@test", dbu.Email);
 
-            // Delete
-            var delRes = await controller.Delete(created.UserId);
+            // Generate a new token for the updated user (with new email)
+            var newToken = tm.GenerateToken(dbu);
+
+            // Delete using the new token
+            var delRes = await controller.Delete(newToken);
             Assert.IsInstanceOfType(delRes, typeof(OkObjectResult));
             var deleted = await db.Context.Users.FirstOrDefaultAsync(u => u.UserId == created.UserId);
             Assert.IsNull(deleted);

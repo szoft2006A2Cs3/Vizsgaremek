@@ -65,8 +65,62 @@ body:has(.calendarView-container).dark-mode {
   flex: 1;
   background: var(--CWbackground);
 }
-
-
+.hard-blur {
+    background: rgba(103, 40, 145, 0.555) !important;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hard-blur input {
+    background: rgba(133, 23, 236, 0.8) !important;
+    color: greenyellow !important;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.hard-blur button {
+    background: rgba(78, 0, 151, 0.8) !important;
+    color: greenyellow !important;
+    border: rgb(156, 0, 156) 1px solid !important;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+.hard-blur button:hover {
+    background: rgb(137, 20, 153) !important;
+}
+.hard-blur h2 {
+    color: var(--CWfgcolor) !important;
+}
+.hard-blur input::placeholder {
+    color: var(--CWfgcolor) !important;
+}
+.hard-blur button + button
+{
+    margin-left: 0px !important;
+}
+.sch-edit-inputs {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+.hard-blur .sch-dlt-btn {
+    background: rgb(224, 44, 44) !important;
+    color: rgb(240, 204, 204) !important;
+    border: rgb(134, 18, 18) 1px solid !important;
+}
+.hard-blur .sch-dlt-btn:hover {
+    background: rgb(224, 44, 44) !important;
+    color: rgb(240, 204, 204) !important;
+    border: rgb(134, 18, 18) 1px solid !important;
+    filter: brightness(120%);
+    transition: all 0.2s ease;
+}
 
 /* Mobil nézet*/
 @media (max-width: 768px) {

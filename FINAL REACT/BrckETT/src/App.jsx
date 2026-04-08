@@ -116,7 +116,7 @@ function App() {
             callAPIInstance.setToken(userDataResponse.token);
             localStorage.setItem('token', userDataResponse.token);
           }
-          setUserData(new UserDataClass(userDataResponse));
+          setUserData(new UserDataClass(userDataResponse, callAPIInstance));
           setUser(new User(
             userDataResponse.userId,
             userDataResponse.userName,
@@ -153,7 +153,7 @@ function App() {
         <Route path='/profile' element={<ProfileDescriptionModule></ProfileDescriptionModule>}></Route>
         <Route path='/notifications' element={<NotificationComponent userData={userData} callAPIFunc={callAPIInstance} fetchUserDataFunc={fetchUserData}></NotificationComponent>}></Route>
         <Route path='/Settings' element={<SettingsModule callAPIFunc={callAPIInstance} userData={userData} fetchUserDataFunc={fetchUserData} setIsLoggedInFunc={setIsLoggedIn}></SettingsModule>}></Route>
-        <Route path='/Groups' element={<GroupSelector groupList={userData.groups}></GroupSelector>}></Route>
+        <Route path='/Groups' element={<GroupSelector fetchUserDataFunc={fetchUserData} OWNuserId={userData.user.userId} groupList={userData.groups} callAPIFunc={callAPIInstance}></GroupSelector>}></Route>
       </Routes>
     </>
   ) : (

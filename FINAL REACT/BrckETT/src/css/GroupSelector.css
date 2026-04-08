@@ -208,6 +208,140 @@ body:has(.groupSelector-page) {
     pointer-events: none;
 }
 
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.popup-content{
+    background: var(--group-panel);
+    border: 1px solid var(--group-border);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--group-shadow);
+    border-radius: 28px;
+    padding: 30px;
+    width: 320px;
+    text-align: center;
+}
+.popup-content h2 {
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+}
+.popup-content p {
+    margin: 0 0 20px;
+    color: var(--group-muted);
+}
+.popup-content button {
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+.popup-content button:first-child {
+    background: purple;
+    color: #75f300;
+}
+.popup-content button:hover {
+    background: rgb(179, 31, 179);
+    color: #75f300;
+}
+.popup-content button + button {
+    margin-left: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--group-text);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.popup-content button + button:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--group-text);
+}
+.popup-content input {
+    width: 90%;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--group-border);
+    background: var(--group-panel-strong);
+    color: var(--group-text);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.edit-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.edit-grid-row {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+}
+.own-user {
+    background: rgba(183, 31, 179, 0.12);
+    border-radius: 999px;
+    padding: 4px 10px;
+    color: rgb(179, 31, 179);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+.delete-grp-btn {
+    background: rgba(255, 0, 0, 0.12);
+    border: 1px solid rgba(255, 0, 0, 0.24);
+    color: rgb(255, 0, 0);
+    padding: 10px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: background 0.25s ease, color 0.25s ease;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.edit-inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 12px;
+}
+.delete-grp-btn:hover {
+    background: rgba(255, 0, 0, 0.24) !important;
+    color: rgb(255, 0, 0) !important;
+}
+.edit-grid-row select {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--group-border);
+    color: var(--group-text);
+    font-size: 0.9rem;
+}
+.edit-grid-row select:hover {
+    border-color: var(--group-accent);
+}
+option.own-user {
+    background: rgba(183, 31, 179, 0.12) ;
+    color: rgb(179, 31, 179);
+    font-weight: 700;
+}
+option {
+    background: rgba(10, 8, 2, 0.062);
+    color: rgb(94, 255, 0);
+}
+
+
 .group-card-top,
 .group-card-content,
 .group-card-preview,
@@ -387,3 +521,5 @@ body:has(.groupSelector-page) {
         align-items: flex-start;
     }
 }
+
+

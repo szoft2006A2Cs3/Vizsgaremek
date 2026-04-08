@@ -86,11 +86,12 @@ export default class UserDataClass
         //console.log(this);
     }
 
-    //true ha vannak értesítése false, ha nincsnek
+    //true ha van értesítése false, ha nincsnek
 
     async hasNotifications(callApiFunc) {
         let result = this.pendingGroups.length > 0;
         let overLaps = await this.callApi.callApiAsync("AdvancedInfo/OverLaps", "GET", null, true, this.callApi._token);
+        if(overLaps.length > 0){
         let i = 0;
         while(!result && i < overLaps.length)
             {
@@ -98,7 +99,7 @@ export default class UserDataClass
                 if(overLaps[i].filter(ol => !ol.isIgnored).length > 1) { result = true};
                 i++;
             }
-
+        }
 
         
         //console.log("hasNotifications: ");

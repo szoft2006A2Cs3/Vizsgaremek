@@ -27,6 +27,104 @@
         }
       }
     },
+    "/api/AdvancedInfo/Members/{token}/{groupId}": {
+      "get": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AdvancedInfo/EditGroup/{token}/{groupId}/{groupName}": {
+      "put": {
+        "tags": [
+          "AdvancedInfo"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "groupName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PermissionRequest"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PermissionRequest"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PermissionRequest"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/AdvancedInfo/OverLaps/{token}": {
       "get": {
         "tags": [
@@ -70,13 +168,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "email",
-            "in": "query",
-            "schema": {
-              "type": "string"
             }
           },
           {
@@ -136,7 +227,7 @@
         }
       }
     },
-    "/api/AdvancedInfo/groupUpdate/{token}/{groupId}/{scheduleId}": {
+    "/api/AdvancedInfo/scheduleUpdate/{token}/{groupId}/{scheduleId}": {
       "put": {
         "tags": [
           "AdvancedInfo"
@@ -304,7 +395,7 @@
         }
       }
     },
-    "/api/AdvancedInfo/groupCreate/{token}/{groupId}": {
+    "/api/AdvancedInfo/scheduleCreate/{token}/{groupId}": {
       "post": {
         "tags": [
           "AdvancedInfo"
@@ -1719,6 +1810,20 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PermissionRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "permission": {
             "type": "string",
             "nullable": true
           }

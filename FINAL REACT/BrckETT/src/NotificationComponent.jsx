@@ -6,11 +6,16 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
     const [ignoredOverlaps, setIgnoredOverlaps] = useState({});
     const [changedOverlap, setChangedOverlap] = useState(null);
     const [pendingGroups, setPendingGroups] = useState(userData.pendingGroups ?? []); // Ez a helyi állapot a függvényen belül, ami a userData-ból származó pendingGroups-t tartalmazza
+    const [acceptedGroups, setAcceptedGroups] = useState([]);
     
 
     useEffect(() => {
-        setPendingGroups(userData?.pendingGroups ?? []);
-    }, [userData]);
+        setPendingGroups(userData?.pendingGroups?.filter(g => !acceptedGroups.includes(g.groupId)) ?? []);
+
+        console.log(acceptedGroups)
+        console.log(userData?.pendingGroups)
+
+    }, [userData, acceptedGroups]);
 
 
     useEffect(() => 
@@ -45,6 +50,12 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
         setChangedOverlap(block);
     };
 
+
+    function minutesToTime(minutes) {
+        const hrs = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    }
 
 
     function renderOverlaps(overlaps) {
@@ -91,11 +102,11 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
                 <div className="overlap-time-group">
                     <div className="overlap-item-column">
                         <span className="overlap-item-label">Starts</span>
-                        <span className="overlap-item-value">{block.timeStart}</span>
+                        <span className="overlap-item-value">{minutesToTime(block.timeStart)}</span>
                     </div>
                     <div className="overlap-item-column">
                         <span className="overlap-item-label">Ends</span>
-                        <span className="overlap-item-value">{block.timeEnd}</span>
+                        <span className="overlap-item-value">{minutesToTime(block.timeEnd)}</span>
                     </div>
                 </div>
                 <div className="overlap-toggle-column">
@@ -138,11 +149,13 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
 
     async function handleInvites(groupId, action)
     {
-        await callAPIFunc.callApiAsync("AdvancedInfo/GroupUserConn", "POST", {"Accept": action}, true, `${callAPIFunc._token}/${groupId}`)
+        await callAPIFunc.callApiAsync("AdvancedInfo/GroupUserConn", "POST", {"Accept": action}, false, `${callAPIFunc._token}/${groupId}`)
         //Frissítjük a userData-t, hogy lekérjük a friss pendingGroups-t
+        setAcceptedGroups(prev => [...prev, groupId]);
+        
         await fetchUserDataFunc();
-        //Frissítjük a helyi pendingGroups állapotot is, hogy azonnal tükrözze a változást
-        setPendingGroups((prev) => prev.filter((g) => g.groupId !== groupId));
+        //Hozzáadjuk az elfogadott csoportokat, hogy lokálisan is eltávolítsuk
+        
     }
 
 
@@ -178,7 +191,7 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
                     <div className="notifications-title-block">
                         <span className="section-chip">Control Center</span>
                         <h1>Notifications</h1>
-                        <p>Track invites and schedule conflicts in the same visual style as the rest of your dashboard.</p>
+                        <p>Track invites and schedule conflicts.</p>
                     </div>
                     <div className="notifications-summary">
                         <div className="summary-card">

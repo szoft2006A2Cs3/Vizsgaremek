@@ -15,7 +15,7 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         localStorage.removeItem('token');
         navigate("/")
     }
-    const [notifVisibility, setNotifVisibility] = useState("");
+    const [notifVisibility, setNotifVisibility] = useState("hidden");
 
     useEffect(() => {
         const updateNotifVisibility = async () => {

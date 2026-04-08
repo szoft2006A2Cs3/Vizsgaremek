@@ -1,12 +1,21 @@
 import './css/GroupSelector.css';
 import { useNavigate } from "react-router-dom";
+import { use, useEffect, useState } from 'react';
 
-export default function GroupSelector({ groupList }) 
+export default function GroupSelector({OWNuserId, groupList, callAPIFunc, fetchUserDataFunc})
 {
     const navigate = useNavigate();
     const groups = groupList ?? [];
     const totalSchedules = groups.reduce((sum, group) => sum + (group.schedules?.length ?? 0), 0);
 
+
+    const [invitePopUp, setInvitePopup] = useState("hidden");
+    const [editPopUp, setEditPopup] = useState("hidden");
+    const [createPopUp, setCreatePopup] = useState("hidden");
+    const [createGroupName, setCreateGroupName] = useState("");
+    const [selectedGroupId, setSelectedGroupId] = useState(null);
+    const [inviteEmail, setInviteEmail] = useState("");
+    const [editGroupName, setEditGroupName] = useState("");
 
     function formatDisplayText(value)
     {
@@ -52,6 +61,121 @@ export default function GroupSelector({ groupList })
             }
         });
     }
+    
+
+
+    async function handleInvite(groupId)
+    {
+        //console.log(`Inviting ${inviteEmail} to group ${groupId}`);
+
+        var res = await callAPIFunc.callApiAsync("AdvancedInfo/groupInvite", "POST", null, false, callAPIFunc._token + "/" + groupId + "/" + inviteEmail)
+        if(res.substring(0, 1) === "@")
+        {
+            alert("Invite failed! (already invited)");
+        }
+        else if(res.substring(0, 1) === "!")
+        {
+            alert("Invite successful!");
+        }
+        else
+        {
+            alert("Invite failed! (user not found)");
+        }
+        setInviteEmail("");
+        setInvitePopup("hidden");
+    }
+
+    async function handleCreateGroup()
+    {
+        await callAPIFunc.callApiAsync("AdvancedInfo/groupCreate", "POST", {groupName: createGroupName}, false, callAPIFunc._token)
+        alert("Group creation successful!");
+        setCreateGroupName("");
+        setCreatePopup("hidden");
+    }
+
+    const [members, setMembers] = useState([]);
+    //useEffect(() => {console.log(members)}, [members])
+
+
+
+    useEffect((
+       
+    ) => {
+        if(selectedGroupId === null) return;
+        async function fetchMembers() {
+            setMembers((await callAPIFunc.callApiAsync("AdvancedInfo/Members", "GET", null, true, callAPIFunc._token + "/" + selectedGroupId)).filter(m => m.permission != "pending"));
+        }
+        fetchMembers();
+        //console.log(members);
+    }, [editPopUp])
+
+    const [selectorValues, setSelectorValues] = useState({});
+    const [selectedUserId, setSelectedUserId] = useState(null);
+
+    async function handleEditGroup()
+    {
+        //Backendre feltöltés
+        let res = []
+        for(const elem in selectorValues)
+            {
+                res.push({
+                    userId: elem,
+                    permission: selectorValues[elem]
+                })
+            }
+        //console.log(res);
+
+        await callAPIFunc.callApiAsync("AdvancedInfo/EditGroup", "PUT", res, false, callAPIFunc._token + "/" + selectedGroupId + "/" + editGroupName)
+
+        fetchUserDataFunc();
+        setEditPopup("hidden");
+        setSelectorValues({});
+        setSelectedGroupId(null);
+    }
+
+
+
+    useEffect(() => {
+        setSelectorValues(members.filter(m => m.permission != "pending").reduce((acc, member) => ({...acc, [member.userId]: member.permission}), {}));
+    }, [members])
+
+    function renderMembers() {
+        if(members.length < 5) {
+            return members.filter(m => m.permission != "pending").map((member, ix) => (
+                                    <div key={ix} className={`edit-grid-row ${member.userId === OWNuserId ? 'own-user' : ''}`} >
+                                        <span>{member.userName}</span>
+                                        <select value={selectorValues[member.userId] || member.permission} onChange={(e) => setSelectorValues(prev => ({...prev, [member.userId]: e.target.value}))}>
+                                            <option value="User">User</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Remove">Remove</option>
+                                        </select>
+                                    </div>))
+        
+        }
+        else {
+            return( 
+            <div className='edit-grid-row'>
+                <select value={selectedUserId} onChange={(e) => setSelectedUserId(e.target.value)}>
+                    {
+                        members.filter(m => m.permission != "pending").map((member, ix) => (
+                            <option key={member.userId} value={member.userId} className={member.userId === OWNuserId ? 'own-user' : ''}>
+                                {member.userName}
+                            </option>
+                        ))
+                    }
+                </select>
+                <select value={selectorValues[selectedUserId]} onChange={(e) => setSelectorValues(prev => ({...prev, [selectedUserId]: e.target.value}))}>
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Remove">Remove</option>
+                </select>
+            </div>
+            )
+        }
+    
+    }
+
+
 
     return (
         <div className='groupSelector-page'>
@@ -86,7 +210,7 @@ export default function GroupSelector({ groupList })
                     <div className='groupSelector-container'>
                         {groups.map((group) => (
                             <div className='group-card-shell' key={group.groupId}>
-                                <article className="group-card">
+                                <article className="group-card" onClick={() => handleSelectGroup(group.groupId)}>
                                     <div className='group-card-top'>
                                         <div className='group-card-badge'>{getGroupInitials(group.groupName)}</div>
                                         <div className='group-card-meta'>
@@ -100,7 +224,7 @@ export default function GroupSelector({ groupList })
                                         <p>{getGroupPreview(group)}</p>
                                     </div>
 
-                                    <div className='group-card-preview'>
+                                    <div className='group-card-preview' >
                                         {(group.schedules ?? []).slice(0, 3).map((schedule) => (
                                             <span className='group-schedule-chip' key={schedule.scheduleId}>
                                                 {formatDisplayText(schedule.scheduleInfo)}
@@ -121,10 +245,12 @@ export default function GroupSelector({ groupList })
                                         type="button"
                                         onClick={(event) => {
                                             event.stopPropagation();
-                                            handleSelectGroup(group.groupId);
+                                            setSelectedGroupId(group.groupId);
+                                            setEditGroupName(group.groupName);
+                                            setEditPopup("visible");
                                         }}
                                     >
-                                        Open schedules
+                                        Edit Group
                                     </button>
 
                                     <button
@@ -132,25 +258,85 @@ export default function GroupSelector({ groupList })
                                         type="button"
                                         onClick={(event) => {
                                             event.stopPropagation();
-                                            console.log("Invite:", group.groupId);
+                                            setSelectedGroupId(group.groupId);
+                                            setInvitePopup("visible");
+                                            //console.log("Invite:", group.groupId);
                                         }}
                                     >
                                         Invite
                                     </button>
                                 </div>
+                                
                                 </article>
-
-                                <button
-                                    className="group-primary-btn group-card-cta"
-                                    type="button"
-                                >
-                                    New Group
-                                </button>
                             </div>
                         ))}
                     </div>
                 )}
+                <button
+                    className="group-primary-btn group-card-cta"
+                    type="button"
+                    onClick={() => {
+                        setSelectedGroupId(null);
+                        setCreatePopup("visible");
+                    }}>
+                    New Group
+                    </button>
             </div>
+            {editPopUp === "visible" && (
+                <div className="popup-overlay edit-overlay" onClick={() => setEditPopup("hidden")}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Edit Group</h2>
+                        <p>Editing {`\"${groupList.filter(g => g.groupId === selectedGroupId)[0]?.groupName}.\"`}</p>
+
+                        <input type="text" placeholder="Group name" className='group-name-input' value={editGroupName} onChange={(e) => setEditGroupName(e.target.value)}/>
+
+                        <div className='edit-grid'>
+                            <div className='edit-grid-row edit-grid-header'>
+                                <span>Members:</span>
+                                <span>Permission:</span>
+                            </div>
+                            {
+                                renderMembers()
+                            }
+                        </div>
+
+
+                        <button className='delete-grp-btn'>DELETE</button>
+                        <div className='edit-inputs'>
+                            <button onClick={() => handleEditGroup()}>Save Changes</button>
+                            <button onClick={() => {setEditPopup("hidden"); setSelectorValues({});}}>Close</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            )}
+            {invitePopUp === "visible" && (
+                <div className="popup-overlay invite-overlay"  onClick={() => setInvitePopup("hidden")}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Invite to Group</h2>
+                        <p>Enter the email addresses of the people you want to invite:</p>
+                        <input type="text" placeholder="Email address" className='email-input' value={inviteEmail} onChange={(e) => setInviteEmail(e.target.value)}/>
+                        
+                        <div className='invite-inputs'>
+                            <button onClick={() => handleInvite(selectedGroupId)}>Invite</button>
+                            <button onClick={() => setInvitePopup("hidden")}>Close</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {createPopUp === "visible" && (
+                <div className="popup-overlay create-overlay"  onClick={() => setCreatePopup("hidden")}>
+                    <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Create Group</h2>
+                        <p>Enter the details for your new group:</p>
+                        <input type="text" placeholder="Group name" className='group-name-input' value={createGroupName} onChange={(e) => setCreateGroupName(e.target.value)}/>
+                        <div className='create-inputs'>
+                            <button onClick={() => handleCreateGroup()}>Create</button>
+                            <button onClick={() => setCreatePopup("hidden")}>Close</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
