@@ -150,6 +150,16 @@ export default function GroupSelector({ groupList })
                         ))}
                     </div>
                 )}
+
+                <div className='groupSelector-nav'>
+                    <button
+                        className='group-secondary-btn groupSelector-backBtn'
+                        type='button'
+                        onClick={() => navigate('/')}
+                    >
+                        Back to profile
+                    </button>
+                </div>
             </div>
         </div>
     );

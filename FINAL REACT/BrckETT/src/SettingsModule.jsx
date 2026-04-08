@@ -374,6 +374,9 @@ export default function SettingsModule({userData, fetchUserDataFunc, callAPIFunc
                 <button className='settings-delete-account-btn' onClick={() => setShowDeleteAccountPopup(true)}>
                     Delete Account
                 </button>
+                <button className='settings-back-btn' type='button' onClick={() => nav('/')}>
+                    Back to profile
+                </button>
             </div>
 
             {showPasswordPopup && (

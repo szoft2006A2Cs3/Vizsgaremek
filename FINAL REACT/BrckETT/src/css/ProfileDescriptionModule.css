@@ -1,6 +1,252 @@
-body:has(.ProfileDescriptionModule){
-    
+body:has(.profile-description-page).light-mode {
+	--profile-description-bg-top: #6f3fb3;
+	--profile-description-bg-bottom: #35185c;
+	--profile-description-panel: rgba(255, 255, 255, 0.12);
+	--profile-description-panel-strong: rgba(255, 255, 255, 0.18);
+	--profile-description-border: rgba(255, 255, 255, 0.16);
+	--profile-description-text: #f8f1ff;
+	--profile-description-muted: rgba(248, 241, 255, 0.72);
+	--profile-description-accent: #a8fa50;
+	--profile-description-accent-soft: rgba(168, 250, 80, 0.12);
+	--profile-description-shadow: 0 28px 70px rgba(21, 4, 43, 0.34);
 }
 
-.profile-description-module{
+body:has(.profile-description-page).dark-mode {
+	--profile-description-bg-top: #24133d;
+	--profile-description-bg-bottom: #11091f;
+	--profile-description-panel: rgba(255, 255, 255, 0.08);
+	--profile-description-panel-strong: rgba(255, 255, 255, 0.12);
+	--profile-description-border: rgba(209, 154, 255, 0.16);
+	--profile-description-text: #f0dcff;
+	--profile-description-muted: rgba(240, 220, 255, 0.68);
+	--profile-description-accent: #c7ff7c;
+	--profile-description-accent-soft: rgba(199, 255, 124, 0.14);
+	--profile-description-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
+}
+
+body:has(.profile-description-page) {
+	min-height: 100vh;
+	background: linear-gradient(180deg, var(--profile-description-bg-top), var(--profile-description-bg-bottom));
+	color: var(--profile-description-text);
+}
+
+.profile-description-page {
+	min-height: 100vh;
+	padding: 108px 24px 48px;
+	box-sizing: border-box;
+}
+
+.profile-description-layout {
+	width: min(1080px, 100%);
+	margin: 0 auto;
+	display: grid;
+	gap: 24px;
+}
+
+.profile-description-backButton {
+	justify-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 16px;
+	border-radius: 999px;
+	background: var(--profile-description-panel-strong);
+	border: 1px solid var(--profile-description-border);
+	color: var(--profile-description-accent);
+	text-decoration: none;
+	font-weight: 700;
+	box-shadow: var(--profile-description-shadow);
+	transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.profile-description-backButton:hover {
+	transform: translateY(-1px);
+	background: var(--profile-description-accent-soft);
+}
+
+.profile-description-panel {
+	background: var(--profile-description-panel);
+	border: 1px solid var(--profile-description-border);
+	border-radius: 28px;
+	box-shadow: var(--profile-description-shadow);
+	backdrop-filter: blur(14px);
+}
+
+.profile-description-summarySection {
+	padding: 28px;
+	display: flex;
+	justify-content: space-between;
+	gap: 24px;
+	align-items: center;
+}
+
+.profile-description-userHeader {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+}
+
+.profile-description-avatar {
+	width: 96px;
+	height: 96px;
+	border-radius: 24px;
+	object-fit: cover;
+	background: var(--profile-description-panel-strong);
+	border: 1px solid var(--profile-description-border);
+}
+
+.profile-description-sectionTag {
+	display: inline-flex;
+	align-items: center;
+	padding: 7px 12px;
+	border-radius: 999px;
+	background: var(--profile-description-accent-soft);
+	color: var(--profile-description-accent);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.profile-description-userHeader h1,
+.profile-description-sectionHeader h2 {
+	margin: 12px 0 6px;
+}
+
+.profile-description-userHeader h1 {
+	font-size: clamp(2rem, 4vw, 3rem);
+	line-height: 1;
+}
+
+.profile-description-userHeader p,
+.profile-description-bodyText,
+.profile-description-groupEntry p {
+	margin: 0;
+	color: var(--profile-description-muted);
+	line-height: 1.6;
+}
+
+.profile-description-statsGrid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(140px, 1fr));
+	gap: 14px;
+}
+
+.profile-description-statTile {
+	min-width: 140px;
+	padding: 18px 20px;
+	border-radius: 22px;
+	background: var(--profile-description-panel-strong);
+	border: 1px solid var(--profile-description-border);
+}
+
+.profile-description-statTile span {
+	display: block;
+	font-size: 0.76rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--profile-description-muted);
+}
+
+.profile-description-statTile strong {
+	display: block;
+	margin-top: 10px;
+	font-size: 2rem;
+	color: var(--profile-description-accent);
+}
+
+.profile-description-contentGrid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+	gap: 24px;
+}
+
+.profile-description-contentSection {
+	padding: 28px;
+}
+
+.profile-description-sectionHeader {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	align-items: flex-start;
+	margin-bottom: 18px;
+}
+
+.profile-description-sectionLink {
+	color: var(--profile-description-accent);
+	text-decoration: none;
+	font-weight: 700;
+}
+
+.profile-description-sectionLink:hover {
+	text-decoration: underline;
+}
+
+.profile-description-bodyText {
+	font-size: 1rem;
+}
+
+.profile-description-bodyText.is-empty {
+	color: var(--profile-description-muted);
+}
+
+.profile-description-groupEntries {
+	display: grid;
+	gap: 12px;
+}
+
+.profile-description-groupEntry {
+	display: flex;
+	justify-content: space-between;
+	gap: 14px;
+	align-items: center;
+	padding: 16px 18px;
+	border-radius: 20px;
+	background: var(--profile-description-panel-strong);
+	border: 1px solid var(--profile-description-border);
+}
+
+.profile-description-groupEntry h3 {
+	margin: 0 0 4px;
+	font-size: 1rem;
+}
+
+.profile-description-groupRole {
+	flex-shrink: 0;
+	padding: 8px 12px;
+	border-radius: 999px;
+	background: var(--profile-description-accent-soft);
+	color: var(--profile-description-accent);
+	font-size: 0.82rem;
+	font-weight: 700;
+	text-transform: capitalize;
+}
+
+@media (max-width: 860px) {
+	.profile-description-page {
+		padding: 96px 16px 32px;
+	}
+
+	.profile-description-summarySection,
+	.profile-description-sectionHeader,
+	.profile-description-groupEntry {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.profile-description-statsGrid,
+	.profile-description-contentGrid {
+		grid-template-columns: 1fr;
+		width: 100%;
+	}
+
+	.profile-description-userHeader {
+		width: 100%;
+	}
+
+	.profile-description-statTile {
+		width: 100%;
+		box-sizing: border-box;
+	}
 }
