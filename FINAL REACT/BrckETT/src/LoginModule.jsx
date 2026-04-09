@@ -51,6 +51,8 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     
     return (
         <div className="LoginModule">
+            <button type="button" className="back-to-site-button" onClick={() => navigate("/")}>Back to site</button>
+
             <div className="card">
                 <div className="header">
                     <h2 id="LoginModuleHeader">Login</h2>

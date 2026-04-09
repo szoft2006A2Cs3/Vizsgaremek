@@ -21,12 +21,18 @@ const slides = [
   },
 ];
 
+const faqItems = Array.from({ length: 10 }, (_, index) => ({
+  question: `Question ${index + 1}`,
+  answer: `Answer ${index + 1}`,
+}));
+
 
 export default function FrontPage()
 {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [translate, setTranslate] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
+  const [activePopup, setActivePopup] = useState(null);
 
     const prevImage = () => {
     setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
@@ -49,6 +55,27 @@ const pointerIdRef = useRef(null);
 const sectionRef = useRef(null);
 const videoRef = useRef(null);
 const currentSlide = slides[currentIndex];
+
+useEffect(() => {
+  if (!activePopup) {
+    document.body.style.overflow = "";
+    return undefined;
+  }
+
+  const handleEscape = (event) => {
+    if (event.key === "Escape") {
+      setActivePopup(null);
+    }
+  };
+
+  document.body.style.overflow = "hidden";
+  window.addEventListener("keydown", handleEscape);
+
+  return () => {
+    document.body.style.overflow = "";
+    window.removeEventListener("keydown", handleEscape);
+  };
+}, [activePopup]);
 
 
 // Átvett kód az internetről a videó körbevágásához, hogy csak a carousel szakaszban látszódjon
@@ -218,11 +245,58 @@ const handlePointerUp = (e) => {
           </div>
 
           <div className="legal-links">
-            <Link to="/faq" className="legal-link">FAQ</Link>
-            <Link to="/terms" className="legal-link">Terms of Use</Link>
+            <button type="button" className="legal-link legal-button" onClick={() => setActivePopup("faq")}>FAQ</button>
+            <button type="button" className="legal-link legal-button" onClick={() => setActivePopup("terms")}>Terms of Use</button>
           </div>
         </div>
       </section>
+
+      {activePopup === "faq" && (
+        <div className="faq-modal-backdrop" onClick={() => setActivePopup(null)}>
+          <div className="faq-modal" role="dialog" aria-modal="true" aria-labelledby="faq-modal-title" onClick={(event) => event.stopPropagation()}>
+            <div className="faq-modal-topbar">
+              <div>
+                <h2 id="faq-modal-title">Frequently Asked Questions</h2>
+              </div>
+
+              <button type="button" className="faq-close-button" aria-label="Back to site" onClick={() => setActivePopup(null)}>
+                Back to site
+              </button>
+            </div>
+
+            <div className="faq-grid">
+              {faqItems.map((item, index) => (
+                <article className="faq-card" key={item.question} tabIndex="0">
+                  <span className="faq-index">{String(index + 1).padStart(2, "0")}</span>
+
+                  <div className="faq-card-copy">
+                    <span className="faq-card-text faq-question">{item.question}</span>
+                    <span className="faq-card-text faq-answer">{item.answer}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activePopup === "terms" && (
+        <div className="faq-modal-backdrop" onClick={() => setActivePopup(null)}>
+          <div className="faq-modal terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-modal-title" onClick={(event) => event.stopPropagation()}>
+            <div className="faq-modal-topbar">
+              <div>
+                <h2 id="terms-modal-title">Terms of Use</h2>
+              </div>
+
+              <button type="button" className="faq-close-button" aria-label="Back to site" onClick={() => setActivePopup(null)}>
+                Back to site
+              </button>
+            </div>
+
+            <p className="terms-modal-copy">random szoveg, majd aranypofa megmondja mi legyen ide irva</p>
+          </div>
+        </div>
+      )}
     </div>
         
         
