@@ -69,6 +69,26 @@ body:has(.CalendarDayView-root) .CalendarDayView-Event {
   color: black;
 }
 
+/* új perces grid konténer */
+.CalendarDayView-MinuteGrid {
+  display: grid;
+  grid-template-rows: repeat(1440, 1fr); /* 1440 perc */
+  grid-auto-flow: column; /* több esemény egymás mellett */
+  height: 100%;
+  width: 100%;
+  position: relative;
+  gap: 2px;
+}
+
+/* esemény blokk a perces gridben */
+.CalendarDayView-EventBlock {
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 12px;
+  color: white;
+  overflow: hidden;
+}
+
 /* Mobil nézet */
 @media (max-width: 768px) {
   body:has(.CalendarDayView-root) .CalendarDayView-Header {

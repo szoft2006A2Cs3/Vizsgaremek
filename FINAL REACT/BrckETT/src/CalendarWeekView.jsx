@@ -93,25 +93,28 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
                                 {day.getFullYear()}.{day.getMonth()+1}.{day.getDate()}
                             </div>
 
-                            <div className="CalendarWeekViewDayHours">
-                                {Array.from({ length: 24 }).map(function(_, hour) {
-                                    return (
-                                        <div key={hour} className="CalendarWeekViewHourCell">
-                                            <div className="CalendarWeekViewHourLabel">{hour}:00</div>
-                                            <div className="CalendarWeekViewHourEvents">
-                                                {getEventsForDayAndHour(day, hour).map(ev => (
-                                                    <div
-                                                        key={ev.id}
-                                                        className={`CalendarWeekView-Event ${getPriorityClass(ev.priority)}`}
-                                                    >
-                                                        {ev.title}
-                                                    </div>
-                                                ))}
-                                            </div>
+                            {/* óránkénti sorok helyett 1440 perces grid */}
+                            <div className="CalendarWeekView-MinuteGrid">
+                                {events
+                                    .filter(ev =>
+                                        ev.year === day.getFullYear() &&
+                                        ev.month === (day.getMonth() + 1) &&
+                                        ev.day === day.getDate()
+                                    )
+                                    .map(ev => (
+                                        <div
+                                            key={ev.id}
+                                            className={`CalendarWeekView-EventBlock ${getPriorityClass(ev.priority)}`}
+                                            style={{
+                                                gridRowStart: ev.timeStart,
+                                                gridRowEnd: ev.timeEnd
+                                            }}
+                                        >
+                                            {ev.title}
                                         </div>
-                                    );
-                                })}
+                                    ))}
                             </div>
+
                         </div>
                     );
                 })}
