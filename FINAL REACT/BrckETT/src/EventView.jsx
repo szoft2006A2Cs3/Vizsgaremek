@@ -15,7 +15,7 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
         description : ''
     });
 
-    useEffect(() => {console.log(events)}, [events]);
+    //useEffect(() => {console.log(events)}, [events]);
 
     const [popUpState, setPopUpState] = useState("hidden");
     const [popUpStateUpdate, setPopUpStateUpdate] = useState("hidden");

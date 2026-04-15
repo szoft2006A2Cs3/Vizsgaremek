@@ -57,7 +57,40 @@ body:has(.CalendarweekViewContainer) .CalendarweekViewHeaderTitle {
 body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
     display: flex;
     flex: 1;
-    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursColumn {
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    background: #f0f0f0;
+    border-right: 2px solid #ccc;
+    flex-shrink: 0;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
+    display: grid;
+    grid-template-rows: repeat(1440, 1fr);
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: #333;
+    grid-row: span 60;
+    border-bottom: 1px solid #ddd;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel:nth-child(odd) {
+    background: #fafafa;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
@@ -67,6 +100,8 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
     background: white;
     display: flex;
     flex-direction: column;
+    min-width: 150px;
+    flex-shrink: 0;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn:hover {
@@ -79,6 +114,7 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
     text-align: center;
     font-weight: bold;
     border-bottom: 1px solid #ccc;
+    height: 5%;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHours {
@@ -123,18 +159,25 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewHourEvents {
     margin-top: 4px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    /*gap: 2px;*/
 }
 
 /* új perces grid */
 .CalendarWeekView-MinuteGrid {
     display: grid;
     grid-template-rows: repeat(1440, 1fr);
-    grid-auto-flow: column; /* több esemény egymás mellett */
     height: 100%;
     width: 100%;
     position: relative;
-    gap: 2px;
+    flex: 1;
+    background-image: 
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent calc(100% / 24 - 1px),
+            #e0e0e0 calc(100% / 24 - 1px),
+            #e0e0e0 calc(100% / 24)
+        );
 }
 
 /* esemény blokk */

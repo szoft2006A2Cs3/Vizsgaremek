@@ -52,9 +52,9 @@ function CalendarDayView({ events, onSelectDate, onRangeChange }) {
 
   function getPriorityClass(priority) {
     switch (priority) {
-      case 1: return 'priority-1';
-      case 2: return 'priority-2';
-      case 3: return 'priority-3';
+      case "1": return 'priority-1';
+      case "2": return 'priority-2';
+      case "3": return 'priority-3';
       default: return '';
     }
   }
@@ -65,35 +65,46 @@ function CalendarDayView({ events, onSelectDate, onRangeChange }) {
       <div className='CalendarDayView-Header'>
         <button className='CalendarDayView-Prev' onClick={prevDay}>Previous</button>
 
-        <h2 className='CalendarDayView-Date' onClick={handleDayClick}>
+        <h2 className='CalendarDayView-Date'>
           {year + ". " + monthString + " " + day + ". " + weekDayString}
         </h2>
 
         <button className='CalendarDayView-Next' onClick={nextDay}>Next</button>
       </div>
 
-      <div className='CalendarDayView-Body'>
+      <div className='CalendarDayView-Body' onClick={handleDayClick}>
 
-        {/* lecserélve a 24 órás nézet 1440 perces gridre */}
-        <div className="CalendarDayView-MinuteGrid">
-          {events
-            .filter(ev =>
-              ev.year === year &&
-              ev.month === (month + 1) &&
-              ev.day === day
-            )
-            .map(ev => (
-              <div
-                key={ev.id}
-                className={`CalendarDayView-EventBlock ${getPriorityClass(ev.priority)}`}
-                style={{
-                  gridRowStart: ev.timeStart,   // esemény kezdete percben
-                  gridRowEnd: ev.timeEnd        // esemény vége percben
-                }}
-              >
-                {ev.title}
+        {/* Hours Column */}
+        <div className="CalendarDayView-HoursColumn">
+          <div className="CalendarDayView-HoursGrid">
+            {Array.from({ length: 24 }, (_, hour) => (
+              <div key={hour} className="CalendarDayView-HourLabel">
+                ^{hour}:00
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Day Column */}
+        <div className="CalendarDayView-DayColumn">
+          <div className="CalendarDayView-MinuteGrid">
+            {events
+              .filter(ev =>
+                ev.date ===`${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T00:00:00`
+              )
+              .map(ev => (
+                <div
+                  key={ev.blockId}
+                  className={`CalendarDayView-EventBlock ${getPriorityClass(ev.priority)}`}
+                  style={{
+                    gridRowStart: ev.timeStart+1,   // esemény kezdete percben
+                    gridRowEnd: ev.timeEnd        // esemény vége percben
+                  }}
+                >
+                  {ev.title}
+                </div>
+              ))}
+          </div>
         </div>
 
       </div>

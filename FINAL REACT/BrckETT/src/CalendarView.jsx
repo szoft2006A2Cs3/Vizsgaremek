@@ -44,15 +44,15 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     }, [schedulesList]);
 
     useEffect(() => {
-        console.log(selectedSchedule)
+        //console.log(selectedSchedule)
         if (fromDate && toDate && selectedSchedule) {
             getBlocksFromTo();
-            console.log("FromDate: " + fromDate);
-            console.log("ToDate: " + toDate);
+            //console.log("FromDate: " + fromDate);
+            //console.log("ToDate: " + toDate);
         }
     }, [fromDate, toDate, selectedSchedule]);
     //Ezzel a useeffectel kellene a pontokat berenderelni
-    useEffect(() => {console.log(events)}, [events]);
+    //useEffect(() => {console.log(events)}, [events]);
 
     async function getBlocksFromTo() {
         if (!selectedSchedule) {

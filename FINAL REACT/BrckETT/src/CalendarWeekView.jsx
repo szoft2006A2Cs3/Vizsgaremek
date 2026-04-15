@@ -44,23 +44,12 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
         });
     }
 
-    function getEventsForDayAndHour(day, hour) {
-        const y = day.getFullYear();
-        const m = day.getMonth() + 1;
-        const d = day.getDate();
-        return events.filter(ev =>
-            ev.year === y &&
-            ev.month === m &&
-            ev.day === d &&
-            parseInt(ev.start.split(':')[0], 10) === hour
-        );
-    }
 
     function getPriorityClass(priority) {
         switch (priority) {
-            case 1: return 'priority-1';
-            case 2: return 'priority-2';
-            case 3: return 'priority-3';
+            case "1": return 'priority-1';
+            case "2": return 'priority-2';
+            case "3": return 'priority-3';
             default: return '';
         }
     }
@@ -80,6 +69,21 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
             </div>
 
             <div className="CalendarWeekViewBody">
+                {/* Hours Column */}
+                <div className="CalendarWeekView-HoursColumn">
+                    <div className="CalendarWeekViewDayHeader" style={{ visibility: 'hidden' }}>
+                        Placeholder
+                    </div>
+                    <div className="CalendarWeekView-HoursGrid">
+                        {Array.from({ length: 24 }, (_, hour) => (
+                            <div key={hour} className="CalendarWeekView-HourLabel">
+                                ^{hour}:00
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Day Columns */}
                 {weekDays.map(function(day, index) {
                     return (
                         <div 
@@ -93,29 +97,25 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
                                 {day.getFullYear()}.{day.getMonth()+1}.{day.getDate()}
                             </div>
 
-                            {/* óránkénti sorok helyett 1440 perces grid */}
                             <div className="CalendarWeekView-MinuteGrid">
                                 {events
                                     .filter(ev =>
-                                        ev.year === day.getFullYear() &&
-                                        ev.month === (day.getMonth() + 1) &&
-                                        ev.day === day.getDate()
+                                        ev.date ===`${day.getFullYear()}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${day.getDate().toString().padStart(2, '0')}T00:00:00`
                                     )
                                     .map(ev => (
                                         <div
-                                            key={ev.id}
+                                            key={ev.blockId}
                                             className={`CalendarWeekView-EventBlock ${getPriorityClass(ev.priority)}`}
                                             style={{
-                                                gridRowStart: ev.timeStart,
-                                                gridRowEnd: ev.timeEnd
+                                                gridRowStart: ev.timeStart+1,
+                                                gridRowEnd: ev.timeEnd,
                                             }}
                                         >
                                             {ev.title}
                                         </div>
                                     ))}
                             </div>
-
-                        </div>
+                        </div>        
                     );
                 })}
             </div>

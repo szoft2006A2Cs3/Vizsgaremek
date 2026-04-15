@@ -13,8 +13,8 @@ export default function NotificationComponent({ userData, callAPIFunc, fetchUser
     useEffect(() => {
         setPendingGroups(userData?.pendingGroups?.filter(g => !acceptedGroups.includes(g.groupId)) ?? []);
 
-        console.log(acceptedGroups)
-        console.log(userData?.pendingGroups)
+        //console.log(acceptedGroups)
+        //console.log(userData?.pendingGroups)
 
     }, [userData, acceptedGroups]);
 
