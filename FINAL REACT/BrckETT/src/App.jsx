@@ -166,7 +166,7 @@ function App() {
         <Route path='/contact' element={<ContactUs></ContactUs>}></Route>
         <Route path='/loginReg' element={<LoginModule activeForm={activeForm} logInTrigger={(e)=>setIsLoggedIn(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} setUserFunc={(e) => setUser(e)} callAPIFunc={callAPIInstance}></LoginModule>}></Route>  
       </Routes>
-      <FooterModule setActiveForm={setActiveForm}></FooterModule>
+      {/*<FooterModule setActiveForm={setActiveForm}></FooterModule>*/}
     </>
   )
   

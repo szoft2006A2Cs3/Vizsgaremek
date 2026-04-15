@@ -1,3 +1,22 @@
+body:has(.settings-module).light-mode {
+    --background: #6f3fb3;
+    --fgcolor: #a8fa50;
+    --btnbgcolor: #883ac9d2;
+    --btnhovercolor: #c772ff;
+    --pfpborder: purple;
+    --btnborder: #5a1394d2;
+    --imgUrl: url("/src/assets/logout_Light.png");
+}
+body:has(.settings-module).dark-mode {
+    --background: #362353;
+    --fgcolor: #d19aff;
+    --btnbgcolor: #4e008df7;
+    --btnhovercolor: #6e29a7f7;
+    --pfpborder: #5e3fa7d2;
+    --btnborder: #5e3fa7d2;
+    --imgUrl: url("/src/assets/logout_Dark.png");
+}
+
 body:has(.settings-module) {
     background: linear-gradient(135deg, #1c1c1c, #2d004d);
     min-height: 100vh;
