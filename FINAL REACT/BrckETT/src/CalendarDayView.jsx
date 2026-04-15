@@ -73,24 +73,29 @@ function CalendarDayView({ events, onSelectDate, onRangeChange }) {
       </div>
 
       <div className='CalendarDayView-Body'>
-        {dayViewHours.map(h => (
-          <div 
-            key={h} 
-            className='CalendarDayView-HourRow'
-          >
-            <div className='CalendarDayView-HourLabel'>{h}:00</div>
-            <div className='CalendarDayView-HourContent'>
-              {getEventsForHour(h).map(ev => (
-                <div
-                  key={ev.id}
-                  className={`CalendarDayView-Event ${getPriorityClass(ev.priority)}`}
-                >
-                  {ev.title}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+
+        {/* lecserélve a 24 órás nézet 1440 perces gridre */}
+        <div className="CalendarDayView-MinuteGrid">
+          {events
+            .filter(ev =>
+              ev.year === year &&
+              ev.month === (month + 1) &&
+              ev.day === day
+            )
+            .map(ev => (
+              <div
+                key={ev.id}
+                className={`CalendarDayView-EventBlock ${getPriorityClass(ev.priority)}`}
+                style={{
+                  gridRowStart: ev.timeStart,   // esemény kezdete percben
+                  gridRowEnd: ev.timeEnd        // esemény vége percben
+                }}
+              >
+                {ev.title}
+              </div>
+            ))}
+        </div>
+
       </div>
 
     </div>
