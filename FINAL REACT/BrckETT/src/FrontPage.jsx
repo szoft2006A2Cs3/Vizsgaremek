@@ -293,7 +293,63 @@ const handlePointerUp = (e) => {
               </button>
             </div>
 
-            <p className="terms-modal-copy">random szoveg, majd aranypofa megmondja mi legyen ide irva</p>
+            <div className="terms-modal-copy">
+              <h3>Terms of Use</h3>
+
+              <p><strong>Last Updated: April 15, 2026</strong></p>
+
+              <h4>1. Acceptance of Terms</h4>
+              <p>By accessing and using Brckett ("the Service"), you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+              <h4>2. Use License</h4>
+              <p>Permission is granted to temporarily use the Service for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+              <ul>
+                <li>modify or copy the materials</li>
+                <li>use the materials for any commercial purpose or for any public display</li>
+                <li>attempt to decompile or reverse engineer any software contained on the Service</li>
+                <li>remove any copyright or other proprietary notations from the materials</li>
+              </ul>
+
+              <h4>3. User Account</h4>
+              <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. You are responsible for safeguarding the password and for all activities that occur under your account.</p>
+
+              <h4>4. Privacy Policy</h4>
+              <p>Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the Service, to understand our practices.</p>
+
+              <h4>5. Content</h4>
+              <p>Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, or other material ("Content"). You are responsible for the Content that you post to the Service.</p>
+
+              <h4>6. Prohibited Uses</h4>
+              <p>You may not use our Service:</p>
+              <ul>
+                <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
+                <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
+                <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
+                <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                <li>To submit false or misleading information</li>
+                <li>To upload or transmit viruses or any other type of malicious code</li>
+                <li>To spam, phish, pharm, pretext, spider, crawl, or scrape</li>
+                <li>For any obscene or immoral purpose</li>
+              </ul>
+
+              <h4>7. Termination</h4>
+              <p>We may terminate or suspend your account and bar access to the Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms.</p>
+
+              <h4>8. Limitation of Liability</h4>
+              <p>In no event shall Brckett, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.</p>
+
+              <h4>9. Disclaimer</h4>
+              <p>The information on this Service is provided on an 'as is' basis. To the fullest extent permitted by law, this Company excludes all representations, warranties, conditions and terms whether express or implied, statutory or otherwise.</p>
+
+              <h4>10. Governing Law</h4>
+              <p>These Terms shall be interpreted and governed by the laws of the jurisdiction in which Brckett operates, without regard to its conflict of law provisions.</p>
+
+              <h4>11. Changes to Terms</h4>
+              <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect.</p>
+
+              <h4>12. Contact Information</h4>
+              <p>If you have any questions about these Terms of Use, please contact us through the Contact Us section of our website.</p>
+            </div>
           </div>
         </div>
       )}
