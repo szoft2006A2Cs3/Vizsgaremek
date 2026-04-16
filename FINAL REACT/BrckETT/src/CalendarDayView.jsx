@@ -49,6 +49,9 @@ function CalendarDayView({ events, onSelectDate, onRangeChange }) {
       parseInt(ev.start.split(':')[0], 10) === h
     );
   }
+  function Reset() {
+    setDate(new Date());
+  }
 
   function getPriorityClass(priority) {
     switch (priority) {
@@ -65,7 +68,7 @@ function CalendarDayView({ events, onSelectDate, onRangeChange }) {
       <div className='CalendarDayView-Header'>
         <button className='CalendarDayView-Prev' onClick={prevDay}>Previous</button>
 
-        <h2 className='CalendarDayView-Date'>
+        <h2 className='CalendarDayView-Date' onClick={Reset}>
           {year + ". " + monthString + " " + day + ". " + weekDayString}
         </h2>
 

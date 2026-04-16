@@ -43,7 +43,9 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
             day: day.getDate()
         });
     }
-
+    function Reset() {
+        setCurrentDate(new Date());
+    }
 
     function getPriorityClass(priority) {
         switch (priority) {
@@ -62,7 +64,7 @@ function CalendarWeekView({ events, onSelectDate, onRangeChange }) {
 
             <div className="CalendarweekViewHeader">
                 <button onClick={goToPreviousWeek} className="CalendarWeekViewNavBtn">◀</button>
-                <div className="CalendarweekViewHeaderTitle">
+                <div className="CalendarweekViewHeaderTitle" onClick={Reset}>
                     {year}. {monthName}
                 </div>
                 <button onClick={goToNextWeek} className="CalendarWeekViewNavBtn">▶</button>

@@ -89,36 +89,38 @@ export default function Calendar({ onSelectDate, callAPIFunc, selectedSchedule, 
                 </div>
             </header>
 
-            <div className="CalendarWeekdays">
-                <div>Monday</div>
-                <div>Tuesday</div>
-                <div>Wednesday</div>
-                <div>Thursday</div>
-                <div>Friday</div>
-                <div>Saturday</div>
-                <div>Sunday</div>
-            </div>
-            <div className="Calendar">
-                {days.map((day, index) => {
+            <div className="CalendarGridWrapper">
+                <div className="CalendarWeekdays">
+                    <div>Monday</div>
+                    <div>Tuesday</div>
+                    <div>Wednesday</div>
+                    <div>Thursday</div>
+                    <div>Friday</div>
+                    <div>Saturday</div>
+                    <div>Sunday</div>
+                </div>
+                <div className="Calendar">
+                    {days.map((day, index) => {
 
-                    let classname = "CalendarDiv";
-                    if (day == new Date().getDate() && month == new Date().getMonth()) classname += " highlight";
+                        let classname = "CalendarDiv";
+                        if (day == new Date().getDate() && month == new Date().getMonth()) classname += " highlight";
 
-                    const dayEvents = getEventsForDay(day);
+                        const dayEvents = getEventsForDay(day);
 
-                    return (
-                        <div className={classname}
-                            key={index}
-                            onClick={() =>
-                                day && onSelectDate({ year, month: month + 1, day })
-                            }
-                        >
-                            <div className="CalendarDayNumber">{day}</div>
-                            <div className="CalendarDayEvents">
-                                {drawDots(dayEvents)}
-                            </div>
-                        </div>)
-                })}
+                        return (
+                            <div className={classname}
+                                key={index}
+                                onClick={() =>
+                                    day && onSelectDate({ year, month: month + 1, day })
+                                }
+                            >
+                                <div className="CalendarDayNumber">{day}</div>
+                                <div className="CalendarDayEvents">
+                                    {drawDots(dayEvents)}
+                                </div>
+                            </div>)
+                    })}
+                </div>
             </div>
         </div>
     );

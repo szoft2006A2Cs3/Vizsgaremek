@@ -1,8 +1,8 @@
-body:has(.calendarView-container) { 
-    width: -webkit-fill-available;
-    height: -webkit-fill-available; 
+﻿body:has(.calendarView-container) { 
+    width: 100%;
+    min-height: 100vh; 
     background-color: var(--CWbackground);
-  }
+}
 
 body:has(.calendarView-container).light-mode {
     --CWbackground: #9f74dc;
@@ -21,50 +21,59 @@ body:has(.calendarView-container).dark-mode {
     --CWbtnborder: #5e3fa7d2;
 }
 
-
 .calendarView-container {
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
-    /*margin: 3%;*/
+    width: 100%;
+    min-height: calc(100vh - 5rem);
     margin-top: 5%;
     color: var(--CWfgcolor);
-    
     display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 1rem 1rem;
 }
 
 .calendarView-leftSide {
-  width: 6%;
-  background: var(--CWlistbackground);
-  color: var(--CWfgcolor);
-  overflow: hidden;
-  transition: width 0.3s ease;
-  border-right: 2px solid var(--CWbtnborder);
+    width: 260px;
+    min-width: 220px;
+    max-width: 320px;
+    background: var(--CWlistbackground);
+    color: var(--CWfgcolor);
+    overflow: hidden;
+    transition: width 0.3s ease;
+    border-right: 2px solid var(--CWbtnborder);
+    border-radius: 20px;
 }
 
-/*Nyílik*/
 .calendarView-leftSide:hover {
-  width: 25%;
+    width: 280px;
 }
 
 .leftSide-list {
-  height: 100%;
-  overflow-y: auto;
+    height: calc(100vh - 240px);
+    overflow-y: auto;
+    padding: 1rem;
 }
 
 .leftSide-item {
-  padding: 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  cursor: pointer;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    word-break: break-word;
 }
 
 .leftSide-item:hover {
-  background: var(--CWbtnhovercolor);
+    background: var(--CWbtnhovercolor);
 }
 
 .calendarView-rightSide {
-  flex: 1;
-  background: var(--CWbackground);
+    flex: 1;
+    min-width: 0;
+    background: var(--CWbackground);
+    border-radius: 20px;
+    padding: 18px;
+    overflow: hidden;
 }
+
 .hard-blur {
     background: rgba(103, 40, 145, 0.555) !important;
     backdrop-filter: blur(10px);
@@ -100,8 +109,7 @@ body:has(.calendarView-container).dark-mode {
 .hard-blur input::placeholder {
     color: var(--CWfgcolor) !important;
 }
-.hard-blur button + button
-{
+.hard-blur button + button {
     margin-left: 0px !important;
 }
 .sch-edit-inputs {
@@ -122,31 +130,54 @@ body:has(.calendarView-container).dark-mode {
     transition: all 0.2s ease;
 }
 
-/* Mobil nézet*/
-@media (max-width: 768px) {
-
-    .calendarView-container {
-        flex-direction: column;
-        margin-top: 0 !important;
-    }
-
+@media (max-width: 1024px) {
     .calendarView-leftSide {
-        width: 100% !important;
-        height: auto;
+        width: 100%;
+        max-width: 100%;
         border-right: none;
         border-bottom: 2px solid var(--CWbtnborder);
     }
 
     .calendarView-leftSide:hover {
-        width: 100% !important;
+        width: 100%;
     }
 
     .leftSide-list {
-        max-height: 200px;
+        max-height: 260px;
     }
 
     .calendarView-rightSide {
         width: 100%;
-        padding: 10px;
+        padding: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendarView-container {
+        margin-top: 0;
+        padding: 1rem 0 1rem;
+    }
+
+    .calendarView-leftSide {
+        width: 100%;
+        order: 2;
+        border-radius: 18px;
+    }
+
+    .calendarView-rightSide {
+        width: 100%;
+        order: 1;
+    }
+
+    .leftSide-list {
+        max-height: 220px;
+    }
+
+    .sch-edit-inputs {
+        flex-direction: column;
+    }
+
+    .hard-blur button {
+        width: 100%;
     }
 }

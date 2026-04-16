@@ -160,7 +160,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         } 
         catch (error) 
         {
-            alert(error)
+            alert("Sikertelen bejelentkezés! Kérem ellenőrizze a megadott adatokat.")
         } 
     }
 

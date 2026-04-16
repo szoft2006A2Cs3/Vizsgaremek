@@ -1,3 +1,5 @@
+
+
 body:has(.CalendarDayView-root).light-mode {
     --background: #6f3fb3;
     --fgcolor: #a8fa50;
@@ -76,7 +78,6 @@ body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
   flex-direction: column;
   width: 60px;
   background: #f0f0f0;
-  border-right: 2px solid #ccc;
   flex-shrink: 0;
 }
 
@@ -120,6 +121,8 @@ body:has(.CalendarDayView-root) .CalendarDayView-root {
   flex-direction: column;
   height: 100vh;
   background: #f8f8f8;
+  padding-right: 8px;
+  overflow: hidden;
 }
 
 body:has(.CalendarDayView-root) .CalendarDayView-Event {
@@ -174,18 +177,33 @@ body:has(.CalendarDayView-root) .CalendarDayView-Event {
 
 /* Mobil nézet */
 @media (max-width: 768px) {
+  body:has(.CalendarDayView-root) .CalendarDayView-root {
+    padding-right: 4px;
+  }
+
   body:has(.CalendarDayView-root) .CalendarDayView-Header {
     flex-direction: column;
     gap: 8px;
+    padding: 8px;
+  }
+
+  body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
+    width: 40px;
   }
 
   body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
-    width: 45px;
-    font-size: 0.75rem;
+    width: 35px;
+    font-size: 0.7rem;
   }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-HourRow {
-    padding: 4px;
+  body:has(.CalendarDayView-root) .CalendarDayView-Prev,
+  body:has(.CalendarDayView-root) .CalendarDayView-Next {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  body:has(.CalendarDayView-root) .CalendarDayView-Body {
+    overflow-x: hidden;
   }
 
   body:has(.CalendarDayView-root) .CalendarDayView-Event {
