@@ -266,10 +266,120 @@ body:has(.calendarView-container) .CalendarDotPlus
         flex-direction: column;
     }
 
-    .calendarView-leftSide {
-        width: 100%;
-        order: 2;
-    }
+    body:has(.calendarView-container) .calendarView-container {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    min-height: 100vh;
+    background: var(--background);
+    box-sizing: border-box;
+}
+
+/* BAL OLDAL */
+body:has(.calendarView-container) .calendarView-leftSide {
+    width: 320px;
+    min-width: 280px;
+    max-width: 340px;
+    padding: 20px;
+    border-radius: 28px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    border: 1px solid var(--btnborder);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    color: var(--fgcolor);
+}
+
+/* A belső wrapper */
+body:has(.calendarView-container) .leftSide {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 18px;
+}
+
+/* Lista blokk */
+body:has(.calendarView-container) .leftSide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Scrollbar */
+body:has(.calendarView-container) .leftSide-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+body:has(.calendarView-container) .leftSide-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body:has(.calendarView-container) .leftSide-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+}
+
+/* Egy schedule elem */
+body:has(.calendarView-container) .leftSide-item {
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--fgcolor);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    word-break: break-word;
+}
+
+body:has(.calendarView-container) .leftSide-item:hover {
+    transform: translateY(-2px);
+    background: var(--btnbgcolor);
+    border-color: var(--btnborder);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+/* Kijelölt schedule */
+body:has(.calendarView-container) .leftSide-item.active {
+    background: linear-gradient(135deg, var(--btnbgcolor), var(--btnhovercolor));
+    color: white;
+    border: 1px solid var(--fgcolor);
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.08),
+        0 10px 24px rgba(0,0,0,0.22);
+}
+
+/* Gombok alul */
+body:has(.calendarView-container) .leftSide button {
+    border: 1px solid var(--btnborder);
+    background: var(--btnbgcolor);
+    color: var(--fgcolor);
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+body:has(.calendarView-container) .leftSide button:hover {
+    background: var(--btnhovercolor);
+    transform: translateY(-2px);
+}
+
+body:has(.calendarView-container) .leftSide button:active {
+    transform: scale(0.98);
+}   
 
     .calendarView-rightSide {
         width: 100%;

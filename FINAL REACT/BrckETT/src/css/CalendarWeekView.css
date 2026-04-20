@@ -1,85 +1,115 @@
-﻿body:has(.CalendarweekViewContainer).light-mode {
-    --background: #6f3fb3;
-    --fgcolor: #a8fa50;
-    --btnbgcolor: #883ac9d2;
-    --btnhovercolor: #c772ff;
-    --pfpborder: purple;
-    --btnborder: #5a1394d2;
-    --imgUrl: url("/src/assets/logout_Light.png");
+/* Week View Styling */
+
+body:has(.CalendarweekViewContainer).light-mode .CalendarweekViewContainer {
+    --wv-bg: #8a5fd6;
+    --wv-card: #742eff;
+    --wv-text: #a8fa50;
+    --wv-border: #c772ff;
+    --wv-header: #883ac9d2;
+    --wv-btn-hover: #c772ff;
+    --wv-accent: #00FFF7;
 }
-body:has(.CalendarweekViewContainer).dark-mode {
-    --background: #362353;
-    --fgcolor: #d19aff;
-    --btnbgcolor: #4e008df7;
-    --btnhovercolor: #6e29a7f7;
-    --pfpborder: #5e3fa7d2;
-    --btnborder: #5e3fa7d2;
-    --imgUrl: url("/src/assets/logout_Dark.png");
+
+body:has(.CalendarweekViewContainer).dark-mode .CalendarweekViewContainer {
+    --wv-bg: #1a1a2e;
+    --wv-card: #4e008df7;
+    --wv-text: #d19aff;
+    --wv-border: #6e29a7f7;
+    --wv-header: #362353;
+    --wv-btn-hover: #7F2982;
+    --wv-accent: #0cc0df;
+}
+
+body:has(.CalendarweekViewContainer) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 4rem);
+    height: 100%;
     width: 100%;
-    background: #f8f8f8;
-    padding: 1rem;
+    background: var(--wv-bg);
+    padding: 12px;
     box-sizing: border-box;
 }
 
+/* Header */
 body:has(.CalendarweekViewContainer) .CalendarweekViewHeader {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #007bff;
-    color: white;
-    padding: 12px 16px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    background: var(--wv-header);
+    color: var(--wv-text);
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 700;
     flex-wrap: wrap;
-    gap: 10px;
-    border-radius: 14px;
+    gap: 12px;
+    border-radius: 10px;
+    border: 2px solid var(--wv-border);
+    margin-bottom: 14px;
 }
 
+/* Navigation Buttons */
 body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn {
-    background: white;
-    border: none;
-    padding: 8px 14px;
-    margin: 0 12px;
+    background: var(--wv-card);
+    color: var(--wv-text);
+    border: 2px solid var(--wv-border);
+    padding: 7px 12px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
-    min-width: 44px;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 40px;
+    transition: all 0.3s ease;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn:hover {
-    background: #e6e6e6;
+    background: var(--wv-btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Header Title */
 body:has(.CalendarweekViewContainer) .CalendarweekViewHeaderTitle {
-    min-width: 180px;
     text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    min-width: 160px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+body:has(.CalendarweekViewContainer) .CalendarweekViewHeaderTitle:hover {
+    color: var(--wv-accent);
+    text-shadow: 0 0 6px var(--wv-accent);
+}
+
+/* Body Container */
 body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
     display: flex;
     flex: 1;
     overflow-x: auto;
     overflow-y: hidden;
+    gap: 8px;
+    margin-bottom: 8px;
     min-height: 600px;
-    gap: 12px;
-    margin-top: 16px;
 }
 
+/* Hours Column */
 body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursColumn {
     display: flex;
     flex-direction: column;
-    width: 60px;
-    background: #f0f0f0;
-    border-right: 2px solid #ccc;
+    width: 70px;
+    background: rgba(0, 0, 0, 0.2);
+    border-right: 2px solid var(--wv-border);
     flex-shrink: 0;
-    border-radius: 14px;
+    border-radius: 10px;
     overflow: hidden;
+    position: sticky;
+    left: 0;
+    z-index: 10;
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
@@ -91,47 +121,64 @@ body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
     min-height: 720px;
 }
 
+/* Hour Labels */
 body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    color: var(--wv-text);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     min-height: 30px;
 }
 
-body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel:nth-child(odd) {
-    background: #fafafa;
+body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
 }
 
+/* Day Column */
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
     flex: 1;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid var(--wv-border);
     cursor: pointer;
-    background: white;
+    background: var(--wv-card);
     display: flex;
     flex-direction: column;
     min-width: 160px;
     flex-shrink: 0;
     min-height: 720px;
-    border-radius: 14px;
+    border-radius: 10px;
     overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn:hover {
-    background: #f0f7ff;
+    background: var(--wv-btn-hover);
+    border-color: var(--wv-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Day Header */
 body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
-    background: #e3e3e3;
+    background: var(--wv-header);
     padding: 10px;
     text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
+    font-weight: 700;
+    border-bottom: 2px solid var(--wv-border);
+    color: var(--wv-text);
+    font-size: 12px;
+    line-height: 1.4;
 }
 
+body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader:not([style*="visibility"]) {
+    color: var(--wv-text);
+}
+
+/* Minute Grid */
 body:has(.CalendarweekViewContainer) .CalendarWeekView-MinuteGrid {
     display: grid;
     grid-template-rows: repeat(1440, minmax(0, 1fr));
@@ -142,14 +189,15 @@ body:has(.CalendarweekViewContainer) .CalendarWeekView-MinuteGrid {
         to bottom,
         transparent 0px,
         transparent calc(100% / 24 - 1px),
-        #e0e0e0 calc(100% / 24 - 1px),
-        #e0e0e0 calc(100% / 24)
+        rgba(0, 0, 0, 0.1) calc(100% / 24 - 1px),
+        rgba(0, 0, 0, 0.1) calc(100% / 24)
     );
 }
 
+/* Event Block */
 body:has(.CalendarweekViewContainer) .CalendarWeekView-EventBlock {
-    border-radius: 4px;
-    padding: 4px;
+    border-radius: 5px;
+    padding: 5px;
     font-size: 11px;
     color: white;
     overflow: hidden;
@@ -157,63 +205,182 @@ body:has(.CalendarweekViewContainer) .CalendarWeekView-EventBlock {
     z-index: 1;
     display: flex;
     align-items: center;
+    margin: 1px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
+body:has(.CalendarweekViewContainer) .CalendarWeekView-EventBlock:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Priority Colors */
 body:has(.CalendarweekViewContainer) .priority-1 {
-    background-color: #ff0000 !important;
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+    color: white;
 }
 
 body:has(.CalendarweekViewContainer) .priority-2 {
-    background-color: aqua !important;
-    color: black !important;
+    background: linear-gradient(135deg, #ffa500, #cc8400) !important;
+    color: white;
 }
 
 body:has(.CalendarweekViewContainer) .priority-3 {
-    background-color: yellow !important;
-    color: black !important;
+    background: linear-gradient(135deg, #ffeb3b, #ccb800) !important;
+    color: black;
 }
 
+/* Scrollbar Styling */
+body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar {
+    height: 6px;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-thumb {
+    background: var(--wv-border);
+    border-radius: 3px;
+}
+
+body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-thumb:hover {
+    background: var(--wv-btn-hover);
+}
+
+/* Tablet */
 @media (max-width: 1024px) {
     body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
         min-height: 640px;
     }
+
     body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
         min-width: 140px;
+        min-height: 640px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewHeader {
+        font-size: 14px;
+        padding: 12px 14px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
+        font-size: 10px;
     }
 }
 
+/* Mobile (Portrait) */
 @media (max-width: 768px) {
+    body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {
+        padding: 8px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarweekViewHeader {
+        flex-direction: column;
+        font-size: 13px;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarweekViewHeaderTitle {
+        min-width: auto;
+        font-size: 13px;
+    }
+
     body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
         flex-direction: column;
         overflow-x: hidden;
         overflow-y: auto;
+        min-height: auto;
+        gap: 6px;
     }
 
     body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursColumn {
         width: 100%;
         border-right: none;
-        border-bottom: 2px solid #ccc;
-        border-radius: 14px;
+        border-bottom: 2px solid var(--wv-border);
+        border-radius: 10px;
     }
 
     body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
         min-width: 100%;
+        min-height: 400px;
         border-right: none;
-        border-bottom: 2px solid #ccc;
-        min-height: 500px;
+        border-bottom: 2px solid var(--wv-border);
     }
 
-    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
-        font-size: 1rem;
-        padding: 10px;
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
+        min-height: 300px;
     }
 
     body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
-        font-size: 10px;
-        min-height: 26px;
+        font-size: 9px;
+        min-height: 25px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
+        font-size: 11px;
+        padding: 8px;
     }
 
     body:has(.CalendarweekViewContainer) .CalendarWeekView-EventBlock {
-        font-size: 0.85rem;
+        font-size: 10px;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {
+        padding: 6px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarweekViewHeader {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewNavBtn {
+        padding: 5px 8px;
+        font-size: 11px;
+        min-width: 36px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewBody {
+        min-height: auto;
+        gap: 4px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursColumn {
+        border-bottom: 1px solid var(--wv-border);
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayColumn {
+        min-height: 350px;
+        border-bottom: 1px solid var(--wv-border);
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
+        font-size: 8px;
+        min-height: 20px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekViewDayHeader {
+        font-size: 10px;
+        padding: 6px;
+    }
+
+    body:has(.CalendarweekViewContainer) .CalendarWeekView-EventBlock {
+        font-size: 9px;
+        padding: 3px;
+        margin: 0.5px;
     }
 }

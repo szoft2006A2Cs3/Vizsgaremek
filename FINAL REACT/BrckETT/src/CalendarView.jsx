@@ -206,23 +206,27 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
         , [selectedSchedule]);
 
     function renderScheduleList() {
-        return (
-            <div className='leftSide'>
-                <div className="leftSide-list">
-                    {schedulesList.map(function (schedule, index) {
-                        return (
-                            <div key={index} className="leftSide-item" onClick={() => { setSelectedSchedule(schedule) }}>
-                                {schedule.scheduleInfo}
-                            </div>
-                        );
-                    })}
-                </div>
-
-                <button onClick={() => setCreateSchedulePopup("visible")}>Create New</button>
-                <button onClick={() => {setEditSchedulePopup("visible")}}>Edit Selected</button>
+    return (
+        <div className='leftSide'>
+            <div className="leftSide-list">
+                {schedulesList.map(function (schedule, index) {
+                    return (
+                        <div
+                            key={index}
+                            className={`leftSide-item ${selectedSchedule?.scheduleId === schedule.scheduleId ? "active" : ""}`}
+                            onClick={() => { setSelectedSchedule(schedule) }}
+                        >
+                            {schedule.scheduleInfo}
+                        </div>
+                    );
+                })}
             </div>
-        );
-    }
+
+            <button onClick={() => setCreateSchedulePopup("visible")}>Create New</button>
+            <button onClick={() => {setEditSchedulePopup("visible")}}>Edit Selected</button>
+        </div>
+    );
+}
 
 
     return (

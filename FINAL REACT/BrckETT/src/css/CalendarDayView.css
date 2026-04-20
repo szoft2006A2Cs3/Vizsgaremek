@@ -1,213 +1,299 @@
-
+/* Day View Styling */
 
 body:has(.CalendarDayView-root).light-mode {
-    --background: #6f3fb3;
-    --fgcolor: #a8fa50;
-    --btnbgcolor: #883ac9d2;
-    --btnhovercolor: #c772ff;
-    --pfpborder: purple;
-    --btnborder: #5a1394d2;
-    --imgUrl: url("/src/assets/logout_Light.png");
+    --dv-bg: #362353;
+    --dv-card: #8a5fd6;
+    --dv-text: #a8fa50;
+    --dv-border: #c772ff;
+    --dv-header: #742eff;
+    --dv-btn-bg: #883ac9d2;
+    --dv-btn-hover: #c772ff;
+    --dv-accent: #00FFF7;
 }
+
 body:has(.CalendarDayView-root).dark-mode {
-    --background: #362353;
-    --fgcolor: #d19aff;
-    --btnbgcolor: #4e008df7;
-    --btnhovercolor: #6e29a7f7;
-    --pfpborder: #5e3fa7d2;
-    --btnborder: #5e3fa7d2;
-    --imgUrl: url("/src/assets/logout_Dark.png");
+    --dv-bg: #1a1a2e;
+    --dv-card: #4e008df7;
+    --dv-text: #d19aff;
+    --dv-border: #6e29a7f7;
+    --dv-header: #362353;
+    --dv-btn-bg: #4e008df7;
+    --dv-btn-hover: #7F2982;
+    --dv-accent: #0cc0df;
 }
 
+body:has(.CalendarDayView-root) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--dv-bg);
+    padding: 12px;
+    overflow: hidden;
+}
+
+/* Header */
 body:has(.CalendarDayView-root) .CalendarDayView-Header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #007bff;
-  color: white;
-  padding: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  gap: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--dv-header);
+    color: var(--dv-text);
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    gap: 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    border: 2px solid var(--dv-border);
 }
 
+/* Navigation Buttons */
 body:has(.CalendarDayView-root) .CalendarDayView-Prev,
 body:has(.CalendarDayView-root) .CalendarDayView-Next {
-  background: white;
-  color: #333;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
+    background: var(--dv-btn-bg);
+    color: var(--dv-text);
+    border: 2px solid var(--dv-border);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 body:has(.CalendarDayView-root) .CalendarDayView-Prev:hover,
 body:has(.CalendarDayView-root) .CalendarDayView-Next:hover {
-  background: #e6e6e6;
+    background: var(--dv-btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Date Display */
 body:has(.CalendarDayView-root) .CalendarDayView-Date {
-  cursor: pointer;
-  margin: 0;
-  flex: 1;
-  text-align: center;
+    cursor: pointer;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 200px;
+    transition: all 0.3s ease;
 }
 
-body:has(.CalendarDayView-root) .CalendarDayView-HourRow {
-  display: none;
+body:has(.CalendarDayView-root) .CalendarDayView-Date:hover {
+    color: var(--dv-accent);
+    text-shadow: 0 0 8px var(--dv-accent);
 }
 
-body:has(.CalendarDayView-root) .CalendarDayView-HourRow:hover {
-  display: none;
-}
-
-body:has(.CalendarDayView-root) .CalendarDayView-HourContent {
-  display: none;
-}
-
+/* Body Container */
 body:has(.CalendarDayView-root) .CalendarDayView-Body {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  cursor: pointer;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    cursor: pointer;
+    gap: 8px;
+    border-radius: 10px;
+    border: 2px solid var(--dv-border);
+    background: var(--dv-card);
 }
 
+/* Hours Column */
 body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
-  display: flex;
-  flex-direction: column;
-  width: 60px;
-  background: #f0f0f0;
-  flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    background: rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    border-right: 2px solid var(--dv-border);
 }
 
 body:has(.CalendarDayView-root) .CalendarDayView-HoursGrid {
-  display: grid;
-  grid-template-rows: repeat(1440, 1fr);
-  flex: 1;
-  overflow: hidden;
-  position: relative;
+    display: grid;
+    grid-template-rows: repeat(1440, 1fr);
+    flex: 1;
+    overflow: hidden;
+    position: relative;
 }
 
+/* Hour Labels */
 body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: bold;
-  color: #333;
-  grid-row: span 60;
-  border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dv-text);
+    grid-row: span 60;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
 }
 
-body:has(.CalendarDayView-root) .CalendarDayView-HourLabel:nth-child(odd) {
-  background: #fafafa;
+body:has(.CalendarDayView-root) .CalendarDayView-HourLabel:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
 }
 
+/* Day Column */
 body:has(.CalendarDayView-root) .CalendarDayView-DayColumn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: white;
-  overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--dv-card);
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
-body:has(.CalendarDayView-root) {
-  background-color: #f8f8f8;
-}
-
-body:has(.CalendarDayView-root) .CalendarDayView-root {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: #f8f8f8;
-  padding-right: 8px;
-  overflow: hidden;
-}
-
-body:has(.CalendarDayView-root) .CalendarDayView-Event {
-  padding: 3px 6px;
-  border-radius: 6px;
-  margin-bottom: 3px;
-  font-size: 0.8rem;
-  color: black;
-}
-
-.priority-1 {
-  background-color: #ff0000 !important;
-  color: white;
-}
-
-.priority-2 {
-  background-color: aqua !important;
-  color: black;
-}
-
-.priority-3 {
-  background-color: yellow !important;
-  color: black;
-}
-
-/* új perces grid konténer */
+/* Minute Grid */
 .CalendarDayView-MinuteGrid {
-  display: grid;
-  grid-template-rows: repeat(1440, 1fr);
-  height: 100%;
-  width: 100%;
-  position: relative;
-  flex: 1;
-  background-image: 
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent calc(100% / 24 - 1px),
-      #e0e0e0 calc(100% / 24 - 1px),
-      #e0e0e0 calc(100% / 24)
+    display: grid;
+    grid-template-rows: repeat(1440, 1fr);
+    height: 100%;
+    width: 100%;
+    position: relative;
+    flex: 1;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent calc(100% / 24 - 1px),
+        rgba(0, 0, 0, 0.1) calc(100% / 24 - 1px),
+        rgba(0, 0, 0, 0.1) calc(100% / 24)
     );
 }
 
-/* esemény blokk a perces gridben */
+/* Event Block */
 .CalendarDayView-EventBlock {
-  border-radius: 4px;
-  padding: 4px;
-  font-size: 12px;
-  color: white;
-  overflow: hidden;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 12px;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 2px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
 }
 
-/* Mobil nézet */
+.CalendarDayView-EventBlock:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Priority Colors */
+.priority-1 {
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+    color: white;
+}
+
+.priority-2 {
+    background: linear-gradient(135deg, #ffa500, #cc8400) !important;
+    color: white;
+}
+
+.priority-3 {
+    background: linear-gradient(135deg, #ffeb3b, #ccb800) !important;
+    color: black;
+}
+
+/* Scrollbar Styling */
+body:has(.CalendarDayView-root) .CalendarDayView-DayColumn::-webkit-scrollbar {
+    width: 6px;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-DayColumn::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-DayColumn::-webkit-scrollbar-thumb {
+    background: var(--dv-border);
+    border-radius: 3px;
+}
+
+body:has(.CalendarDayView-root) .CalendarDayView-DayColumn::-webkit-scrollbar-thumb:hover {
+    background: var(--dv-btn-hover);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    body:has(.CalendarDayView-root) .CalendarDayView-root {
+        padding: 10px;
+    }
+
+    body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
+        width: 60px;
+    }
+
+    body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
+        font-size: 10px;
+    }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
-  body:has(.CalendarDayView-root) .CalendarDayView-root {
-    padding-right: 4px;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-root {
+        padding: 8px;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-Header {
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-Header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+        font-size: 16px;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
-    width: 40px;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-Prev,
+    body:has(.CalendarDayView-root) .CalendarDayView-Next {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
-    width: 35px;
-    font-size: 0.7rem;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-Date {
+        font-size: 14px;
+        min-width: auto;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-Prev,
-  body:has(.CalendarDayView-root) .CalendarDayView-Next {
-    padding: 6px 10px;
-    font-size: 14px;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
+        width: 50px;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-Body {
-    overflow-x: hidden;
-  }
+    body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
+        font-size: 9px;
+        grid-row: span 60;
+    }
 
-  body:has(.CalendarDayView-root) .CalendarDayView-Event {
-    font-size: 0.75rem;
-    padding: 2px 4px;
-  }
+    .CalendarDayView-EventBlock {
+        font-size: 11px;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    body:has(.CalendarDayView-root) .CalendarDayView-root {
+        padding: 6px;
+    }
+
+    body:has(.CalendarDayView-root) .CalendarDayView-Header {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    body:has(.CalendarDayView-root) .CalendarDayView-HoursColumn {
+        width: 40px;
+    }
+
+    body:has(.CalendarDayView-root) .CalendarDayView-HourLabel {
+        font-size: 8px;
+    }
+
+    .CalendarDayView-EventBlock {
+        font-size: 10px;
+        padding: 3px;
+    }
 }
