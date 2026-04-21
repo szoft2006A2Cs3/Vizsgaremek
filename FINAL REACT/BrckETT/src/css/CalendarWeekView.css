@@ -252,7 +252,7 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-th
     background: var(--wv-btn-hover);
 }
 
-/* Tablet */
+/* Tablet 
 @media (max-width: 1024px) {
     body:has(.CalendarweekViewContainer) .CalendarWeekView-HoursGrid {
         min-height: 640px;
@@ -271,9 +271,9 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-th
     body:has(.CalendarweekViewContainer) .CalendarWeekView-HourLabel {
         font-size: 10px;
     }
-}
+}*/
 
-/* Mobile (Portrait) */
+/* Mobile (Portrait) 
 @media (max-width: 768px) {
     body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {
         padding: 8px;
@@ -336,7 +336,7 @@ body:has(.CalendarweekViewContainer) .CalendarWeekViewBody::-webkit-scrollbar-th
         font-size: 10px;
         padding: 4px;
     }
-}
+}*/
 
 @media (max-width: 480px) {
     body:has(.CalendarweekViewContainer) .CalendarweekViewContainer {

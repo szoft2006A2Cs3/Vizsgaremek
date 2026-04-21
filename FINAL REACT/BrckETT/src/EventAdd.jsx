@@ -13,6 +13,9 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel, u
     }
     let res = addEventFunc ? addEventFunc : updateEventFunc;
 
+    
+
+
     return (
         <div className="overlay">
             <div className="modal">
@@ -24,7 +27,14 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel, u
                     <input
                         type="time"
                         value={convertMinutesToTime(formData.timeStart)}
-                        onChange={e => setFormData({ ...formData, timeStart: convertTimeToMinutes(e.target.value) })}
+                        onChange={e => {
+                            const newStart = convertTimeToMinutes(e.target.value);
+                            // Cap start time to 23:54 (1434 minutes)
+                            const cappedStart = Math.min(newStart, 1434);
+                            // If end time is not at least 5 minutes more than start, adjust it
+                            const newEnd = Math.max(formData.timeEnd, cappedStart + 5);
+                            setFormData({ ...formData, timeStart: cappedStart, timeEnd: newEnd });
+                        }} 
                     />
                 </div>
                 <div className="modalRow">
@@ -32,7 +42,12 @@ export default function EventAdd({addEventFunc,formData,setFormData, onCancel, u
                     <input
                         type="time"
                         value={convertMinutesToTime(formData.timeEnd)}
-                        onChange={e => setFormData({ ...formData, timeEnd: convertTimeToMinutes(e.target.value) })}
+                        onChange={e => {
+                            const newEnd = convertTimeToMinutes(e.target.value);
+                            // Ensure end is at least 5 minutes more than start
+                            const validEnd = Math.max(newEnd, formData.timeStart + 5);
+                            setFormData({ ...formData, timeEnd: validEnd });
+                        }}
                     />
                 </div>
                 <input
