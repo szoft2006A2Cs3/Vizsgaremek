@@ -8,7 +8,7 @@ export default function EventView({ date, events, setEvents, onBack, callAPIFunc
     const [formData,setFormData] = useState({
         blockId:0,
         timeStart : 0,
-        timeEnd : 0,
+        timeEnd : 5,
         eventName : '',
         priority : '1',
         date: new Date(date.year, date.month - 1, date.day),

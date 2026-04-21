@@ -12,9 +12,11 @@ export default function ContactUs(){
     <p><span>You can contact us through the following channels:</span></p> 
     
     <ul> 
-        <li>Email: IstvanTheSaint@magyar.kiraly.hu</li> 
-        <li>Phone: +36 70 420 6767</li> 
-        <li>Address: idk, a bar probably</li>
+        <li>fulop.laszlo.andras@gmail.com</li> 
+        <li>feher.agoston07@gmail.com</li>
+        <li>muller.balint06@gmail.com</li>
+        <li>Phone: +36 20 123 4567</li> 
+        <li>Address: Szombathely, Hungary</li>
     </ul> 
     
     </div> 
