@@ -208,6 +208,9 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
     function renderScheduleList() {
     return (
         <div className='leftSide'>
+            <div className="leftSide-header">
+                <h3>Schedules</h3>
+            </div>
             <div className="leftSide-list">
                 {schedulesList.map(function (schedule, index) {
                     return (
@@ -222,8 +225,10 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                 })}
             </div>
 
-            <button onClick={() => setCreateSchedulePopup("visible")}>Create New</button>
-            <button onClick={() => {setEditSchedulePopup("visible")}}>Edit Selected</button>
+            <div className="leftSide-buttons">
+                <button onClick={() => setCreateSchedulePopup("visible")}>Create New</button>
+                <button onClick={() => {setEditSchedulePopup("visible")}}>Edit Selected</button>
+            </div>
         </div>
     );
 }

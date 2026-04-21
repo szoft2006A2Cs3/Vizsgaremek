@@ -1,240 +1,495 @@
+/* ===== Color Theme Variables ===== */
 body:has(.profile-container).light-mode {
-    --background: #6f3fb3;
+    --primary-gradient: linear-gradient(135deg, #6f3fb3 0%, #c772ff 100%);
+    --secondary-gradient: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
     --fgcolor: #a8fa50;
-    --btnbgcolor: #883ac9d2;
-    --btnhovercolor: #c772ff;
-    --pfpborder: purple;
-    --btnborder: #5a1394d2;
-    --imgUrl: url("/src/assets/logout_Light.png");
+    --bg-dark: #3d2369;
+    --card-bg: #5a3fa0;
+    --shadow: rgba(0, 0, 0, 0.4);
 }
+
 body:has(.profile-container).dark-mode {
-    --background: #362353;
+    --primary-gradient: linear-gradient(135deg, #362353 0%, #5e3fa7 100%);
+    --secondary-gradient: linear-gradient(135deg, #4a2570 0%, #6e29a7 100%);
     --fgcolor: #d19aff;
-    --btnbgcolor: #4e008df7;
-    --btnhovercolor: #6e29a7f7;
-    --pfpborder: #5e3fa7d2;
-    --btnborder: #5e3fa7d2;
-    --imgUrl: url("/src/assets/logout_Dark.png");
+    --bg-dark: #1a1630;
+    --card-bg: #2d1e52;
+    --shadow: rgba(0, 0, 0, 0.6);
 }
 
-body:has(.profile-container)
-{
-    background-color: var(--background);
+/* ===== Base Styles ===== */
+body:has(.profile-container) {
+    background: var(--primary-gradient);
+    background-attachment: fixed;
     color: var(--fgcolor);
-    height: -webkit-fill-available;
-}
-
-.profile-container
-{
-    align-items: center;
-    justify-items: center;
-    max-width: 1280px;
-    max-height: 1280px;
-    display: grid;
-    height: 100%;
-    width: 100%;
-    
-    grid-template: 1fr 4fr 1fr 0.5fr/1fr 8fr 1fr;
-}
-.profile-container #profileIMG
-{
-    width: 50%;
-    border-radius: 100%;
-    border: var(--pfpborder) 10px solid;
-}
-.profile-container #Name
-{
-    font-size: 50px;
-    font-weight: bold;
+    min-height: 100vh;
     margin: 0;
-}
-.profile-container #UName
-{
-    margin: 1px;
-}
-.profile-container .center-piece
-{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    grid-row: 2/3;
-    grid-column: 2/3;
-    max-width: 700px;
-    max-height: 700px;
-}
-.profile-container .button-panel
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 100px;
-    grid-template-rows: 1fr;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-
-    gap: 15px;
-    grid-row: 3/4;
-    grid-column: 2/3;
-}
-.profile-container div.button-panel a
-{
-    
-    height: 90%;
-}
-.profile-container div.button-panel a:hover
-{
-    transform: scale(1.1);
-    font-size: 30px;
-}
-
-.profile-container div.button-panel button
-{
-    flex: 1;
-    margin: 0;
-    padding: 12px 18px;
-    height: 100%;
-    /*max-height: 100px;*/
-    width: 90%;
-    border: var(--btnborder) 3px solid;
-
-    background-color: var(--btnbgcolor);
-    color: var(--fgcolor);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.profile-container div.button-panel button link-text
-{
-    color: var(--fgcolor);
-    font-size: 25px;
-    font-weight: 700;
-    text-align: center;
-}
-.profile-container #Logout-Btn
-{
-    flex: 0;
-    max-width: 80px;
-    max-height: 80px;
-    aspect-ratio: 1/1;
     padding: 0;
 }
-.profile-container #Logout-Btn a
-{
-    height: 100%;
-    width: 100%;
-    color: var(--fgcolor);
-}
-.profile-container .logoutIcon
-{
-    width: 80%;
-    height: 80%;
-    padding: 10%;
-    content: var(--imgUrl);
-}
-.profile-container div.button-panel > button:hover
-{
-    border: var(--btnborder) 3px solid;
 
-    background-color: var(--btnhovercolor);
-    color: var(--fgcolor);
-}
-.profile-container .name-notif-container
-{
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     width: 100%;
+    padding: 40px 20px;
+    gap: 50px;
+    box-sizing: border-box;
 }
 
-.profile-container #notification-icon
-{
-    aspect-ratio: 1/1;
-    width: 30%;
-    font-weight: bold;
+/* ===== Profile Greeting Section ===== */
+.profile-greeting {
+    width: 100%;
+    max-width: 900px;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    gap: 30px;
+    box-shadow: 0 12px 40px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.profile-banner:hover {
+    transform: translateY(-8px);
+    border-color: var(--fgcolor);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 60px var(--shadow);
+}
+
+.profile-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex: 1;
+}
+
+.avatar-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid var(--fgcolor);
+    object-fit: cover;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.avatar-link:hover .profile-avatar {
+    transform: scale(1.08);
+    border-color: var(--fgcolor);
+}
+
+.profile-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.greeting-name {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: #c1ff72;
+    letter-spacing: -0.5px;
+}
+
+.greeting-username {
+    font-size: 16px;
+    color: var(--fgcolor);
+    opacity: 0.9;
+    margin: 0;
+}
+
+.user-role {
+    display: inline-block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    background: rgba(193, 255, 114, 0.2);
+    border-radius: 20px;
+    color: #c1ff72;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.notification-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #ED6B86, #E0777D);
+    border: 2px solid white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(237, 107, 134, 0.5);
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    background-color: red;
-    border-radius: 100%;
+    font-weight: 700;
+    font-size: 20px;
     line-height: 1;
+    text-decoration: none;
+    font-family: inherit;
+}
 
+.notification-btn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 18px rgba(237, 107, 134, 0.7);
+    background: linear-gradient(135deg, #ED6B86, #f0939e);
+    border-color: #c1ff72;
+}
+
+.notification-btn:active {
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(237, 107, 134, 0.5);
+}
+
+/* ===== Actions Grid ===== */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.action-card-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 25px 20px;
+    border-radius: 16px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    box-shadow: 0 10px 30px var(--shadow);
+}
+
+/* Card specific gradients */
+.card-schedules {
+    background: linear-gradient(135deg, #742eff, #5e17eb);
+    border-color: #a78bfa;
+}
+
+.card-groups {
+    background: linear-gradient(135deg, #23CE6B, #06BCC1);
+    border-color: #4dd0e1;
+}
+
+.card-settings {
+    background: linear-gradient(135deg, #6C91BF, #0cc0df);
+    border-color: #4dd0e1;
+}
+
+.card-notifications {
+    background: linear-gradient(135deg, #E0777D, #ED6B86);
+    border-color: #f48fb1;
+}
+
+.action-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.action-card-link:hover .action-card::before {
+    top: -25%;
+    right: -25%;
+    opacity: 1;
+}
+
+.action-card-link:hover .action-card {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 18px 45px var(--shadow);
+    border-color: white;
+}
+
+.action-card-link:active .action-card {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.card-content {
+    text-align: center;
+    z-index: 1;
+    position: relative;
+}
+
+.card-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.card-content p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 4px 0 0 0;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.action-card-link:hover .card-content p {
+    opacity: 1;
+}
+
+/* ===== Logout Section ===== */
+.logout-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.logout-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: 3/4;
-
-    font-size: auto;
+    gap: 8px;
+    padding: 12px 40px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(224, 119, 125, 0.9), rgba(237, 107, 134, 0.9));
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(224, 119, 125, 0.4);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
 }
-.profile-container .name-notif-container h2
-{
-    grid-column: 2/3;
+
+.logout-button::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    left: 0;
+    transition: width 0.5s ease;
 }
 
+.logout-button:hover::before {
+    width: 100%;
+}
 
+.logout-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(224, 119, 125, 0.6);
+    background: linear-gradient(135deg, rgba(224, 119, 125, 1), rgba(237, 107, 134, 1));
+    border-color: #c1ff72;
+}
 
+.logout-button:active {
+    transform: translateY(-1px);
+}
 
-@media (max-width: 800px) {
+.logout-text {
+    position: relative;
+    z-index: 1;
+}
 
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
     .profile-container {
-        grid-template: 0.2fr 5fr 8fr 0.5fr/1fr 10fr 1fr;
+        padding: 30px 15px;
+        gap: 35px;
     }
 
-    .profile-container #profileIMG {
-        width: 35%;
-        border-radius: 50%;
-        border-width: 6px;
+    .profile-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px 20px;
+        gap: 20px;
     }
 
-    .profile-container #Name {
+    .profile-avatar-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        border-width: 4px;
+    }
+
+    .greeting-name {
+        font-size: 24px;
+    }
+
+    .greeting-username {
+        font-size: 14px;
+    }
+
+    .notification-bell {
         font-size: 28px;
     }
 
-    .profile-container .center-piece {
-        max-width: 320px;
-        margin-bottom: 6px;
+    .actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
 
-    .profile-container .button-panel {
-        padding: 6px 20px 10px 20px;
-        
-        display: flex;
-        flex-direction: column;
-        
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        align-items: stretch;
-        
+    .action-card {
+        min-height: 140px;
+        padding: 20px 15px;
     }
 
-    .profile-container div.button-panel button {
-        width: 100%;
-        height: auto;
-        max-height: none;
-        padding: 12px 16px;
+    .card-content h3 {
+        font-size: 16px;
     }
 
-    .profile-container div.button-panel button a {
-        font-size: 20px;
-        display: inline-block;
-        text-align: center;
-        width: 100%;
+    .card-content p {
+        font-size: 11px;
     }
 
-    .profile-container #Logout-Btn {
-        max-width: 100px;
-        max-height: 100px;
-        aspect-ratio: 1/1;
-        padding: 0;
-        margin: 0px auto 0px auto;
-    }
-    .profile-container div.button-panel a 
-    {
-        height: auto;
+    .logout-button {
+        padding: 11px 35px;
+        font-size: 14px;
     }
 }
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 20px 12px;
+        gap: 30px;
+    }
+
+    .profile-banner {
+        padding: 20px 15px;
+        gap: 15px;
+    }
+
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+        border-width: 3px;
+    }
+
+    .greeting-name {
+        font-size: 20px;
+    }
+
+    .greeting-username {
+        font-size: 13px;
+    }
+
+    .user-role {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .notification-bell {
+        font-size: 24px;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .action-card {
+        min-height: 120px;
+        padding: 15px 12px;
+        gap: 8px;
+    }
+
+    .card-content h3 {
+        font-size: 14px;
+    }
+
+    .card-content p {
+        font-size: 10px;
+        margin: 2px 0 0 0;
+    }
+
+    .logout-button {
+        padding: 10px 30px;
+        font-size: 13px;
+    }
+
+    .logout-button {
+        padding: 12px 24px;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+    .logout-emoji {
+        font-size: 16px;
+    }
+}
+
+/* ===== Accessibility ===== */
+.action-card:focus-visible,
+.logout-button:focus-visible {
+    outline: 3px solid var(--fgcolor);
+    outline-offset: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+

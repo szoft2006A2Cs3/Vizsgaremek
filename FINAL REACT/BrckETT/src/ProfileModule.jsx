@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./css/ProfileModule.css";
 import User from "./js/UserClass";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 //import {User} from "./assets/UserClass.js";
 
 export default function ProfileModule({user, logInTrigger, setUserFunc, setUserDataFunc, userData, fetchUserDataFunc, callAPIFunc}) 
 {
     const navigate = useNavigate();
+    const [notifVisibility, setNotifVisibility] = useState("hidden");
+
     async function logOutSequence()
     {
         setUserFunc(new User())
@@ -15,7 +17,6 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
         localStorage.removeItem('token');
         navigate("/")
     }
-    const [notifVisibility, setNotifVisibility] = useState("hidden");
 
     useEffect(() => {
         const updateNotifVisibility = async () => {
@@ -23,37 +24,77 @@ export default function ProfileModule({user, logInTrigger, setUserFunc, setUserD
             setNotifVisibility(hasNotifications ? "visible" : "hidden");
         };
         updateNotifVisibility();
-    }, [userData]);
+    }, [userData, callAPIFunc]);
     
-    
-
-    //console.log(userData.hasNotifications());
-    //console.log({user});
     return (
         <div className="profile-container">
-            <div className="center-piece">
-            <Link to={"/profile"}><img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-img" /></Link>
-            <div className="name-notif-container">
-                <h2 id="Name" className="profile-name">{user.displayName}</h2>
-                <Link to={"/notifications"} style={{visibility: notifVisibility}} id="notification-icon">!</Link>
+            {/* User Profile Section */}
+            <div className="profile-greeting">
+                <div className="profile-banner">
+                    <div className="profile-avatar-section">
+                        <Link to={"/profile"} className="avatar-link">
+                            <img id="profileIMG" src={user.img} alt="Profile Picture" className="profile-avatar" />
+                        </Link>
+                        <div className="profile-meta">
+                            <h1 id="Name" className="greeting-name">Welcome, {user.displayName}!</h1>
+                            <p id="UName" className="greeting-username">@{user.username}</p>
+                            
+                        </div>
+                    </div>
+                    <Link to={"/notifications"} 
+                          style={{visibility: notifVisibility}} 
+                          id="notification-icon" 
+                          className="notification-btn">
+                        !
+                    </Link>
+                </div>
             </div>
-            <p id="UName" className="profile-username">@{user.username}</p>
+
+            {/* Action Cards Grid */}
+            <div className="actions-grid">
+                <Link to={"/Schedules"} className="action-card-link">
+                    <div className="action-card card-schedules">
+                        <div className="card-content">
+                            <h3>Schedules</h3>
+                            <p>Manage your calendar</p>
+                        </div>
+                    </div>
+                </Link>
+
+                <Link to={"/Groups"} className="action-card-link">
+                    <div className="action-card card-groups">
+                        <div className="card-content">
+                            <h3>Groups</h3>
+                            <p>Join communities</p>
+                        </div>
+                    </div>
+                </Link>
+
+                <Link to={"/Settings"} className="action-card-link">
+                    <div className="action-card card-settings">
+                        <div className="card-content">
+                            <h3>Settings</h3>
+                            <p>Customize your profile</p>
+                        </div>
+                    </div>
+                </Link>
+
+                <Link to={"/Notifications"} className="action-card-link">
+                    <div className="action-card card-notifications">
+                        <div className="card-content">
+                            <h3>Notifications</h3>
+                            <p>View all updates</p>
+                        </div>
+                    </div>
+                </Link>
             </div>
 
-
-
-
-            <div className="button-panel">
-                <Link to={"/Schedules"}><button><link-text>Schedules</link-text></button></Link>
-                <Link to={"/Groups"}><button><link-text>Groups</link-text></button></Link>
-                <Link to={"/Settings"}><button><link-text>Settings</link-text></button></Link>
-                <Link to={"/Notifications"}><button><link-text>Notifications</link-text></button></Link>
-                <button id="Logout-Btn" onClick={logOutSequence}><Link to={"/"}><img className="logoutIcon" src="/src/assets/logoutIcon.png"></img></Link></button>
-                
+            {/* Logout Section */}
+            <div className="logout-section">
+                <button id="Logout-Btn" className="logout-button" onClick={logOutSequence}>
+                    <span className="logout-text">Sign Out</span>
+                </button>
             </div>
         </div>
     );
 }
-
-
-/*<p className="profile-email">{user.email}</p>*/
