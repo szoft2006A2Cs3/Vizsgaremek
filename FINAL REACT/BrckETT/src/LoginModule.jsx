@@ -37,6 +37,7 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
     const [regPasswd2, setRegPasswd2] = useState("")
     const [regFName, setRegFName] = useState("")
     const [regLName, setRegLName] = useState("")
+    const [acceptTerms, setAcceptTerms] = useState(false)
 
 
     function IsNullOrWhiteSpace(text){
@@ -88,6 +89,15 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
                             <input id="regPass2" type="password" placeholder="Password Again" value={regPasswd2} onChange={(e)=> setRegPasswd2(e.target.value)} onInput={(e) => {ifError(e, (PasswordConfirmationCheck()))}}></input>
                             <span className="eye" onClick={togglePass('regPass2')}>👁</span>
                         </div>
+                        <div className="terms-checkbox">
+                            <input
+                                type="checkbox"
+                                id="acceptTerms"
+                                checked={acceptTerms}
+                                onChange={e => setAcceptTerms(e.target.checked)}
+                            />
+                            <label htmlFor="acceptTerms">Accept Terms of Use</label>
+                        </div>
                         <div id="errorOutput"></div>
                         <button onClick={RegistryCheck} className="submitbtn">Create account</button>
                     </div>
@@ -108,7 +118,9 @@ export default function LoginModule({logInTrigger, setUserDataFunc, setUserFunc,
         error.push(CheckName(document.querySelectorAll("#register .input input")[0]) ? CheckName(document.querySelectorAll("#register .input input")[0]) : "");
         error.push(CheckName(document.querySelectorAll("#register .input input")[1]) ? CheckName(document.querySelectorAll("#register .input input")[1]) : "");
         error.push(CheckName(document.querySelectorAll("#register .input input")[2]) ? CheckName(document.querySelectorAll("#register .input input")[2]) : "");
-
+        if (!acceptTerms) {
+            error.push("You must accept the Terms of Use.");
+        }
         
         error = error.filter((e) => e != "")
         error = error.filter(item => item !== "");

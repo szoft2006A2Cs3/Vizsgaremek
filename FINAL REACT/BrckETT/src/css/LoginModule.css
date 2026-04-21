@@ -1,3 +1,41 @@
+/* Terms checkbox styling */
+.terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 0 0;
+    user-select: none;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    accent-color: var(--formactivecolor);
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--inputbordercolor);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    cursor: pointer;
+}
+
+.terms-checkbox input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--formactivecolor);
+}
+
+.terms-checkbox label {
+    color: var(--formactivelabelcolor);
+    font-size: 1.08em;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding-left: 2px;
+}
+
+.terms-checkbox input[type="checkbox"]:checked + label {
+    color: var(--formactivecolor);
+    font-weight: 600;
+}
 .LoginModule * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
 
 body:has(.LoginModule).light-mode {
