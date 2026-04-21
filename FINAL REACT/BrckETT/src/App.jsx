@@ -143,7 +143,7 @@ function App() {
   let res = isLoggedIn ? 
   (
     <>
-      <NavModule links={{home:"/",about:"/about",contact:"/contact",profile:"/profile"}} profileLetter={userData.user.displayName.substring(0,1).toUpperCase()}></NavModule>
+      <NavModule profileLetter={userData.user.displayName.substring(0,1).toUpperCase()} longFormat = {true} ></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
         <Route path='/' element={<ProfileModule user={getUserData()} logInTrigger={(e) => setIsLoggedIn(e)} setUserFunc={(e) => setUser(e)} setUserDataFunc={(e) => setUserData(new UserDataClass(e, callAPIInstance))} userData={userData} fetchUserDataFunc={fetchUserData} callAPIFunc={callAPIInstance}></ProfileModule>}></Route>
@@ -158,7 +158,7 @@ function App() {
     </>
   ) : (
     <>
-      <NavModule setActiveForm={setActiveForm} links={{home:"/",about:"/about",contact:"/contact",profile:"/loginReg"}} ></NavModule>
+      <NavModule setActiveForm={setActiveForm} longFormat = {false} ></NavModule>
       <Routes>
         <Route path='/dev' element={<ColorsAndFonts></ColorsAndFonts>}></Route>
         <Route path='/' element={<FrontPage></FrontPage>}></Route>
