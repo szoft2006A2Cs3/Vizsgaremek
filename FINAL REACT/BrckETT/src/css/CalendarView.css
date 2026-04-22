@@ -342,7 +342,7 @@ body:has(.calendarView-container) {
     transform: translateY(-2px);
 }
 
-/* Tablet Responsiveness */
+/* Tablet Responsiveness 
 @media (max-width: 1024px) {
     .calendarView-leftSide {
         width: 100%;
@@ -391,9 +391,9 @@ body:has(.calendarView-container) {
     .hard-blur {
         padding: 20px;
     }
-}
+}*/
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness 
 @media (max-width: 768px) {
     .calendarView-container {
         margin-top: 0;
@@ -472,7 +472,7 @@ body:has(.calendarView-container) {
         width: 100%;
         margin: 4px 0;
     }
-}
+}*/
 
 @media (max-width: 480px) {
     .calendarView-container {
