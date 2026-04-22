@@ -42,6 +42,6 @@ export default function NavModule({longFormat, profileLetter, setActiveForm}) {
         <button className="nav-button"><Link to="/contact">Contact us</Link></button>
       </div>
 
-      <button className="profile-button" onClick={() => setActiveForm('login')}><Link to="/profile">{profileLetter}</Link></button>
+      <button className="profile-button" onClick={() => setActiveForm('login')}><Link to="/loginReg">{profileLetter}</Link></button>
     </nav>);
 }
