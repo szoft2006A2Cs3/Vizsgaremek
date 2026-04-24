@@ -262,12 +262,13 @@ export default function CalendarView({schedulesList, callAPIFunc, LayoutSettings
                     <h2>Edit Schedule</h2>
                     <input type="text" placeholder="Schedule Info" value={editScheduleInfo} onChange={(e) => setEditScheduleInfo(e.target.value)} />
                     <input type="text" placeholder="Template Info" value={editTemplateInfo} onChange={(e) => setEditTemplateInfo(e.target.value)} />
-                    <button onClick={() => handleDeleteSchedule()} className='sch-dlt-btn'>Delete</button>
                     
                     <div className='sch-edit-inputs'>
                         <button onClick={() => handleEditSchedule()}>Save</button>
                         <button onClick={() => setEditSchedulePopup("hidden")}>Cancel</button>
                     </div>
+                    
+                    <button onClick={() => handleDeleteSchedule()} className='sch-dlt-btn'>Delete</button>
                 </div>
             </div>}
 

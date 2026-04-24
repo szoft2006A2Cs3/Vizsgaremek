@@ -342,6 +342,112 @@ body:has(.calendarView-container) {
     transform: translateY(-2px);
 }
 
+/* Popup Modal Styling */
+.calendarView-container .popup-overlay {
+    position: fixed;
+    top: 15%;
+    bottom: 15%;
+    left: 0;
+    right: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.calendarView-container .popup-content {
+    background: linear-gradient(135deg, rgba(110, 41, 167, 0.65), rgba(75, 20, 130, 0.65));
+    border: 2px solid rgba(199, 114, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 16px 20px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calendarView-container .popup-content h2 {
+    color: #c1ff72;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.calendarView-container .popup-content input {
+    background: rgba(140, 60, 200, 0.5);
+    color: var(--cv-fgcolor);
+    border: 1.5px solid rgba(199, 114, 255, 0.5);
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.calendarView-container .popup-content input:focus {
+    outline: none;
+    background: rgba(140, 60, 200, 0.7);
+    border-color: #00FFF7;
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+}
+
+.calendarView-container .popup-content input::placeholder {
+    color: rgba(168, 250, 80, 0.6);
+}
+
+.calendarView-container .sch-edit-inputs {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.calendarView-container .popup-content button {
+    background: linear-gradient(135deg, var(--cv-btnbgcolor), rgba(136, 58, 201, 0.6));
+    color: var(--cv-fgcolor);
+    border: 1.5px solid var(--cv-btnhovercolor);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.calendarView-container .popup-content button:hover {
+    background: linear-gradient(135deg, var(--cv-btnhovercolor), rgba(199, 114, 255, 0.7));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(199, 114, 255, 0.3);
+    border-color: #00FFF7;
+}
+
+.calendarView-container .popup-content button:active {
+    transform: translateY(0);
+}
+
+.calendarView-container .sch-dlt-btn {
+    background: linear-gradient(135deg, #ff4444, #cc0000) !important;
+    color: white !important;
+    border: 1.5px solid #aa0000 !important;
+}
+
+.calendarView-container .sch-dlt-btn:hover {
+    background: linear-gradient(135deg, #ff6666, #dd0000) !important;
+    filter: brightness(110%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4) !important;
+}
+
 /* Tablet Responsiveness 
 @media (max-width: 1024px) {
     .calendarView-leftSide {

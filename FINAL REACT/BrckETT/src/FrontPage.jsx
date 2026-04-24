@@ -2,8 +2,10 @@ import "./css/FrontPage.css";
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react";
 import Image from "./assets/Brckett Logo.png";
-import Image2 from "./assets/naptar.png";
-import Image3 from "./assets/masem.png";
+import Image2 from "./assets/ProfileModule.png";
+import Image3 from "./assets/SchedulesWeekly.png";
+import Image4 from "./assets/SchedulesDaily.png";
+import Image5 from "./assets/SchedulesMonthly.png";
 import BgVideo from "./assets/BrckEtt_BG.mp4";
 
 const slides = [
@@ -13,11 +15,19 @@ const slides = [
   },
   {
     image: Image2,
-    alt: "Random Calendar",
+    alt: "ProfileModule",
   },
   {
     image: Image3,
-    alt: "Horcsog",
+    alt: "Weekly Schedules",
+  },
+  {
+    image: Image4,
+    alt: "Daily Schedules",
+  },
+  {
+    image: Image5,
+    alt: "Monthly Schedules",
   },
 ];
 
@@ -55,22 +65,29 @@ export default function FrontPage()
     const [translate, setTranslate] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
+  const slideCount = slides.length;
 
     const prevImage = () => {
-    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
+    setCurrentIndex(prev => (prev === 0 ? slideCount - 1 : prev - 1));
   };
 
     const nextImage = () => {
-    setCurrentIndex((currentIndex + 1) % slides.length);
+    setCurrentIndex(prev => (prev === slideCount - 1 ? 0 : prev + 1));
   };
 
   useEffect(() => {
   const interval = setInterval(() => {
-    setCurrentIndex(prev => (prev + 1) % slides.length);
+    setCurrentIndex(prev => (prev === slideCount - 1 ? 0 : prev + 1));
   }, 5000);
 
   return () => clearInterval(interval);
-}, []);
+}, [slideCount]);
+
+useEffect(() => {
+  if (currentIndex >= slideCount) {
+    setCurrentIndex(0);
+  }
+}, [currentIndex, slideCount]);
 
 const startX = useRef(0);
 const pointerIdRef = useRef(null);
