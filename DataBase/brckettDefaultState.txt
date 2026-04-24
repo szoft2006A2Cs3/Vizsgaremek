@@ -474,4 +474,30 @@ END$$
 
 DELIMITER ;
 
+
+-- =========================
+-- Test User, and Data
+-- =========================
+INSERT INTO `users` (`user_id`, `username`, `email`, `display_name`, `Token`, `Role`, `PASSWORD`, `Description`) VALUES (1, 'JnsKss', 'kissjanos85@gmail.com', 'Kiss_János', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoia2lzc2phbm9zODVAZ21haWwuY29tIiwicGVybWlzc2lvbiI6WyJBZHZhbmNlZEluZm8uUmVhZEJ5VG9rZW4iLCJVc2VyU2V0dGluZ3MuVXBkYXRlIiwiR3JvdXBzLlVwZGF0ZSIsIlVzZXJzLlVwZGF0ZSIsIlVzZXJzLkRlbGV0ZSIsIkFkdmFuY2VkSW5mby5VcGRhdGUiLCJBZHZhbmNlZEluZm8uQ3JlYXRlIiwiQWR2YW5jZWRJbmZvLkRlbGV0ZSIsIkxvZ2luLlB1dCJdLCJleHAiOjE3NzcwMzQ3NDUsImlzcyI6IkhCU1oiLCJhdWQiOiIxM0EifQ.xB8_SdmnV43TVRcvOWbdv_qQwYZ-qIWWwlyyVzjuw-s', 'User', 'rXcrOiYkLjnIQUy3WJIs0w==.UBZVlZZXpEH9JsUpYANgB+FvDnB6TQngHuwhdjORHek=', 'Empty Description');
+
+INSERT INTO `usersettings` (`user_id`, `settings`) VALUES ('1', 'dark-mode/false/month');
+
+INSERT INTO `templates` (`template_id`, `template_info`) VALUES (2, 'Itt minden fontos infót tartok'), (3, 'Default Group Template'), (4, 'Ide jegyzem fel a munkával kapcsolatos eseményeim'), (5, 'Default Group Template');
+
+INSERT INTO `schedules` (`template_id`, `schedule_info`, `schedule_id`) VALUES ('2', 'A saját menő naptáram', 2), ('3', 'Default Group Schedule', 3), ('4', 'Munka naptár', 4), ('5', 'Default Group Schedule', 5);
+
+INSERT INTO `groups` (`group_id`, `group_name`) VALUES (2, 'Baráti Kör'), (3, 'Munkatársak');
+
+INSERT INTO `blocks` (`block_id`, `date`, `timeStart`, `timeEnd`, `title`, `description`, `priority`) VALUES (1, '2026-09-01', '0', '1439', 'Tanítás kezdete', 'Ekkor kezdődik a 2026-2027 tanév', '1'), (2, '2026-09-01', '960', '1140', 'XY Születésnapja', 'Ajándékot kell vegyek', '3'), (3, '2026-08-20', '0', '1439', 'Kenyér Ünnepe', 'Ünnepeljük a kenyeret', '2'), (4, '2026-06-19', '0', '1439', 'Fezen', 'Party!!!', '1'), (5, '2026-06-20', '0', '1439', 'Fezen', 'Party!!!', '2'), (6, '2026-06-21', '0', '1439', 'Fezen', 'Party!!!', '3'), (7, '2026-12-24', '1020', '1200', 'Ütköző blokk', 'Ez egy tesztelést segítő blokk', '1'), (8, '2026-12-24', '900', '1080', 'Ütköző blokk', 'Ez egy tesztelést segítő blokk', '3');
+
+INSERT INTO `schedulesusersconn` (`user_id`, `schedule_id`) VALUES ('1', '2'), ('1', '4');
+
+INSERT INTO `groupscheduleconn` (`group_id`, `schedule_id`) VALUES ('2', '3'), ('3', '5');
+
+INSERT INTO `groupuserconn` (`user_Id`, `group_Id`, `permission`) VALUES ('1', '2', 'Admin'), ('1', '3', 'Admin');
+
+INSERT INTO `templatesblocksconn` (`template_id`, `block_id`) VALUES ('2', '3'), ('3', '4'), ('3', '5'), ('3', '6'), ('3', '7'), ('3', '8'), ('4', '1'), ('4', '2');
+
+INSERT INTO `isignored` (`block_id`, `user_id`) VALUES ('1', '1');
+
 COMMIT;
